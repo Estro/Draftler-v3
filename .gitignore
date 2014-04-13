@@ -1,6 +1,7 @@
 .DS_Store
 Thumbs.db
 
+
 # sass
 .sass-cache
 
@@ -10,3 +11,6 @@ config.js
 # node
 /node_modules
 node_modules
+
+
+/public/css/*
