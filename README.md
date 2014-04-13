@@ -13,12 +13,12 @@ Draftler-v3
 - Bootstrap
 - Hogan
 - Mustache
-- Email js
+- Email.js
 - Underscore.js
 - Bookshelf.js
 
 
-### Set up
+### Set up:
 
 - Ensure you have Node, NPM, mySQL, Compass and Rails installed
 - Create config.js in the root and populate with account details
