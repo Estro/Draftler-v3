@@ -1,7 +1,7 @@
 Draftler-v3
 ===========
 
-# This version of Draftler is using:
+### This version of Draftler is using:
 
 - Grunt
 - Compass
@@ -18,7 +18,7 @@ Draftler-v3
 - Bookshelf.js
 
 
-## Set up
+### Set up
 
 - Ensure you have Node, NPM, mySQL, Compass and Rails installed
 - Create config.js in the root and populate with account details
