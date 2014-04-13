@@ -1,0 +1,12 @@
+.DS_Store
+Thumbs.db
+
+# sass
+.sass-cache
+
+# Config file
+config.js
+
+# node
+/node_modules
+node_modules

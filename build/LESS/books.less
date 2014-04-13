@@ -1,0 +1,135 @@
+
+.store-wrapper {
+    float: left;
+    width: 100%;
+}
+
+.bookstore {
+    width: 99%;
+    margin: auto;
+    padding: 26px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    padding-top: 10px;
+    //47px
+    @media @mobile {
+        padding-top: 10px;
+    }
+
+
+    @media @desktop {
+        padding-top: 10px;
+    }
+
+    @media @desktop-xxxl {
+        padding:77px; padding-top: 10px;
+    }
+
+    h2 {
+        border-bottom: 1px solid #CCC;
+        width: 97%;
+        padding-bottom: 20px;
+        margin-left: 6px;
+        font-weight: normal;
+        color: @accent6;
+        clear: both;
+    }
+}
+
+
+.book {
+    margin: 8px;
+    float: left;
+    width: 190px;
+    position: relative;
+    height: 300px;
+    background: #fff;
+
+    a, a:visited, a:hover {
+        color: @accent6;
+    }
+
+    img {
+        width: 190px;
+        height: 120px;
+    }
+
+    .book-rating {
+        background: #FFF;
+        position: absolute;
+        top: 99px;
+        width: 95px;
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            li {
+                float: left;
+            }
+        }
+
+        .star {
+            font-family: 'entypo';
+            color: rgba(0, 0, 0, 0.15);
+            font-size: 15px;
+            margin-left: 3px;
+            cursor: default;
+
+            &.selected {
+                color: #fdd303;
+            }
+        }
+    }
+
+    .book-details {
+        h4 {
+            margin: 0;
+            font-weight: normal;
+            color: @accent6;
+            padding: 2px;
+        }
+
+        .stage-meta {
+            font-size: 10px;
+            margin-left: 3px;
+
+
+            span {
+                color: @accent2;
+
+                &.voting {
+                    color: @accent4;
+                }
+            }
+        }
+
+        .book-description {
+            font-size: 12px;
+            margin: 0;
+            padding-left: 2px;
+            padding-right: 2px;
+        }
+
+        .timer-bar {
+            width: 180px;
+            height: 3px;
+            background: rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            position: relative;
+            top: -5px;
+            left: 2px;
+        }
+
+            .timer-bar span {
+                height: 100%;
+                display: block;
+                background: @accent2;
+
+                &.voting {
+                    background: @accent4;
+                }
+            }
+    }
+}

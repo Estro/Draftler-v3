@@ -1,0 +1,46 @@
+{
+    "name": "Draftler",
+    "version": "0.1.0",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/estro/Draftler-v2.git"
+    },
+    "engines": {
+        "node": "0.6.15",
+        "npm": "1.1.9"
+    },
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js"
+    },
+    "dependencies": {
+        "express": "3.4.6",
+        "hogan-middleware": "*",
+        "mysql": "~2.1.0",
+        "emailjs": "~0.3.6",
+        "passport": "~0.2.0",
+        "passport-local": "~1.0.0",
+        "passport-oauth": "~1.0.0",
+        "passport-facebook": "~1.0.2",
+        "passport-github": "~0.1.5",
+        "passport-twitter": "~1.0.2",
+        "passport-google-oauth": "~0.1.5",
+        "express-validator": "latest",
+        "helmet": "~0.2.0",
+        "async": "latest",
+        "connect-flash": "latest",
+        "bookshelf": "latest",
+        "underscore": "latest"
+    },
+    "devDependencies": {
+        "grunt": "~0.4.1",
+        "grunt-contrib-jshint": "~0.7.1",
+        "grunt-contrib-uglify": "~0.2.5",
+        "grunt-contrib-concat": "~0.3.0",
+        "grunt-contrib-compass": "~0.6.0",
+        "grunt-contrib-watch": "~0.5.1",
+        "grunt-contrib-clean": "~0.5.0",
+        "grunt-concurrent": "~0.5.0",
+        "grunt-nodemon": "~0.2.0"
+    }
+}

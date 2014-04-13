@@ -1,0 +1,42 @@
+
+<div class="row">
+    <div class="login-content animated bounceIn">
+                    <form  action="/login" method="post">
+                        <div class="section-title">
+                            <h3>LogIn to your Account</h3>
+                        </div>
+                        {{#messages}}
+                        <div class="alert alert-danger">{{.}}</div>
+                        {{/messages}}
+                        <div class="textbox-wrap">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                <input type="text"  name="un" required="required" class="form-control" placeholder="Username" />
+                            </div>
+                        </div>
+                        <div class="textbox-wrap">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                                <input type="password"  name="pw" required="required" class="form-control " placeholder="Password" />
+                            </div>
+                        </div>
+                        <div class="login-form-action clearfix">
+                            <div class="checkbox pull-left">
+                                <div class="custom-checkbox">
+                                    <input type="checkbox" checked name="iCheck">
+                                </div>
+                                <span class="checkbox-text pull-left">&nbsp;Remember Me</span>
+                            </div>
+                            <button type="submit" class="btn btn-info pull-right">Log In &nbsp; <i class="fa fa-chevron-right"></i></button>
+                        </div>
+                    </form>
+                </div>
+
+</div>
+<div class="row">
+    <div class="register-prompt animated bounceIn">
+                 <p>Don't have an Account?</p>
+                 <p>No worrys, <a href="/register">Click Here</a> to Register</p>
+                </div>
+
+</div>

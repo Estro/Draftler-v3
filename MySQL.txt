@@ -1,0 +1,122 @@
+CREATE TABLE `Draftler`.`usersusers` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(30) NOT NULL DEFAULT '',
+  `last_name` varchar(30) NOT NULL DEFAULT '',
+  `email` varchar(30) NOT NULL DEFAULT '',
+  `password` varchar(60) NOT NULL DEFAULT '',
+  `active` tinyint(1) unsigned NOT NULL DEFAULT '1',
+  `created` datetime NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `salt` varchar(50) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+
+
+/******* Books ******/
+
+CREATE TABLE `Draftler`.`books` (
+  `idbook` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(255) NOT NULL,
+  `description` TEXT NOT NULL,
+  `picture` VARCHAR(1020) NOT NULL DEFAULT '/public/img/default-book-img.png',
+  `activechapter` INT NOT NULL DEFAULT 0,
+  `commentscount` BIGINT NOT NULL DEFAULT 0,
+  `stage` VARCHAR(45) NOT NULL DEFAULT 'submission',
+  `rating` INT NOT NULL DEFAULT 0,
+  `starttime` DATETIME NULL,
+  `endtime` DATETIME NULL,
+  `featured` BIT NOT NULL DEFAULT 0,
+  `lastactivity` DATETIME NULL,
+  PRIMARY KEY (`idbook`),
+  UNIQUE INDEX `title_UNIQUE` (`title` ASC))
+  
+INSERT INTO `Draftler`.`books`
+(
+`title`,
+`description`,
+`picture`,
+`activechapter`,
+`commentscount`,
+`stage`,
+`rating`,
+`starttime`,
+`endtime`,
+`featured`,
+`lastactivity`)
+VALUES
+(
+"THe Wolf Gang",
+"labore exercitation sit voluptate eiusmod aute ullamco ullamco elit enim officia esse anim ullamco exercitation consequat id nisi id enim nulla commodo",
+"css/img/bookimage.jpg",
+4,
+10,
+"voting",
+5,
+"2014-03-08 17:25:00",
+"2014-03-12 17:25:00",
+false,
+"2014-03-08 17:25:00"
+);
+  
+  
+/**** Comments *****/
+
+CREATE TABLE `Draftler`.`comments` (
+  `idcomment` INT NOT NULL AUTO_INCREMENT,
+  `idbook` INT NOT NULL,
+  `userid` VARCHAR(45) NOT NULL,
+  `username` VARCHAR(45) NOT NULL,
+  `userpicture` VARCHAR(1020) NULL,
+  `comment` LONGTEXT NULL,
+  PRIMARY KEY (`idcomment`),
+  INDEX `idbooks_idx` (`idbook` ASC),
+  CONSTRAINT `idbook`
+    FOREIGN KEY (`idbook`)
+    REFERENCES `Draftler`.`books` (`idbook`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+COMMENT = '\"book_id\" : \"52f68f14d8d3eed414ea8aec\",\n\"userId\" : 210,\n\"userName\": \"Carlos\",\n\"userPicture\" : \"http://lorempixel.com/150/150/people/10\",\n\"commentId\" : 0,' /* comment truncated */ /*"commentContent" : "Really liked this book though" */;
+
+INSERT INTO `Draftler`.`comments`
+(
+`idbook`,
+`userid`,
+`username`,
+`userpicture`,
+`comment`)
+VALUES
+(
+1,
+1,
+'Carlos',
+"http://lorempixel.com/150/150/people/10",
+"Yeaaaaaah Yupiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+
+
+/*****Chapters*****/
+CREATE TABLE `Draftler`.`chapters` (
+  `idchapter` INT NOT NULL,
+  `idbook` INT NULL,
+  `chapternum` INT NULL,
+  `iduser` INT NULL,
+  `issubmitted` BIT NULL,
+  `isfinal` BIT NULL,
+  `createdat` DATETIME NULL,
+  `lastupdated` DATETIME NULL,
+  `submittedat` DATETIME NULL,
+  `publishedat` DATETIME NULL,
+  `rating` INT NULL,
+  `title` VARCHAR(255) NULL,
+  `content` LONGTEXT NULL,
+  PRIMARY KEY (`idchapter`),
+  INDEX `idbook_fk_idx` (`idbook` ASC),
+  CONSTRAINT `idbook_fk`
+    FOREIGN KEY (`idbook`)
+    REFERENCES `Draftler`.`books` (`idbook`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+
+

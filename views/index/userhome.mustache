@@ -1,0 +1,83 @@
+<div class="main-stage">
+<div class="callout">
+    <p>Becoming an author has never been as easy, or fun. Get involved and submit your first chapter!<a class="button" href="#">Getting Started</a></p>
+</div>
+
+<div class="store_wrapper">
+        <div id="bookstore" class="bookstore">
+            <h2>Spotlight</h2>
+            <div id="books" class="owl-carousel">
+            	{{#books}}
+            		<div class="book" id="book{{id}}"><a href="/book/{{id}}">
+            		   <img src="{{picture}}" alt="" />
+            		   <div class="book-rating">
+            		   		<ul class="rating" data-score="{{rating}}">
+                            	<li><i class="star">&#9733;</i></li>
+                            	<li><i class="star">&#9733;</i></li>
+                            	<li><i class="star">&#9733;</i></li>
+                            	<li><i class="star">&#9733;</i></li>
+                            	<li><i class="star">&#9733;</i></li>
+                       	 	</ul>
+            			</div>
+            			<div class="book-details">
+                        	<h4>{{title}}</h4>
+                        	<div class="stage-meta">Chapter <span class="{{stage}}">{{chapter}}</span> {{ stage }} | {{comments }} comments</div>
+                        	<div class="timer-bar"><span class="{{stage}}" style="width:{{remainingtime}}%;"></span></div>
+                        	<p class="book-description">{{description}}</p>
+                    	</div></a>
+            		</div>
+            	{{/books}}
+ 				 </div>
+
+  				<h2>Top Rated Books</h2>
+  				<div id="top-books" class="owl-carousel">
+  				{{#topBooks}}
+            		<div class="book" id="book{{id}}"><a href="/book/{{id}}">
+            		   <img src="{{picture}}" alt="" />
+            		   <div class="book-rating">
+            		   		<ul class="rating" data-score="{{rating}}">
+                            	<li><i class="star">&#9733;</i></li>
+                            	<li><i class="star">&#9733;</i></li>
+                            	<li><i class="star">&#9733;</i></li>
+                            	<li><i class="star">&#9733;</i></li>
+                            	<li><i class="star">&#9733;</i></li>
+                       	 	</ul>
+            			</div>
+            			<div class="book-details">
+                        	<h4>{{title}}</h4>
+                        	<div class="stage-meta">Chapter <span class="{{stage}}">{{chapter}}</span> {{ stage }} | {{comments }} comments</div>
+                        	<div class="timer-bar"><span class="{{stage}}" style="width:{{remainingtime}}%;"></span></div>
+                        	<p class="book-description">{{description}}</p>
+                    	</div></a>
+            		</div>
+            	{{/topBooks}}
+  				</div>
+
+				<h2>Newly Created Books</h2>
+ 				<div id="latest-books" class="owl-carousel">
+             	 {{#newBooks}}
+            		<div class="book" id="book{{id}}"><a href="/book/{{id}}">
+            		   <img src="{{picture}}" alt="" />
+            		   <div class="book-rating">
+            		   		<ul class="rating" data-score="{{rating}}">
+                            	<li><i class="star">&#9733;</i></li>
+                            	<li><i class="star">&#9733;</i></li>
+                            	<li><i class="star">&#9733;</i></li>
+                            	<li><i class="star">&#9733;</i></li>
+                            	<li><i class="star">&#9733;</i></li>
+                       	 	</ul>
+            			</div>
+            			<div class="book-details">
+                        	<h4>{{title}}</h4>
+                        	<div class="stage-meta">Chapter <span class="{{stage}}">{{chapter}}</span> {{ stage }} | {{comments }} comments</div>
+                        	<div class="timer-bar"><span class="{{stage}}" style="width:{{remainingtime}}%;"></span></div>
+                        	<p class="book-description">{{description}}</p>
+                    	</div></a>
+            		</div>
+            	{{/newBooks}}
+             	</div>
+            
+    	</div>
+
+</div>
+</div>
