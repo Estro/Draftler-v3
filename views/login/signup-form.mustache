@@ -2,7 +2,7 @@
 
 <div class="row">
     <div class="login-content animated bounceIn">
-                    <form  action="/register" method="post">
+                    <form  action="/register" method="post" onsubmit="return validateRegisterForm();">
                         <div class="section-title">
                             <h3>Sign Up</h3>
                         </div>
@@ -11,20 +11,26 @@
                         {{/messages}}
                         <div class="textbox-wrap">
                             <div class="input-group">
+                                <span class="input-group-addon form-username-icon"><i class="fa fa-user"></i></span>
+                                <input type="text"  name="un" id="input-login-username" required="required" class="form-control" placeholder="Username" />
+                            </div>
+                        </div>
+                        <div class="textbox-wrap">
+                            <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                <input type="text"  name="un" required="required" class="form-control" placeholder="Username" />
+                                <input type="text"  name="email" id="input-login-email"  required="required" class="form-control" placeholder="email" />
                             </div>
                         </div>
                         <div class="textbox-wrap">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                                <input type="password"  name="pw" required="required" class="form-control " placeholder="Password" />
+                                <input type="password"  name="pw" id="input-login-password"  required="required" class="form-control " placeholder="Password" />
                             </div>
                         </div>
                         <div class="textbox-wrap">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                                <input type="password"  name="vpw" required="required" class="form-control " placeholder="Re-type Password" />
+                                <input type="password"  name="vpw" id="input-login-password-check" required="required" class="form-control " placeholder="Re-type Password" />
                             </div>
                         </div>
                         <div class="login-form-action clearfix">

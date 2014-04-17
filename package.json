@@ -30,7 +30,8 @@
         "async": "latest",
         "connect-flash": "latest",
         "bookshelf": "latest",
-        "underscore": "latest"
+        "underscore": "latest",
+        "passport-remember-me": "latest"
     },
     "devDependencies": {
         "grunt": "~0.4.1",

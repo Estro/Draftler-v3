@@ -1,12 +1,10 @@
-// Martin Pomeroy - Architect 365
-
-(function (PROJECT) {
+(function(APP) {
     "use strict";
 
-    $(document).ready(function () {
+    $(document).ready(function() {
 
 
     });
 
 
-})(window.PROJECT = window.PROJECT || {});
+})(window.APP = window.APP || {});
