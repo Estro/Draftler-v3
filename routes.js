@@ -18,6 +18,7 @@ module.exports = function(app, passport) {
     app.get('/login', loginController.loginPage);
     app.post('/login', loginController.checkLogin);
     app.get('/logout', loginController.logout);
+    app.get('/resendemail', loginController.resendEmail);
 
 
     // Public facing APIS

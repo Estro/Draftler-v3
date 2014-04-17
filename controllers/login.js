@@ -122,7 +122,14 @@ exports.checkLogin = function(req, res, next) {
     })(req, res, next);
 }
 
-exports.confirmEmail = function(req, res, next) {
+
+exports.resendEmail = function(req, res) {
+    // get UserID and token from query 
+    res.render('login/resend-confirmation');
+
+}
+
+exports.confirmEmail = function(req, res) {
     // get UserID and token from query 
     var userID = req.params.id,
         token = req.params.token;
@@ -137,23 +144,26 @@ exports.confirmEmail = function(req, res, next) {
         var created = userConfirmation.attributes.updatedAt,
             validToDate = new Date();
         validToDate.setDate(validToDate.getDate() - 3);
+
         if (validToDate > created) {
             // Ite's been to long!
+            res.render('login/resend-confirmation');
             console.log('too old');
         } else {
             // still valid
             if (userConfirmation) {
-                // new data.ApiUser({
-                //     id: userID
-                // }).save({
-                //     'email_confirmed': 1
-                // }).then(function(data) {
-                //     console.log('yup');
-                //     return;
-                // });
+                new data.ApiUser({
+                    id: userID
+                }).save({
+                    'email_confirmed': 1
+                }).then(function(data) {
+                    //req.flash('info', 'Thank you, your email has been registered');
+                    res.redirect('/home');
+
+                    return;
+                });
+
             }
-            res.redirect('/home');
-            return;
         }
     });
 }
