@@ -12,7 +12,7 @@ exports.generateToken = function(len) {
 
 
 exports.composeConfimrationEmail = function(id, token, name) {
-    var link = 'localhost:3000/emailconfirmation/' + id + '/' + token;
+    var link = 'localhost/3000/emailconfirmation/' + id + '/' + token;
     var html = "<html><body>";
     html += "Hi " + name + ",<br><br>";
     html += "<a href='" + link + "'>Please click here to confirm your email address</a><br><br>";
