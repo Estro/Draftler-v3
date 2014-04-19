@@ -5,13 +5,35 @@
 	  padding-left: 200px;
 
 	    @include respond-to(767){
-	  		padding-left:0;
+	  		 padding-left:0;
 	  		 transition: all 0.4s ease 0s;
 	  	}
 
 
-	  .main-stage{
+	  .content-stage{
 	  	 width: 100%;
+	  	 padding:25px 70px;
+
+		 p, div{
+		    color:$off-black;
+		  }
+
+		h1,h2,h3,h4,h5{
+		    color:$font-gray;
+		  }
+
+		  h1, h2{
+			width: 100%;
+			border-bottom: 1px solid #EEE;
+			padding-bottom: 15px;
+			font-weight: normal;
+			margin-bottom: 35px;
+		  }
+
+	  	 @include respond-to(767){
+	  		padding:10px;
+	  		transition: all 0.4s ease 0s;
+	  	}
 	  }
 
 	 

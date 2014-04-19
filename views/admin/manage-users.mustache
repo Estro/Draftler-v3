@@ -1,0 +1,84 @@
+
+{{>header}}
+<div class="page-wrapper">
+{{>admin-lefthandbar}}
+		<div class="content-stage">
+		<div class="row">
+			<div class="col-md-12">
+					<h2>Manage Users</h2>
+			</div>
+		</div>
+				<div class="row">
+			<div class="col-md-12">
+			<div class="table-responsive">
+			<table class="table table-striped table-hover">
+				<thead>
+         		 <tr>
+		            <th>#</th>
+		            <th>Username</th>
+		           	<th>Email</th>
+		           	<th class="hidden-sm hidden-xs">Status</th>
+		           	<th class="hidden-sm hidden-xs">Role</th>
+		           	<th class="hidden-sm hidden-xs">Email Status</th>
+		           	<th class="hidden-sm hidden-xs">Tags</th>
+		           	<th class="hidden-sm hidden-xs">Created</th>
+		           	<th class="hidden-sm hidden-xs">Updated</th>
+		           	<th class="hidden-sm hidden-xs">Actions</th>
+          		</tr>
+        		</thead>
+			 {{#models}}
+			  {{#attributes}}
+			  	<tr>
+			  		<td>{{id}}</td>
+			  		<td>{{username}}</td>
+			  		<td>{{email}}</td>
+			  		<td class="hidden-sm hidden-xs">
+			  		{{#isActive}}
+			  		<span class="label label-success">Active</span>
+			  		{{/isActive}}
+			  		{{#isBanned}}
+			  		<span class="label label-danger">Banned</span>
+			  		{{/isBanned}}
+			  		{{^isActive}}
+			  		<span class="label label-warning">InActive</span>
+			  		{{/isActive}}
+			  		</td>
+			  		<td class="hidden-sm hidden-xs">
+			  		{{#isAdmin}}
+			  		<span class="label label-primary">Admin</span>
+			  		{{/isAdmin}}
+			  		{{^isAdmin}}
+			  		<span class="label label-primary">User</span>
+			  		{{/isAdmin}}
+			  		</td>
+			  		<td class="hidden-sm hidden-xs">
+			  			{{#email_confirmed}}
+			  		<span class="label label-success">Confirmed</span>
+			  		{{/email_confirmed}}
+			  		{{^email_confirmed}}
+			  		<span class="label label-default">Unconfirmed</span>
+			  		{{/email_confirmed}}
+			  		</td>
+			  		<td class="hidden-sm hidden-xs">
+			  		{{#isVerified}}
+			  		<span class="label label-success">Verified</span>
+			  		{{/isVerified}}
+			  		</td>
+			  		<td class="hidden-sm hidden-xs">{{createdAt}}</td>
+			  		<td class="hidden-sm hidden-xs">{{updatedAt}}</td>
+			  		<td><a class="btn btn-info" href="/admin/edit-user/{{id}}">Edit<a/></td>
+			  	</tr>
+			  {{/attributes}}
+			  {{/models}}
+			</table>
+			</div>
+
+
+</div></div>
+
+
+		</div>
+
+</div>
+
+{{>footer}}

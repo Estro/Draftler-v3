@@ -1,0 +1,164 @@
+{{>header}}
+<div class="page-wrapper">
+	{{>admin-lefthandbar}}
+	<div class="content-stage">
+		<form action="/admin/edit-user" method="post">
+			<div class="row">
+				<div class="col-md-12">
+					<h2><a href="/admin/manage-users">Manager Users</a> / <Span>{{models.username}}</Span></h2>
+				 {{#errors}}
+                        <div class="alert alert-danger">{{.}}</div>
+                 {{/errors}}
+                 {{#messages}}
+                        <div class="alert alert-success">{{.}}</div>
+                 {{/messages}}
+				</div>
+			</div>
+
+			{{#models}}
+			<div class="row">
+				<div class="col-md-6">
+					<div class="textbox-wrap">
+						<div class="input-group">
+							<span class="input-group-addon">User ID</span>
+							<input type="text" name="id" class="form-control" placeholder="User ID" value="{{id}}" disabled>
+							<input type="text" style="display:none" name="userid" class="form-control" placeholder="User ID" value="{{id}}">
+						</div>
+					</div>
+					<div class="textbox-wrap">
+						<div class="input-group">
+							<span class="input-group-addon">Username</span>
+							<input type="text" name="username" class="form-control" placeholder="Username" value="{{username}}">
+						</div>
+					</div>
+					<div class="textbox-wrap">
+						<div class="input-group">
+							<span class="input-group-addon">First Name</span>
+							<input type="text" name="firstname" class="form-control" placeholder="First Name" value="{{first_name}}">
+						</div>
+					</div>
+					<div class="textbox-wrap">
+						<div class="input-group">
+							<span class="input-group-addon">Surname</span>
+							<input type="text" name="surnamename" class="form-control" placeholder="Surname" value="{{last_name}}">
+						</div>
+					</div>
+					<div class="textbox-wrap">
+						<div class="input-group">
+							<span class="input-group-addon">Email</span>
+							<input type="text" name="email" class="form-control" placeholder="Email Address" value="{{email}}">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="textbox-wrap">
+						<div class="input-group">
+							<span class="input-group-addon">Password</span>
+							<input type="text" name="password" class="form-control" placeholder="Password" value="{{password}}" disabled>
+						</div>
+					</div>
+					<div class="textbox-wrap">
+						<div class="input-group">
+							<span class="input-group-addon">Password Salt</span>
+							<input type="text" name="salt" class="form-control" placeholder="Password Salt" value="{{salt}}" disabled>
+						</div>
+					</div>
+					<div class="textbox-wrap">
+						<div class="input-group">
+							<span class="input-group-addon">Created</span>
+							<input type="text" name="created" class="form-control" placeholder="Created" value="{{createdAt}}" disabled>
+						</div>
+					</div>
+					<div class="textbox-wrap">
+						<div class="input-group">
+							<span class="input-group-addon">Modified</span>
+							<input type="text" name="updated" class="form-control" placeholder="Created" value="{{updatedAt}}" disabled>
+						</div>
+					</div>
+					<div class="textbox-wrap">
+						<div class="input-group">
+							<span class="input-group-addon">User IP</span>
+							<input type="text" name="ip" class="form-control" placeholder="User IP" value="{{user_ip}}" disabled>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="textbox-wrap">
+						<h4>Settings:</h4>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="textbox-wrap">
+						<div class="input-group">
+							{{#email_confirmed}}
+							<label><input name="emailconfirmed" type="checkbox" checked> Email Confirmed</label>
+							{{/email_confirmed}}
+							{{^email_confirmed}}
+							<label><input name="emailconfirmed" type="checkbox"> Email Confirmed</label>
+							{{/email_confirmed}}
+						</div>
+					</div>
+					<div class="textbox-wrap">
+						<div class="input-group">
+							{{#isActive}}
+							<label><input name="active" type="checkbox" checked> Active</label>
+							{{/isActive}}
+							{{^isActive}}
+							<label><input name="active" type="checkbox"> Active</label>
+							{{/isActive}}
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="textbox-wrap">
+						<div class="input-group">
+							{{#isBanned}}
+							<label><input name="banned" type="checkbox" checked> Banned</label>
+							{{/isBanned}}
+							{{^isBanned}}
+							<label><input name="banned" type="checkbox"> Banned</label>
+							{{/isBanned}}
+						</div>
+					</div>
+					<div class="textbox-wrap">
+						<div class="input-group">
+							{{#isVerified}}
+							<label><input name="verified" type="checkbox" checked> Verified</label>
+							{{/isVerified}}
+							{{^isVerified}}
+							<label><input name="verified" type="checkbox"> Verified</label>
+							{{/isVerified}}
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="textbox-wrap">
+						<div class="input-group">
+							{{#isAdmin}}
+							<label><input name="admin" type="checkbox" checked> Admin</label>
+							{{/isAdmin}}
+							{{^isAdmin}}
+							<label><input name="admin" type="checkbox"> Admin</label>
+							{{/isAdmin}}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+				<br>
+					<button type="submit" class="btn btn-info">Save Changes</button>
+					<button type="submit" class="btn btn-info">Change Password</button>
+					<button type="submit" class="btn btn-info">Resend Confirmation Email</button>
+					<button type="submit" class="btn btn-info">Trigger Password Reset</button>
+				</div>
+			</div>
+			{{/models}}
+		</form>
+	</div>
+</div>
+{{>footer}}

@@ -21,17 +21,13 @@
         "passport": "~0.2.0",
         "passport-local": "~1.0.0",
         "passport-oauth": "~1.0.0",
-        "passport-facebook": "~1.0.2",
-        "passport-github": "~0.1.5",
-        "passport-twitter": "~1.0.2",
-        "passport-google-oauth": "~0.1.5",
         "express-validator": "latest",
         "helmet": "~0.2.0",
         "async": "latest",
         "connect-flash": "latest",
         "bookshelf": "latest",
         "underscore": "latest",
-        "passport-remember-me": "latest"
+        "moment": "latest"
     },
     "devDependencies": {
         "grunt": "~0.4.1",

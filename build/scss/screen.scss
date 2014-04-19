@@ -53,12 +53,11 @@
 
 @import "elements/frame.scss"; 
 @import "elements/topbar"; 
-
 @import "elements/lefthandbar"; 
-
 @import "elements/content-area"; 
-
 @import "elements/loginform"; 
-
-
 @import "elements/animate"; 
+
+
+//Admin
+@import "elements/admin-manage-users"; 

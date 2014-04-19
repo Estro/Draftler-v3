@@ -8,6 +8,10 @@ module.exports = function() {
         hasTimestamps: ['createdAt', 'updatedAt']
     });
 
+    bookshelf.users = Bookshelf.Collection.extend({
+        model: bookshelf.ApiUser
+    });
+
     bookshelf.emailConfirmations = Bookshelf.Model.extend({
         tableName: 'email_confirmations',
         hasTimestamps: ['createdAt', 'updatedAt']

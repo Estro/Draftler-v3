@@ -215,6 +215,10 @@ textarea.form-control {
   margin-left: 10px; // space out consecutive inline controls
 }
 
+
+.textbox-wrap{
+  padding-bottom: 15px;
+}
 // Apply same disabled cursor tweak as for inputs
 //
 // Note: Neither radios nor checkboxes can be readonly.

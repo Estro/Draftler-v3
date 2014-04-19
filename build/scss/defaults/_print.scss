@@ -66,6 +66,21 @@
     page-break-after: avoid;
   }
 
+  h1,h2,h3,h4,h5{
+    color:$font-gray;
+  }
+
+  h1, h2{
+    width:100%;
+    border:1px solid $font-gray;
+    padding-bottom:20px;
+    font-weight: normal;
+  }
+
+  span, p, div, body, html {
+    color:$off-black;
+  }
+
   // Chrome (OSX) fix for https://github.com/twbs/bootstrap/issues/11245
   // Once fixed, we can just straight up remove this.
   select {

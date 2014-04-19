@@ -2,12 +2,13 @@ var crypto = require('crypto'),
     passport = require('passport'),
     data = require('../models/auth')(),
     utils = require('../util/utils'),
-    emailServer = require('emailjs/email').manager;
+    emailServer = require('emailjs/email').manager,
+    messages = require('../util/messages').login;
 
 
 exports.registerPage = function(req, res) {
     res.render('login/register', {
-        messages: req.flash('info'),
+        messages: req.flash('error'),
         username: req.flash('username')
     });
 }
@@ -23,21 +24,22 @@ exports.registerPost = function(req, res) {
     var vpw = req.body.vpw,
         pwu = req.body.pw,
         un = req.body.un,
-        email = req.body.email;
+        email = req.body.email,
+        hashgen = utils.generateToken(30);
 
     // validate passwords in case of cheaters
     if (vpw !== pwu) {
-        req.flash('info', 'Your passwords did not match.');
+        req.flash('error', messages.failedPassword);
         res.redirect('/register');
         return;
     }
 
     // valid email address
-    req.checkBody('email', 'Please enter a valid email.').notEmpty().isEmail();
+    req.checkBody('email', messages.invalidEmail).notEmpty().isEmail();
     var errors = req.validationErrors();
     if (errors) {
         var msg = errors[0].msg;
-        req.flash('info', 'Your email is invalid');
+        req.flash('error', messages.invalidEmail);
         res.redirect('/register');
         return;
     }
@@ -53,18 +55,18 @@ exports.registerPost = function(req, res) {
         email: email,
         password: pw,
         salt: new_salt,
-        created: created
+        user_ip: req.ip
     }).save().then(function(model) {
 
             // once complete, save row in email confirmation table
             new data.emailConfirmations({
                 userId: model.attributes.id,
-                hash: utils.generateToken(30)
+                hash: hashgen
             }).save().then(function(data) {
 
                 // Send email confirmation. Need to move to a queue job?
                 emailServer.send({
-                    from: 'mpomeroy@wearearchitect.com',
+                    from: 'martpomeroy@gmail.com',
                     to: email,
                     subject: 'Email Confirmation',
                     text: 'Confirm Email',
@@ -75,9 +77,9 @@ exports.registerPost = function(req, res) {
 
                 // all complete, redirect to homepage after authenicating 
                 passport.authenticate('local')(req, res, function() {
-                    res.redirect('/home');
+                    res.redirect('/');
                 }, function() {
-                    req.flash('info', 'Your email is already registered');
+                    req.flash('error', messages.alreadyRegistered);
                     res.redirect('/register');
 
                 })
@@ -86,7 +88,7 @@ exports.registerPost = function(req, res) {
         },
         function(err) {
             // this seems wrong, but seems to error when email has already been taken
-            req.flash('info', 'Your email is already registered');
+            req.flash('error', messages.alreadyRegistered);
             res.redirect('/register');
         });
 }
@@ -94,7 +96,7 @@ exports.registerPost = function(req, res) {
 
 exports.loginPage = function(req, res) {
     res.render('login/login', {
-        messages: req.flash('info'),
+        messages: req.flash('error'),
         username: req.flash('username')
     });
 }
@@ -105,27 +107,67 @@ exports.checkLogin = function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
         if (err || !user) {
             // pass back error message and redirect to login
-            req.flash('info', 'Oops, have you entered the correct details?');
+            req.flash('error', messages.incorrectDetails);
             return res.redirect('/login');
         }
         req.logIn(user, function(err) {
             if (err) {
                 // and again
-                req.flash('info', 'Oops, have you entered the correct details?');
+                req.flash('error', messages.incorrectDetails);
                 res.redirect('/login');
                 return;
             }
             // if all went ok, redirect to homepage as a logged in user!
-            res.redirect('/home');
+            res.redirect('/');
             return;
         });
     })(req, res, next);
 }
 
 
-exports.resendEmail = function(req, res) {
+exports.resendEmailPage = function(req, res) {
     // get UserID and token from query 
-    res.render('login/resend-confirmation');
+    var userID = req.params.id;
+    res.render('login/resend-confirmation', {
+        user: userID
+    });
+
+}
+
+exports.resendEmail = function(req, res) {
+    var userID = req.params.id;
+
+    new data.ApiUser('id', userID).fetch().then(function(data) {
+        userId = data.attributes.id,
+        email = data.attributes.email,
+        username = data.attributes.username,
+        hashgen = utils.generateToken(30);
+
+        new data.emailConfirmations({
+            userId: userId,
+            hash: hashgen
+        }).save().then(function(data) {
+            // Send email confirmation. Need to move to a queue job?
+            emailServer.send({
+                from: 'martpomeroy@gmail.com',
+                to: email,
+                subject: 'Email Confirmation',
+                text: 'Confirm Email',
+                attachment: utils.composeConfimrationEmail(data.attributes.userId, data.attributes.hash, username)
+            }, function(err, message) {
+                console.log(err || message);
+                req.flash('info', messages.messageResent);
+                res.redirect('/');
+            });
+
+            req.flash('error', messages.messageResent);
+            res.redirect('/');
+        });
+    }, function() {
+        // Error
+        req.flash('error', messages.messageResentError);
+        res.redirect('/');
+    });
 
 }
 
@@ -134,13 +176,13 @@ exports.confirmEmail = function(req, res) {
     var userID = req.params.id,
         token = req.params.token;
 
-    // Send email. - need to move this to a queue
     new data.emailConfirmations({
-        userId: userID,
-        hash: token
-    }).fetch().then(function(userConfirmation) {
-        // if there is an account returned
-        // check date
+        hash: token,
+        userID: userID
+    }).save({
+        isUsed: 1
+    }).then(function(userConfirmation) {
+
         var created = userConfirmation.attributes.updatedAt,
             validToDate = new Date();
         validToDate.setDate(validToDate.getDate() - 3);
@@ -148,7 +190,6 @@ exports.confirmEmail = function(req, res) {
         if (validToDate > created) {
             // Ite's been to long!
             res.render('login/resend-confirmation');
-            console.log('too old');
         } else {
             // still valid
             if (userConfirmation) {
@@ -157,20 +198,22 @@ exports.confirmEmail = function(req, res) {
                 }).save({
                     'email_confirmed': 1
                 }).then(function(data) {
-                    //req.flash('info', 'Thank you, your email has been registered');
-                    res.redirect('/home');
-
+                    res.redirect('/');
                     return;
+                }, function(ee) {
+                    res.render('login/resend-confirmation/' + userID);
                 });
-
             }
         }
+    }, function(err) {
+        res.render('login/resend-confirmation' + userID);
     });
+
 }
 
 
 exports.logout = function(req, res) {
     req.logout();
-    req.flash('info', 'You are now logged out.');
+    req.flash('info', messages.loggedOut);
     res.redirect('/');
 }

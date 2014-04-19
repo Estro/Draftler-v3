@@ -18,6 +18,13 @@ Draftler-v3
 - Bookshelf.js
 
 
+### Requirments
+
+- Ruby
+- Python
+- Node
+- Redis
+
 ### Set up:
 
 - Ensure you have Node, NPM, mySQL, Compass and Rails installed
