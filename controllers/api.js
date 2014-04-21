@@ -22,6 +22,29 @@ exports.checkUsername = function(req, res, next) {
     });
 }
 
+exports.followStatus = function(req, res, next) {
+    var un = req.params.userid;
+
+    new data.follower().query(function(qb) {
+        qb.where({
+            user_id: req.user.id,
+            follows_id: un
+        });
+    }).fetch().then(function(follower) {
+        if (follower) {
+            res.send({
+                status: 'Following'
+            });
+        } else {
+            res.send({
+                status: 'Not following'
+            });
+        }
+    }, function(err) {
+        res.send(err);
+    });
+
+}
 
 exports.followUser = function(req, res, next) {
     var userid = req.params.userid;
@@ -30,9 +53,11 @@ exports.followUser = function(req, res, next) {
     }).fetch().then(function(user) {
         //check if already there
         if (user) {
-            var follow = new data.follower({
-                users_id: req.user.id,
-                follows_id: userid
+            var follow = new data.follower().query(function(qb) {
+                qb.where({
+                    user_id: req.user.id,
+                    follows_id: userid
+                });
             });
 
             follow.fetch().then(function(follower) {
@@ -67,7 +92,7 @@ exports.unFollowUser = function(req, res, next) {
     var userid = req.params.userid;
 
     new data.follower({
-        users_id: req.user.id,
+        user_id: req.user.id,
         follows_id: userid
     }).fetch().then(function(record) {
         if (record) {

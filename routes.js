@@ -40,9 +40,9 @@ module.exports = function(app, passport) {
 
 
     //API
-    app.get('/api/follow/:userid', ensureAuthenticated, apiController.followUser);
-    app.get('/api/unfollow/:userid',ensureAuthenticated, apiController.unFollowUser);
-
+    app.post('/api/follow/:userid', ensureAuthenticated, apiController.followUser);
+    app.post('/api/unfollow/:userid',ensureAuthenticated, apiController.unFollowUser);
+    app.get('/api/followstatus/:userid',ensureAuthenticated, apiController.followStatus);
 
     function ensureAuthenticated(req, res, next) {
         // Check user is autenticated and not banned.

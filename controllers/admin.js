@@ -37,8 +37,8 @@ exports.editUser = function(req, res) {
                 loggedIn: true,
                 isAdmin: true,
                 models: data.attributes,
-                error: req.flash('error'),
-                messages: req.flash('info'),
+                error: req.flash('aerror'),
+                messages: req.flash('ainfo'),
                 content: content.admin.ui,
                 frame: content.frame.ui
             });
@@ -81,11 +81,11 @@ exports.updateUser = function(req, res) {
         isAdmin: admin,
         isBanned: banned
     }).then(function(data) {
-        req.flash('info', content.admin.messages.profileUpdated);
+        req.flash('ainfo', content.admin.messages.profileUpdated);
         res.redirect('/admin/edit-user/' + id);
         return;
     }, function() {
-        req.flash('info', content.admin.messages.updateFailed);
+        req.flash('ainfo', content.admin.messages.updateFailed);
         res.redirect('/admin/edit-user/' + id);
     });
 }

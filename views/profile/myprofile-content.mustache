@@ -1,4 +1,4 @@
-<div class="user-profile-dashboard">
+<div class="user-profile-dashboard" data-userid="{{user.id}}">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="user-header">
@@ -106,15 +106,15 @@
 				<div class="row">
 					<div class="col-md-12">
 						<h3>{{content.following}}</h3>
+						{{^following}}
+							<p>{{content.noFollowing}}</p>
+						
+							{{/following}}
 						<ul class="follow-list">
 							{{#following}}
 							<li><a href="/profile/{{attributes.id}}">
 								<img src="{{attributes.avatar}}" alt="{{attributes.username}}">
 								</a>
-							</li>
-							{{/following}}
-							{{^following}}
-							<li><p>{{content.noFollowing}}</p>
 							</li>
 							{{/following}}
 						</ul>
