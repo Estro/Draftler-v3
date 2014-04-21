@@ -912,6 +912,11 @@ $cols-lg-offset: comma-list();
     @media only screen and (max-width: $breakpoint + px) { @content; }
 }
 
+@mixin respond-fromTo($from, $to) {
+    @media only screen and (min-width: $from + px) and (max-width: $to + px) { @content; }
+}
+
+
 @mixin respond-from($breakpoint) {
     @media only screen and (min-width: $breakpoint + px) { @content; }
 }

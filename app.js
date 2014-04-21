@@ -13,6 +13,7 @@ var config = require('./config.js'),
     crypto = require('crypto'),
     flash = require('connect-flash'),
     Bookshelf = require('bookshelf'),
+    Knex = require('knex'),
     app = express(),
     email = require('emailjs/email');
 
@@ -39,7 +40,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'mustache');
 
 
-require('./util/bookshelf')(Bookshelf);
+require('./util/bookshelf')(Bookshelf, Knex);
 require('./util/email')(email);
 require('./util/auth')(passport);
 require('./routes')(app, passport);

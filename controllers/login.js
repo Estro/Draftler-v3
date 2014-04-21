@@ -3,18 +3,24 @@ var crypto = require('crypto'),
     data = require('../models/auth')(),
     utils = require('../util/utils'),
     emailServer = require('emailjs/email').manager,
-    messages = require('../util/messages').login;
+    content = require('../content/english');
+
 
 
 exports.registerPage = function(req, res) {
     res.render('login/register', {
         messages: req.flash('error'),
-        username: req.flash('username')
+        username: req.flash('username'),
+        content: content.login.ui,
+        frame: content.frame.ui
     });
 }
 
 exports.forgotten = function(req, res) {
-    res.render('login/forgotten');
+    res.render('login/forgotten', {
+        frame: content.frame.ui,
+        content: content.login.ui
+    });
 
 }
 
@@ -29,17 +35,17 @@ exports.registerPost = function(req, res) {
 
     // validate passwords in case of cheaters
     if (vpw !== pwu) {
-        req.flash('error', messages.failedPassword);
+        req.flash('error', content.login.messages.failedPassword);
         res.redirect('/register');
         return;
     }
 
     // valid email address
-    req.checkBody('email', messages.invalidEmail).notEmpty().isEmail();
+    req.checkBody('email', content.login.messages.invalidEmail).notEmpty().isEmail();
     var errors = req.validationErrors();
     if (errors) {
         var msg = errors[0].msg;
-        req.flash('error', messages.invalidEmail);
+        req.flash('error', content.login.messages.invalidEmail);
         res.redirect('/register');
         return;
     }
@@ -79,7 +85,7 @@ exports.registerPost = function(req, res) {
                 passport.authenticate('local')(req, res, function() {
                     res.redirect('/');
                 }, function() {
-                    req.flash('error', messages.alreadyRegistered);
+                    req.flash('error', content.login.messages.alreadyRegistered);
                     res.redirect('/register');
 
                 })
@@ -88,7 +94,7 @@ exports.registerPost = function(req, res) {
         },
         function(err) {
             // this seems wrong, but seems to error when email has already been taken
-            req.flash('error', messages.alreadyRegistered);
+            req.flash('error', content.login.messages.alreadyRegistered);
             res.redirect('/register');
         });
 }
@@ -97,7 +103,9 @@ exports.registerPost = function(req, res) {
 exports.loginPage = function(req, res) {
     res.render('login/login', {
         messages: req.flash('error'),
-        username: req.flash('username')
+        username: req.flash('username'),
+        frame: content.frame.ui,
+        content: content.login.ui
     });
 }
 
@@ -107,13 +115,13 @@ exports.checkLogin = function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
         if (err || !user) {
             // pass back error message and redirect to login
-            req.flash('error', messages.incorrectDetails);
+            req.flash('error', content.login.messages.incorrectDetails);
             return res.redirect('/login');
         }
         req.logIn(user, function(err) {
             if (err) {
                 // and again
-                req.flash('error', messages.incorrectDetails);
+                req.flash('error', content.login.messages.incorrectDetails);
                 res.redirect('/login');
                 return;
             }
@@ -129,7 +137,9 @@ exports.resendEmailPage = function(req, res) {
     // get UserID and token from query 
     var userID = req.params.id;
     res.render('login/resend-confirmation', {
-        user: userID
+        user: userID,
+        frame: content.frame.ui,
+        content: content.login.ui
     });
 
 }
@@ -155,17 +165,16 @@ exports.resendEmail = function(req, res) {
                 text: 'Confirm Email',
                 attachment: utils.composeConfimrationEmail(data.attributes.userId, data.attributes.hash, username)
             }, function(err, message) {
-                console.log(err || message);
-                req.flash('info', messages.messageResent);
+                req.flash('info', content.login.messages.messageResent);
                 res.redirect('/');
             });
 
-            req.flash('error', messages.messageResent);
+            req.flash('error', content.login.messages.messageResent);
             res.redirect('/');
         });
     }, function() {
         // Error
-        req.flash('error', messages.messageResentError);
+        req.flash('error', content.login.messages.messageResentError);
         res.redirect('/');
     });
 
@@ -189,7 +198,7 @@ exports.confirmEmail = function(req, res) {
 
         if (validToDate > created) {
             // Ite's been to long!
-            res.render('login/resend-confirmation');
+            res.redirect('login/resend-confirmation/' + userID);
         } else {
             // still valid
             if (userConfirmation) {
@@ -201,12 +210,12 @@ exports.confirmEmail = function(req, res) {
                     res.redirect('/');
                     return;
                 }, function(ee) {
-                    res.render('login/resend-confirmation/' + userID);
+                    res.redirect('login/resend-confirmation/' + userID);
                 });
             }
         }
     }, function(err) {
-        res.render('login/resend-confirmation' + userID);
+        res.redirect('login/resend-confirmation/' + userID);
     });
 
 }
@@ -214,6 +223,6 @@ exports.confirmEmail = function(req, res) {
 
 exports.logout = function(req, res) {
     req.logout();
-    req.flash('info', messages.loggedOut);
+    req.flash('info', content.login.messages.loggedOut);
     res.redirect('/');
 }

@@ -1,0 +1,218 @@
+.profile-menu{
+
+	.user-image{
+		position: relative;
+
+		.user-image-button{
+		position: absolute;
+		bottom: 20px;
+		left: 26px;
+		font-size: 12px;
+		opacity: 0;
+		-webkit-transition: opacity .1s linear;
+		transition: opacity .1s linear;
+		}
+
+		&:hover{
+
+			.user-image-button{
+			opacity: 1;
+			}
+		}
+
+		img{
+			max-width:200px;
+		}
+	}
+
+	.user-detail-container{
+		padding: 0px 15px;
+		.user-bio{
+			h2{
+			color: #FFF;
+			font-weight: 300;
+			margin-left: 0;
+			}
+
+			p{
+			color: #FFF;
+			font-size: 12px;
+			}
+		}
+
+		.btn{
+			font-size: 12px;
+			width:100%;
+			margin-bottom:15px;
+		}
+	}
+
+}
+
+.user-profile-dashboard {
+	line-height: 22px;
+
+	h3 {
+			i{
+			color:$accent;
+			}
+	}
+
+	.user-header {
+		padding-bottom: 15px;
+		border-bottom: 1px solid #EEE;
+
+			span {
+				margin-right:20px;
+
+				i {
+					color:$orange;
+				}
+			}
+
+			h2{
+				border-bottom:0px solid #fff;
+				margin-bottom:2px;
+
+			}
+
+			.btn{
+				padding: 5px 12px;
+			}
+	}
+
+.the-timeline {
+		margin-bottom: 40px;
+
+		.post-to-timeline{
+
+				textarea{
+					height:50px;
+					resize:none;
+					margin-bottom:10px;
+					margin-top: 20px;
+				}
+		}
+
+
+		ul{
+			list-style:none;
+			border-left:2px solid #ddd;
+			margin:0 0px 0 20px;
+			padding:0;
+
+			li{
+				display:block;
+				background:#f4f4f4;
+				position:relative;
+				border-left:2px solid transparent;
+				margin:20px 0 20px 35px;
+				padding:5px 15px;
+
+				p{
+				margin:0;
+				padding:0;
+				}
+
+				.the-date{
+					position:absolute;
+					left:-64px;
+					top:0;
+					width:50px;
+					height:50px;
+					background:#71BEBA;
+					border-radius:50%;
+					text-align:center;
+					line-height:130%;
+
+					span{
+						color:#fff;
+						font-size:18px;
+						display:block;
+						margin-top:8px;
+					}
+
+					small{
+						color:#fff;
+						font-size:12px;
+						display:block;
+					}
+				}
+			}
+		}
+	}
+
+	.chapter-submittion{
+				list-style: none;
+				margin: 0;
+				padding: 0;
+					li{
+						float:left;
+						width:33.3%;
+						padding: 5px;
+						position: relative;
+
+						@include respond-from(990){
+					        width:100%;
+					        transition: all 0.4s ease 0s;
+			    		}
+
+			    		@include respond-from(1290){
+					        width:50%;
+					        transition: all 0.4s ease 0s;
+			    		}
+
+			    		@include respond-from(1650){
+					        width:33.3%;
+					        transition: all 0.4s ease 0s;
+			    		}
+
+						img{
+							width:100%;
+						}
+					}
+		
+
+				h4{
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				background:#fff;
+				font-size: 14px;
+				padding:5px;
+				margin: 0;
+				}
+		}
+
+	.follow-list{
+			list-style: none;
+			margin: 0;
+			padding: 0;
+
+			li{
+			float:left;
+			width:20%;
+
+			@include respond-from(990){
+					  width:33.3%;
+					  transition: all 0.4s ease 0s;
+			   }
+
+			   @include respond-from(1290){
+					        width:20%;
+					        transition: all 0.4s ease 0s;
+			    		}
+
+				img{
+					width:100%;
+				}
+
+			}
+		
+	}
+
+
+
+
+
+}

@@ -1,0 +1,124 @@
+<div class="user-profile-dashboard">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="user-header">
+				<span><i class="fa fa-location-arrow"></i> {{^user.city}}{{content.noCity}}{{/user.city}}{{user.city}}, {{^user.country}}{{content.noCountry}}{{/user.country}}{{user.country}}</span>
+				<span><i class="fa fa-pencil-square-o"></i>  {{user.points}} {{content.publisherPoints}}</span>
+				<span><i class="fa fa-users"></i> {{followers}} {{content.followers}}</span>
+				<span><i class="fa fa-book"></i> 9 {{content.chapters}}</span>
+
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-8">
+			<div class="user-about">
+				<h3>{{content.about}}</h3>
+				<p>{{user.bio}}{{^user.bio}}{{user.username}} {{content.noBio}}{{/user.bio}}</p>
+			</div>
+			<div class="user-feed">
+				<h3>{{content.recentActivity}}</h3>
+				<div>
+					<div class="the-timeline">
+						<form role="form" class="post-to-timeline">
+							<textarea class="form-control" style="height: 50px;" placeholder="{{content.postSomething}}"></textarea>
+							<p class="text-right"><button type="submit" class="btn btn-info">{{content.post}}</button></p>
+						</form>
+						
+						<ul>
+							<li>
+								<div class="the-date">
+									<span>01</span>
+									<small>Feb</small>
+								</div>
+								<h4>Lorem ipsum dolor!</h4>
+								<p>
+								Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+								</p>
+							</li>
+							<li>
+								<div class="the-date">
+									<span>31</span>
+									<small>Jan</small>
+								</div>
+								<h4>Martin created a new book</h4>
+								
+								<p>
+								Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+								</p>
+							</li>
+							<li>
+								<div class="the-date">
+									<span>25</span>
+									<small>Jan</small>
+								</div>
+								<h4>Martin successfully placed a chapter in book xyz</h4>
+								
+								<p>
+								Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+								</p>
+							</li>
+							<li>
+								<div class="the-date">
+									<span>20</span>
+									<small>Des</small>
+								</div>
+								<p>
+								Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+								</p>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="row">
+				<div class="col-md-12">
+					<h3>{{content.booksFollowing}}</h3>
+					<ul class="chapter-submittion">
+						<li>
+							<img src="http://lorempixel.com/190/120/nature/2">
+							<h4 class="ng-binding">THe Wolf Gang</h4>
+						</li>
+						<li>
+							<img src="http://lorempixel.com/190/120/fashion/2">
+							<h4 class="ng-binding">Harry potter and the long titled book</h4>
+						</li>
+						<li>
+							<img src="http://lorempixel.com/190/120/nature">
+							<h4 class="ng-binding">A Short Tale</h4>
+						</li>
+						<li>
+							<img src="http://lorempixel.com/190/120/nature/3">
+							<h4 class="ng-binding">HTML 5 for beginners</h4>
+						</li>
+						<li>
+							<img src="http://lorempixel.com/190/120/fashion">
+							<h4 class="ng-binding">John Smith goes fishing</h4>
+						</li>
+						<li>
+							<img src="http://lorempixel.com/190/120/nature/4">
+							<h4 class="ng-binding">Evolve</h4>
+						</li>
+					</ul>
+				</div></div>
+					<div class="row">
+					<div class="col-md-12">
+						<h3>{{content.following}}</h3>
+						{{^following}}
+							<p>{{content.noFollowing}}</p>
+						
+							{{/following}}
+						<ul class="follow-list">
+							{{#following}}
+							<li><a href="/profile/{{attributes.id}}">
+								<img src="{{attributes.avatar}}" alt="{{attributes.username}}">
+								</a>
+							</li>
+							{{/following}}
+						</ul>
+					</div></div>
+				</div>
+			</div>
+		</div>

@@ -1,25 +1,41 @@
-CREATE DATABASE `Draftler` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE `Draftler` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
 CREATE TABLE `users` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) NOT NULL DEFAULT '',
-  `first_name` varchar(30) NOT NULL DEFAULT '',
-  `last_name` varchar(30) NOT NULL DEFAULT '',
-  `email` varchar(30) NOT NULL DEFAULT '',
-  `password` varchar(60) NOT NULL DEFAULT '',
-  `salt` varchar(50) NOT NULL DEFAULT '',
-  `email_confirmed` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `isActive` tinyint(1) unsigned NOT NULL DEFAULT '1',
-  `isBanned` tinyint(4) NOT NULL DEFAULT '0',
-  `isAdmin` tinyint(4) NOT NULL DEFAULT '0',
-  `isVerified` tinyint(4) NOT NULL DEFAULT '0',
+  `username` varchar(50) DEFAULT '',
+  `first_name` varchar(30) DEFAULT '',
+  `last_name` varchar(30) DEFAULT '',
+  `email` varchar(128) DEFAULT '',
+  `password` varchar(64) DEFAULT '',
+  `salt` varchar(64) DEFAULT '',
+  `email_confirmed` tinyint(1) unsigned DEFAULT '0',
+  `avatar` varchar(255) DEFAULT '/public/img/avatar.jpg',
+  `bio` text,
+  `city` varchar(64) DEFAULT NULL,
+  `country` varchar(64) DEFAULT NULL,
+  `points` int(10) unsigned DEFAULT '0',
+  `isActive` tinyint(1) unsigned DEFAULT '1',
+  `isBanned` tinyint(4) unsigned DEFAULT '0',
+  `isAdmin` tinyint(4) unsigned DEFAULT '0',
+  `isVerified` tinyint(4) unsigned DEFAULT '0',
   `createdAt` timestamp NULL DEFAULT NULL,
   `updatedAt` timestamp NULL DEFAULT NULL,
-  `user_ip` varchar(55) NOT NULL,
+  `user_ip` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
 
+
+
+
+CREATE TABLE `followers` (
+  `idfollowers` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `follows_id` int(11) DEFAULT NULL,
+  `createdAt` timestamp NULL DEFAULT NULL,
+  `updatedAt` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`idfollowers`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE `email_confirmations` (
@@ -29,6 +45,6 @@ CREATE TABLE `email_confirmations` (
   `createdAt` timestamp NULL DEFAULT NULL,
   `updatedAt` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 

@@ -27,7 +27,8 @@
         "connect-flash": "latest",
         "bookshelf": "latest",
         "underscore": "latest",
-        "moment": "latest"
+        "moment": "latest",
+        "knex": "latest"
     },
     "devDependencies": {
         "grunt": "~0.4.1",

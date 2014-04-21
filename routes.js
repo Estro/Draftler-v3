@@ -1,6 +1,7 @@
 var indexController = require('./controllers/index'),
     loginController = require('./controllers/login'),
     adminController = require('./controllers/admin'),
+    profileController = require('./controllers/profile'),
     apiController = require('./controllers/api');
 
 module.exports = function(app, passport) {
@@ -22,14 +23,25 @@ module.exports = function(app, passport) {
     app.get('/resendemail/:id', loginController.resendEmailPage);
     app.post('/resendemail/:id', loginController.resendEmail);
 
+
+    //profiles
+     app.get('/profile', ensureAuthenticated, profileController.profile);
+    app.get('/profile/:userid', ensureAuthenticated, profileController.userProfile);
     //Admin
+    
     app.get('/admin', ensureAdmin, adminController.homePage);
     app.get('/admin/manage-users', adminController.manageUsers);
     app.get('/admin/edit-user/:id', adminController.editUser);
     app.post('/admin/edit-user', adminController.updateUser);
-    // Public facing APIS
 
+
+    // Public APIS
     app.get('/api/usernames/:username', apiController.checkUsername);
+
+
+    //API
+    app.get('/api/follow/:userid', ensureAuthenticated, apiController.followUser);
+    app.get('/api/unfollow/:userid',ensureAuthenticated, apiController.unFollowUser);
 
 
     function ensureAuthenticated(req, res, next) {

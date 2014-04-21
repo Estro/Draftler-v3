@@ -3,7 +3,7 @@
     <div class="login-content animated bounceIn">
                     <form  action="/login" method="post">
                         <div class="section-title">
-                            <h3>LogIn to your Account</h3>
+                            <h3>{{content.loginToAccount}}</h3>
                         </div>
                         {{#messages}}
                         <div class="alert alert-danger">{{.}}</div>
@@ -11,20 +11,20 @@
                         <div class="textbox-wrap">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                <input type="text" id="input-login-email" name="email" required="required" class="form-control" placeholder="Email Address" />
+                                <input type="text" id="input-login-email" name="email" required="required" class="form-control" placeholder="{{content.emailAddress}}" />
                             </div>
                         </div>
                         <div class="textbox-wrap">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                                <input type="password" id="input-login-password"  name="pw" required="required" class="form-control " placeholder="Password" />
+                                <input type="password" id="input-login-password"  name="pw" required="required" class="form-control " placeholder="{{content.password}}" />
                             </div>
                         </div>
                         <div class="login-form-action clearfix">
                             <div class="pull-left">
-                                <span class="checkbox-text pull-left"><a href="/forgot">Forgotten your password?</a></span>
+                                <span class="checkbox-text pull-left"><a href="/forgot">{{content.forgottenPassword}}</a></span>
                             </div>
-                            <button type="submit" class="btn btn-info pull-right">Log In &nbsp; <i class="fa fa-chevron-right"></i></button>
+                            <button type="submit" class="btn btn-info pull-right">{{content.logIn}} &nbsp; <i class="fa fa-chevron-right"></i></button>
                         </div>
                     </form>
                 </div>
@@ -32,8 +32,8 @@
 </div>
 <div class="row">
     <div class="register-prompt animated bounceIn">
-                 <p>Don't have an Account?</p>
-                 <p>No worrys, <a href="/register">Click Here</a> to Register</p>
+                 <p>{{content.noAccount}}</p>
+                 <p>{{{content.registerLink}}}</p>
                 </div>
 
 </div>

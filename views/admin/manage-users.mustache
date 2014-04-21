@@ -5,7 +5,7 @@
 		<div class="content-stage">
 		<div class="row">
 			<div class="col-md-12">
-					<h2>Manage Users</h2>
+					<h2>{{content.manageUsers}}</h2>
 			</div>
 		</div>
 				<div class="row">
@@ -15,15 +15,15 @@
 				<thead>
          		 <tr>
 		            <th>#</th>
-		            <th>Username</th>
-		           	<th>Email</th>
-		           	<th class="hidden-sm hidden-xs">Status</th>
-		           	<th class="hidden-sm hidden-xs">Role</th>
-		           	<th class="hidden-sm hidden-xs">Email Status</th>
-		           	<th class="hidden-sm hidden-xs">Tags</th>
-		           	<th class="hidden-sm hidden-xs">Created</th>
-		           	<th class="hidden-sm hidden-xs">Updated</th>
-		           	<th class="hidden-sm hidden-xs">Actions</th>
+		            <th>{{content.username}}</th>
+		           	<th>{{content.email}}</th>
+		           	<th class="hidden-sm hidden-xs">{{content.status}}</th>
+		           	<th class="hidden-sm hidden-xs">{{content.role}}</th>
+		           	<th class="hidden-sm hidden-xs">{{content.emailStatus}}</th>
+		           	<th class="hidden-sm hidden-xs">{{content.tags}}</th>
+		           	<th class="hidden-sm hidden-xs">{{content.created}}</th>
+		           	<th class="hidden-sm hidden-xs">{{content.updated}}</th>
+		           	<th class="hidden-sm hidden-xs">{{content.actions}}</th>
           		</tr>
         		</thead>
 			 {{#models}}
@@ -34,39 +34,39 @@
 			  		<td>{{email}}</td>
 			  		<td class="hidden-sm hidden-xs">
 			  		{{#isActive}}
-			  		<span class="label label-success">Active</span>
+			  		<span class="label label-success">{{content.active}}</span>
 			  		{{/isActive}}
 			  		{{#isBanned}}
-			  		<span class="label label-danger">Banned</span>
+			  		<span class="label label-danger">{{content.banned}}</span>
 			  		{{/isBanned}}
 			  		{{^isActive}}
-			  		<span class="label label-warning">InActive</span>
+			  		<span class="label label-warning">{{content.inActive}}</span>
 			  		{{/isActive}}
 			  		</td>
 			  		<td class="hidden-sm hidden-xs">
 			  		{{#isAdmin}}
-			  		<span class="label label-primary">Admin</span>
+			  		<span class="label label-primary">{{content.admin}}</span>
 			  		{{/isAdmin}}
 			  		{{^isAdmin}}
-			  		<span class="label label-primary">User</span>
+			  		<span class="label label-primary">{{content.user}}</span>
 			  		{{/isAdmin}}
 			  		</td>
 			  		<td class="hidden-sm hidden-xs">
 			  			{{#email_confirmed}}
-			  		<span class="label label-success">Confirmed</span>
+			  		<span class="label label-success">{{content.confirmed}}</span>
 			  		{{/email_confirmed}}
 			  		{{^email_confirmed}}
-			  		<span class="label label-default">Unconfirmed</span>
+			  		<span class="label label-default">{{content.unConfirmed}}</span>
 			  		{{/email_confirmed}}
 			  		</td>
 			  		<td class="hidden-sm hidden-xs">
 			  		{{#isVerified}}
-			  		<span class="label label-success">Verified</span>
+			  		<span class="label label-success">{{content.verified}}</span>
 			  		{{/isVerified}}
 			  		</td>
 			  		<td class="hidden-sm hidden-xs">{{createdAt}}</td>
 			  		<td class="hidden-sm hidden-xs">{{updatedAt}}</td>
-			  		<td><a class="btn btn-info" href="/admin/edit-user/{{id}}">Edit<a/></td>
+			  		<td><a class="btn btn-info" href="/admin/edit-user/{{id}}">{{content.edit}}<a/></td>
 			  	</tr>
 			  {{/attributes}}
 			  {{/models}}

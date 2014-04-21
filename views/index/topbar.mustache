@@ -12,26 +12,26 @@
         <div class="navbar-collapse collapse">
         {{#loggedIn}}
           <ul class="nav navbar-nav">
-            <li><a href="#">Explore</a></li>
-            <li><a href="/bookshop">Bookshop</a></li>
-            <li><a href="/profile">Profile</a></li>
+            <li><a href="#">{{frame.explore}}</a></li>
+            <li><a href="/bookshop">{{frame.bookshop}}</a></li>
+            <li><a href="/profile">{{frame.profile}}</a></li>
             {{#isAdmin}}
-            <li><a href="/admin">Admin</a></li>
+            <li><a href="/admin">{{frame.admin}}</a></li>
             {{/isAdmin}}
           </ul>
           {{/loggedIn}}
           <ul class="nav navbar-nav navbar-right">
             {{#loggedIn}}
           <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{frame.account}} <b class="caret"></b></a>
               <ul class="dropdown-menu pull-right">
-                <li><a href="/logout">logout</a></li>
+                <li><a href="/logout">{{frame.logout}}</a></li>
               </ul>
             </li>
         {{/loggedIn}}
         {{^loggedIn}}
-            <li><a href="/register">Sign Up</a></li>
-            <li><a href="/login">Log in</a></li>
+            <li><a href="/register">{{frame.signUp}}</a></li>
+            <li><a href="/login">{{frame.logIn}}</a></li>
         {{/loggedIn}}
           </ul>
         </div><!--/.nav-collapse -->

@@ -1,7 +1,7 @@
 var data = require('../models/auth')(),
     utils = require('../util/utils'),
     moment = require('moment'),
-    messages = require('../util/messages').admin;
+    content = require('../content/english');
 
 exports.homePage = function(req, res) {
     res.redirect('admin/manage-users');
@@ -17,7 +17,9 @@ exports.manageUsers = function(req, res) {
             res.render('admin/manage-users', {
                 loggedIn: true,
                 isAdmin: true,
-                models: data.models
+                models: data.models,
+                content: content.admin.ui,
+                frame: content.frame.ui
             });
         } else {
             res.redirect('admin/manage-users');
@@ -36,7 +38,9 @@ exports.editUser = function(req, res) {
                 isAdmin: true,
                 models: data.attributes,
                 error: req.flash('error'),
-                messages: req.flash('info')
+                messages: req.flash('info'),
+                content: content.admin.ui,
+                frame: content.frame.ui
             });
         } else {
             res.redirect('admin/manage-users');
@@ -77,11 +81,11 @@ exports.updateUser = function(req, res) {
         isAdmin: admin,
         isBanned: banned
     }).then(function(data) {
-        req.flash('info', messages.profileUpdated);
+        req.flash('info', content.admin.messages.profileUpdated);
         res.redirect('/admin/edit-user/' + id);
         return;
     }, function() {
-        req.flash('info', messages.updateFailed);
+        req.flash('info', content.admin.messages.updateFailed);
         res.redirect('/admin/edit-user/' + id);
     });
 }
