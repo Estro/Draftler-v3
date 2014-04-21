@@ -2,12 +2,12 @@
     <div class="left-hand-bar">
                 <div class="context-menu-container">
                 <div class="user-image">
-                    <img src="https://scontent-a-lhr.xx.fbcdn.net/hphotos-frc3/t1.0-9/1476498_628883248623_1833667072_n.jpg" alt="">
+                    <img src="{{user.avatar}}" alt="{{user.username}}">
                 </div>
                 <div class="user-detail-container">
                 <div class="user-bio">
-                <h2>Martin Pomeroy</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam id tellus mauris. Phasellus eu congue ante</p>
+                <h2>{{user.username}}</h2>
+                <br>
                 </div>
                 <div class="user-actions">
                 <a class="btn btn-info btn-follow">Follow</a>
@@ -23,6 +23,10 @@
                     <div class="tab">
                          <a href="/admin/add-user"><p>Following</p></a>
                     </div>
+                    <div class="tab">
+                         <a href="/admin/add-user"><p>Followers</p></a>
+                    </div>
+                  
                 </div>
 
             </div>

@@ -79,7 +79,9 @@ exports.profile = {
 		post: "Post",
 		booksFollowing: "Books I'm Following",
 		following: "Following",
-		noFollowing: "Not following anyone yet"		
+		noFollowing: "Not following anyone yet"		,
+		books: "books",
+		authors: "Authors"
 	}
 
 }
