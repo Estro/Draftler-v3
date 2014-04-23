@@ -31,4 +31,5 @@ Draftler-v3
 - Create config.js in the root and populate with account details
 - Run npm install
 - Run grunt
+- Start Redis 'redis-server /usr/local/etc/redis.conf'
 - Run node app.js

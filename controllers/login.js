@@ -2,8 +2,9 @@ var crypto = require('crypto'),
     passport = require('passport'),
     data = require('../models/auth')(),
     utils = require('../util/utils'),
-    emailServer = require('emailjs/email').manager,
-    content = require('../content/english');
+    content = require('../content/english'),
+    jobs = require('../queues/kue');
+
 
 
 
@@ -70,16 +71,9 @@ exports.registerPost = function(req, res) {
                 hash: hashgen
             }).save().then(function(data) {
 
-                // Send email confirmation. Need to move to a queue job?
-                emailServer.send({
-                    from: 'martpomeroy@gmail.com',
-                    to: email,
-                    subject: 'Email Confirmation',
-                    text: 'Confirm Email',
-                    attachment: utils.composeConfimrationEmail(data.attributes.userId, data.attributes.hash, un)
-                }, function(err, message) {
-                    console.log(err || message);
-                });
+                //Send email via kue
+                jobs.sendSignUpEmail(un, email, data.attributes.hash, data.attributes.userId);
+
 
                 // all complete, redirect to homepage after authenicating 
                 passport.authenticate('local')(req, res, function() {

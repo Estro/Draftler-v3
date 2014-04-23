@@ -15,7 +15,8 @@ var config = require('./config.js'),
     Bookshelf = require('bookshelf'),
     Knex = require('knex'),
     app = express(),
-    email = require('emailjs/email');
+    email = require('emailjs/email'),
+    kue = require('./queues/kue');
 
 
 app.use(flash());
@@ -31,7 +32,6 @@ app.use(express.logger('dev'));
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 //app.use(express.favicon(__dirname + '/public/images/shortcut-icon.png'));
-
 
 
 app.engine('mustache', require('hogan-middleware').__express);

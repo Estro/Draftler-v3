@@ -13,3 +13,14 @@ Admin:
 
 - User list paging
 - User search
+
+
+
+
+activity:
+
+- sign up
+- comments 
+- chapters
+- winning
+- following
