@@ -74,6 +74,9 @@ exports.registerPost = function(req, res) {
                 //Send email via kue
                 jobs.sendSignUpEmail(un, email, data.attributes.hash, data.attributes.userId);
 
+                // Log user join draftler to activity feed via kue
+                jobs.userActivity(1, model.attributes.id, null);
+
 
                 // all complete, redirect to homepage after authenicating 
                 passport.authenticate('local')(req, res, function() {
@@ -95,6 +98,7 @@ exports.registerPost = function(req, res) {
 
 
 exports.loginPage = function(req, res) {
+    // render login page.
     res.render('login/login', {
         messages: req.flash('error'),
         username: req.flash('username'),
@@ -130,6 +134,12 @@ exports.checkLogin = function(req, res, next) {
 exports.resendEmailPage = function(req, res) {
     // get UserID and token from query 
     var userID = req.params.id;
+
+    if (isNaN(userID)) {
+        res.send(404);
+        return;
+    }
+
     res.render('login/resend-confirmation', {
         user: userID,
         frame: content.frame.ui,
@@ -140,6 +150,11 @@ exports.resendEmailPage = function(req, res) {
 
 exports.resendEmail = function(req, res) {
     var userID = req.params.id;
+
+    if (isNaN(userID)) {
+        res.send(404);
+        return;
+    }
 
     new data.ApiUser('id', userID).fetch().then(function(data) {
         userId = data.attributes.id,
@@ -152,18 +167,10 @@ exports.resendEmail = function(req, res) {
             hash: hashgen
         }).save().then(function(data) {
             // Send email confirmation. Need to move to a queue job?
-            emailServer.send({
-                from: 'martpomeroy@gmail.com',
-                to: email,
-                subject: 'Email Confirmation',
-                text: 'Confirm Email',
-                attachment: utils.composeConfimrationEmail(data.attributes.userId, data.attributes.hash, username)
-            }, function(err, message) {
-                req.flash('info', content.login.messages.messageResent);
-                res.redirect('/');
-            });
+            //Send email via kue
+            jobs.sendSignUpEmail(username, email, data.attributes.hash, data.attributes.userId);
 
-            req.flash('error', content.login.messages.messageResent);
+            req.flash('info', content.login.messages.messageResent);
             res.redirect('/');
         });
     }, function() {
@@ -178,6 +185,11 @@ exports.confirmEmail = function(req, res) {
     // get UserID and token from query 
     var userID = req.params.id,
         token = req.params.token;
+
+    if (isNaN(userID)) {
+        res.send(404);
+        return;
+    }
 
     new data.emailConfirmations({
         hash: token,

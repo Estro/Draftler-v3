@@ -16,6 +16,7 @@ Draftler-v3
 - Email.js
 - Underscore.js
 - Bookshelf.js
+- Kue.js
 
 
 ### Requirments
@@ -27,7 +28,7 @@ Draftler-v3
 
 ### Set up:
 
-- Ensure you have Node, NPM, mySQL, Compass and Rails installed
+- Ensure you have Ruby, Node, NPM, mySQL, Compass aand Radis installed
 - Create config.js in the root and populate with account details
 - Run npm install
 - Run grunt

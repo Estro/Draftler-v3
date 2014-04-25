@@ -25,10 +25,11 @@ module.exports = function(app, passport) {
 
 
     //profiles
-     app.get('/profile', ensureAuthenticated, profileController.profile);
+    app.get('/profile', ensureAuthenticated, profileController.profile);
     app.get('/profile/:userid', ensureAuthenticated, profileController.userProfile);
+
     //Admin
-    
+
     app.get('/admin', ensureAdmin, adminController.homePage);
     app.get('/admin/manage-users', adminController.manageUsers);
     app.get('/admin/edit-user/:id', adminController.editUser);
@@ -41,8 +42,9 @@ module.exports = function(app, passport) {
 
     //API
     app.post('/api/follow/:userid', ensureAuthenticated, apiController.followUser);
-    app.post('/api/unfollow/:userid',ensureAuthenticated, apiController.unFollowUser);
-    app.get('/api/followstatus/:userid',ensureAuthenticated, apiController.followStatus);
+    app.post('/api/unfollow/:userid', ensureAuthenticated, apiController.unFollowUser);
+    app.get('/api/followstatus/:userid', ensureAuthenticated, apiController.followStatus);
+    app.get('/api/getuseractivity/:userid', ensureAuthenticated, apiController.getUserActivity);
 
     function ensureAuthenticated(req, res, next) {
         // Check user is autenticated and not banned.

@@ -40,7 +40,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'mustache');
 
 
-require('./util/bookshelf')(Bookshelf, Knex);
+//require('./util/bookshelf')(Bookshelf, Knex);
 require('./util/email')(email);
 require('./util/auth')(passport);
 require('./routes')(app, passport);

@@ -1,3 +1,6 @@
+var content = require('../content/english');
+
+
 exports.generateToken = function(len) {
     var buf = [],
         chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
@@ -11,6 +14,14 @@ exports.generateToken = function(len) {
 };
 
 
+// create random hash
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
+
+// compose HTML for signup confirmation email. 
 exports.composeConfimrationEmail = function(id, token, name) {
     var link = 'localhost/3000/emailconfirmation/' + id + '/' + token;
     var html = "<html><body>";
@@ -24,6 +35,21 @@ exports.composeConfimrationEmail = function(id, token, name) {
     }];
 }
 
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+// User activity wall messagesId to message function - doing this way for future translations. Better way?
+exports.activityMessage = function(messageID, username, references) {
+    var message;
+    switch (messageID) {
+        // Joint Draftler
+        case 1:
+            message = username + content.userActivity.newMember;
+            break;
+
+        default:
+            break;
+
+    }
+
+    return message;
+
+
 }

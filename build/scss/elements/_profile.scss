@@ -157,7 +157,7 @@
 					        transition: all 0.4s ease 0s;
 			    		}
 
-			    		@include respond-from(1290){
+			    		@include respond-from(1200){
 					        width:50%;
 					        transition: all 0.4s ease 0s;
 			    		}
@@ -198,7 +198,7 @@
 					  transition: all 0.4s ease 0s;
 			   }
 
-			   @include respond-from(1290){
+			   @include respond-from(1200){
 					        width:20%;
 					        transition: all 0.4s ease 0s;
 			    		}

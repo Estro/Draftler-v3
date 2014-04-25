@@ -25,6 +25,11 @@ exports.checkUsername = function(req, res, next) {
 exports.followStatus = function(req, res, next) {
     var un = req.params.userid;
 
+    if (isNaN(userid)) {
+        res.send(404);
+        return;
+    }
+
     new data.follower().query(function(qb) {
         qb.where({
             user_id: req.user.id,
@@ -48,6 +53,12 @@ exports.followStatus = function(req, res, next) {
 
 exports.followUser = function(req, res, next) {
     var userid = req.params.userid;
+
+    if (isNaN(userid)) {
+        res.send(404);
+        return;
+    }
+
     new data.ApiUser({
         id: userid
     }).fetch().then(function(user) {
@@ -91,14 +102,24 @@ exports.followUser = function(req, res, next) {
 exports.unFollowUser = function(req, res, next) {
     var userid = req.params.userid;
 
+    if (isNaN(userid)) {
+        res.send(404);
+        return;
+    }
+
     new data.follower({
         user_id: req.user.id,
         follows_id: userid
     }).fetch().then(function(record) {
         if (record) {
-            var recordid = record.attributes.idfollowers;
+            var recordid = record.attributes.id;
+
+            if (isNaN(recordid)) {
+                res.send(404);
+                return;
+            }
             new data.follower({
-                idfollowers: recordid
+                id: recordid
             }).destroy().then(function() {
                 res.send({
                     status: 'successful'
@@ -109,6 +130,32 @@ exports.unFollowUser = function(req, res, next) {
         } else {
             res.send({
                 status: 'record not found'
+            });
+        }
+    }, function(err) {
+        res.send(err);
+    });
+}
+
+
+exports.getUserActivity = function(req, res, next) {
+    var userid = req.params.userid,
+        activities = [];
+
+    if (isNaN(userid)) {
+        res.send(404);
+        return;
+    }
+
+    new data.activities({
+        user_id: req.user.id
+    }).fetch().then(function(record) {
+        if (record) {
+            res.send(record);
+
+        } else {
+            res.send({
+                status: 'activities not found'
             });
         }
     }, function(err) {
