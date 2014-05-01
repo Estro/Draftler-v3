@@ -6,8 +6,14 @@
 				<span><i class="fa fa-pencil-square-o"></i>  {{user.points}} {{content.publisherPoints}}</span>
 				<span><i class="fa fa-users"></i> {{followers}} {{content.followers}}</span>
 				<span><i class="fa fa-book"></i> 9 {{content.chapters}}</span>
-				<button type="submit" class="btn btn-default pull-right">{{content.editProfile}}</button>
+				<a class="btn btn-default pull-right" href="/editprofile">{{content.editProfile}}</a>
 			</div>
+			 {{#errors}}
+                        <div class="alert alert-danger">{{.}}</div>
+                 {{/errors}}
+                 {{#messages}}
+                        <div class="alert alert-success">{{.}}</div>
+                 {{/messages}}
 		</div>
 	</div>
 	<div class="row">
@@ -21,53 +27,14 @@
 				<div>
 					<div class="the-timeline">
 						<form role="form" class="post-to-timeline">
-							<textarea class="form-control" style="height: 50px;" placeholder="{{content.postSomething}}"></textarea>
-							<p class="text-right"><button type="submit" class="btn btn-default">{{content.post}}</button></p>
+							<textarea class="form-control" maxlength="140" style="height: 50px;" placeholder="{{content.postSomething}}" name="comment"></textarea>
+							<p class="text-right"><button type="submit" class="btn btn-default" id="comment-submit">{{content.post}}</button></p>
 						</form>
 						
 						<ul>
-							<li>
-								<div class="the-date">
-									<span>01</span>
-									<small>Feb</small>
-								</div>
-								<h4>Lorem ipsum dolor!</h4>
-								<p>
-								Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
-								</p>
-							</li>
-							<li>
-								<div class="the-date">
-									<span>31</span>
-									<small>Jan</small>
-								</div>
-								<h4>Martin created a new book</h4>
-								
-								<p>
-								Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
-								</p>
-							</li>
-							<li>
-								<div class="the-date">
-									<span>25</span>
-									<small>Jan</small>
-								</div>
-								<h4>Martin successfully placed a chapter in book xyz</h4>
-								
-								<p>
-								Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
-								</p>
-							</li>
-							<li>
-								<div class="the-date">
-									<span>20</span>
-									<small>Des</small>
-								</div>
-								<p>
-								Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
-								</p>
-							</li>
+							
 						</ul>
+						<div class="pre-loader"></div>
 					</div>
 				</div>
 			</div>
@@ -122,3 +89,23 @@
 				</div>
 			</div>
 		</div>
+
+<div class="modal fade" id="profile-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Profile Image Uploader</h4>
+      </div>
+      <div class="modal-body">
+      <form method="post" enctype="multipart/form-data" id="profile-image-form"> 
+       <input type="file" name="image" id="image-input">
+      </div>
+      <div class="image-loader"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" id="profile-image-form-btn">Upload</button>
+      </div>
+      </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

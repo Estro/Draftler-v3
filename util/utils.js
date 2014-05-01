@@ -20,7 +20,6 @@ function getRandomInt(min, max) {
 }
 
 
-
 // compose HTML for signup confirmation email. 
 exports.composeConfimrationEmail = function(id, token, name) {
     var link = 'localhost/3000/emailconfirmation/' + id + '/' + token;
@@ -34,6 +33,21 @@ exports.composeConfimrationEmail = function(id, token, name) {
         alternative: true
     }];
 }
+
+// compose HTML for signup confirmation email. 
+exports.composePasswordResetEmail = function(id, token, name) {
+    var link = 'localhost/3000/resetpassword/' + id + '/' + token;
+    var html = "<html><body>";
+    html += "Hi " + name + ",<br><br>";
+    html += "<a href='" + link + "'>password reset</a><br><br>";
+    html += "Cheers,<br>";
+    html += "</body></html>";
+    return [{
+        data: html,
+        alternative: true
+    }];
+}
+
 
 // User activity wall messagesId to message function - doing this way for future translations. Better way?
 exports.activityMessage = function(messageID, username, references) {

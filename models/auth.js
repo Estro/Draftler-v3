@@ -1,16 +1,23 @@
 //var Bookshelf = require('bookshelf').mysqlAuth;
 
 var config = require('../config.js'),
-    Bookshelf = require('bookshelf');
+    Bookshelf = require('bookshelf'),
+    knex = require('knex');
 
 Bookshelf.mysqlAuth = Bookshelf.initialize(
     config.development.db
 );
 
+knex.mysqlAuth = knex.initialize(
+ config.development.db
+);
+
+Bookshelf = Bookshelf.mysqlAuth;
+
 module.exports = function() {
     var bookshelf = {};
 
-    Bookshelf = Bookshelf.mysqlAuth;
+    bookshelf.knex = knex.mysqlAuth;
     // Users table
     bookshelf.ApiUser = Bookshelf.Model.extend({
         tableName: 'users',
@@ -30,6 +37,11 @@ module.exports = function() {
         followers: function() {
             return this.hasMany(bookshelf.follower, 'follows_id').query(function(qb) {
                 qb.limit(10);
+            });
+        },
+        activity: function (){
+            return this.hasMany(bookshelf.activity).query(function (qb){
+                qb.limit(20).orderBy('completedAt','DESC');
             });
         }
     });
@@ -62,6 +74,11 @@ module.exports = function() {
 
     bookshelf.activities = Bookshelf.Collection.extend({
         model: bookshelf.activity
+    });
+
+    bookshelf.passwords = Bookshelf.Model.extend({
+        tableName: 'password_resets',
+        hasTimestamps: ['createdAt', 'updatedAt']
     });
 
     return bookshelf;

@@ -50,7 +50,13 @@ exports.login = {
         loginLink: "No worrys, <a href='/login'>Click Here</a> to login",
         resendEmail: "Resent Confirmation Email",
         emailExpired: "Your confirmation email has expired.",
-        sendConfirmation: "Send new Confirmation email"
+        sendConfirmation: "Send new Confirmation email",
+        newPasswordSent: "Password Reset",
+        checkEmail: "Please check your email for further instructions",
+        resetPassword: "Reset Password",
+        update: "Update",
+        continue: "continue",
+        passwordExpired: "Your password reset has expired."
 
     },
     messages: {
@@ -60,7 +66,8 @@ exports.login = {
         registrationSuccessful: "Your email has not been confirmed. Please check your email or <a href='/resend'>request a new confirmation email</a>",
         incorrectDetails: "Oops, have you entered the correct details?",
         loggedOut: "You are now logged out",
-        emailResent: "A new confirmation is on its way!"
+        emailResent: "A new confirmation is on its way!",
+        passwordChanged: "Your password has been updated"
     }
 }
 
@@ -81,7 +88,15 @@ exports.profile = {
         following: "Following",
         noFollowing: "Not following anyone yet",
         books: "books",
-        authors: "Authors"
+        authors: "Authors",
+        changePassword: "Change Password",
+        update: "Update",
+        password: "Password",
+        retypePassword: "Re-type Password"
+    },
+    messages: {
+        failedPassword: "Your passwords did not match.",
+        passwordChanged: "Your password has been updated"
     }
 
 }
@@ -125,8 +140,31 @@ exports.admin = {
     },
     messages: {
         profileUpdated: "Profile successfully updated",
-        updateFailed: "Unable to update the user profile"
+        updateFailed: "Unable to update the user profile",
+        cantGetUsers: "Unable to get users."
     }
+}
+
+exports.editProfile = {
+    ui: {
+        editProfile: "Edit Profile",
+        myDetails: "Basic Details",
+        username: "Username",
+        firstName: "First Name",
+        surname: "Surname",
+        email: "Email",
+        city: "City",
+        country: "Country",
+        myBio: "Bio",
+        shortBio: "Short Bio",
+        changePassword: "Change Password",
+        saveChanges: "Save Changes"
+    },
+    messages: {
+        profileUpdated: "Profile successfully updated",
+        updateFailed: "Unable to update your profile. Please try again"
+    }
+
 }
 
 // USer activiy wall messagess

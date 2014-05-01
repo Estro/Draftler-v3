@@ -6,6 +6,12 @@
 		<div class="row">
 			<div class="col-md-12">
 					<h2>{{content.manageUsers}}</h2>
+				{{#errors}}
+                        <div class="alert alert-danger">{{.}}</div>
+                 {{/errors}}
+                 {{#messages}}
+                        <div class="alert alert-success">{{.}}</div>
+                 {{/messages}}
 			</div>
 		</div>
 				<div class="row">
@@ -71,6 +77,13 @@
 			  {{/attributes}}
 			  {{/models}}
 			</table>
+			<ul class="pager">
+			{{#lastPage}}
+  <li><a href="{{lastPage}}">Previous</a></li>
+  {{/lastPage}}{{#nextPage}}
+  <li><a href="{{nextPage}}">Next</a></li>
+  {{/nextPage}}
+</ul>
 			</div>
 
 

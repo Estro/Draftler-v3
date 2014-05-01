@@ -5,9 +5,8 @@ var crypto = require('crypto'),
     content = require('../content/english'),
     jobs = require('../queues/kue');
 
-
-
-
+// Route: register
+// Render signup form
 exports.registerPage = function(req, res) {
     res.render('login/register', {
         messages: req.flash('error'),
@@ -15,17 +14,10 @@ exports.registerPage = function(req, res) {
         content: content.login.ui,
         frame: content.frame.ui
     });
-}
+};
 
-exports.forgotten = function(req, res) {
-    res.render('login/forgotten', {
-        frame: content.frame.ui,
-        content: content.login.ui
-    });
-
-}
-
-
+// route: POST register
+// Validate and save user sign in details.
 exports.registerPost = function(req, res) {
     // get all field values
     var vpw = req.body.vpw,
@@ -67,12 +59,13 @@ exports.registerPost = function(req, res) {
 
             // once complete, save row in email confirmation table
             new data.emailConfirmations({
-                userId: model.attributes.id,
-                hash: hashgen
+                user_id: model.attributes.id,
+                token: hashgen,
+                user_ip: req.ip
             }).save().then(function(data) {
 
                 //Send email via kue
-                jobs.sendSignUpEmail(un, email, data.attributes.hash, data.attributes.userId);
+                jobs.sendSignUpEmail(un, email, data.attributes.token, data.attributes.user_id);
 
                 // Log user join draftler to activity feed via kue
                 jobs.userActivity(1, model.attributes.id, null);
@@ -94,20 +87,23 @@ exports.registerPost = function(req, res) {
             req.flash('error', content.login.messages.alreadyRegistered);
             res.redirect('/register');
         });
-}
+};
 
-
+// route: login
+// Render login form
 exports.loginPage = function(req, res) {
     // render login page.
     res.render('login/login', {
         messages: req.flash('error'),
+        info: req.flash('info'),
         username: req.flash('username'),
         frame: content.frame.ui,
         content: content.login.ui
     });
-}
+};
 
-
+// route: login
+// Render POST login
 exports.checkLogin = function(req, res, next) {
     // really need to understand how this works!
     passport.authenticate('local', function(err, user, info) {
@@ -128,17 +124,13 @@ exports.checkLogin = function(req, res, next) {
             return;
         });
     })(req, res, next);
-}
+};
 
-
+// route: resendemail/:id
+// render resend email from
 exports.resendEmailPage = function(req, res) {
     // get UserID and token from query 
     var userID = req.params.id;
-
-    if (isNaN(userID)) {
-        res.send(404);
-        return;
-    }
 
     res.render('login/resend-confirmation', {
         user: userID,
@@ -146,29 +138,26 @@ exports.resendEmailPage = function(req, res) {
         content: content.login.ui
     });
 
-}
+};
 
+// route: POST resendemail/:id
+// validate and trigger confirmation email
 exports.resendEmail = function(req, res) {
-    var userID = req.params.id;
+    var userId = req.params.id;
 
-    if (isNaN(userID)) {
-        res.send(404);
-        return;
-    }
-
-    new data.ApiUser('id', userID).fetch().then(function(data) {
+    new data.ApiUser('id', userId).fetch().then(function(data) {
         userId = data.attributes.id,
         email = data.attributes.email,
         username = data.attributes.username,
         hashgen = utils.generateToken(30);
 
         new data.emailConfirmations({
-            userId: userId,
-            hash: hashgen
+            user_id: userId,
+            token: hashgen,
+            user_ip: req.ip
         }).save().then(function(data) {
-            // Send email confirmation. Need to move to a queue job?
             //Send email via kue
-            jobs.sendSignUpEmail(username, email, data.attributes.hash, data.attributes.userId);
+            jobs.sendSignUpEmail(username, email, data.attributes.token, data.attributes.user_id);
 
             req.flash('info', content.login.messages.messageResent);
             res.redirect('/');
@@ -179,56 +168,73 @@ exports.resendEmail = function(req, res) {
         res.redirect('/');
     });
 
-}
+};
 
+
+// route: emailconfirmation/:id/:token
+// validate and update user to confirmed
 exports.confirmEmail = function(req, res) {
     // get UserID and token from query 
-    var userID = req.params.id,
+    var userId = req.params.id,
         token = req.params.token;
 
-    if (isNaN(userID)) {
-        res.send(404);
-        return;
-    }
-
     new data.emailConfirmations({
-        hash: token,
-        userID: userID
-    }).save({
-        isUsed: 1
-    }).then(function(userConfirmation) {
+        token: token,
+        user_id: userId
+    }).fetch().then(function(item) {
+        if (item) {
+            var itemId = item.attributes.id,
+                isUsed = item.attributes.isUsed;
 
-        var created = userConfirmation.attributes.updatedAt,
-            validToDate = new Date();
-        validToDate.setDate(validToDate.getDate() - 3);
+            if (!isUsed) {
 
-        if (validToDate > created) {
-            // Ite's been to long!
-            res.redirect('login/resend-confirmation/' + userID);
-        } else {
-            // still valid
-            if (userConfirmation) {
-                new data.ApiUser({
-                    id: userID
+                new data.emailConfirmations({
+                    id: itemId
                 }).save({
-                    'email_confirmed': 1
-                }).then(function(data) {
-                    res.redirect('/');
-                    return;
-                }, function(ee) {
-                    res.redirect('login/resend-confirmation/' + userID);
+                    isUsed: 1,
+                    user_ip: req.ip
+                }).then(function(userConfirmation) {
+
+                    var created = userConfirmation.attributes.createdAt,
+                        validToDate = new Date();
+                    validToDate.setDate(validToDate.getDate() - 3);
+
+                    if (validToDate > created) {
+                        // Ite's been to long!
+                        res.redirect('/resendemail/' + userID);
+                    } else {
+                        // still valid
+                        if (userConfirmation) {
+
+                            new data.ApiUser({
+                                id: userId
+                            }).save({
+                                'email_confirmed': 1
+                            }).then(function(data) {
+                                res.redirect('/');
+                                return;
+                            }, function(ee) {
+                                res.redirect('/resendemail/' + userID);
+                            });
+                        }
+                    }
+                }, function(err) {
+                    res.redirect('/resendemail/' + userID);
                 });
+
+            } else {
+                res.redirect('/resendemail/' + userID);
             }
         }
     }, function(err) {
-        res.redirect('login/resend-confirmation/' + userID);
+        res.redirect('/resendemail/' + userID);
     });
 
-}
+};
 
-
+// log user out.
 exports.logout = function(req, res) {
     req.logout();
     req.flash('info', content.login.messages.loggedOut);
     res.redirect('/');
-}
+};

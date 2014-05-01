@@ -6,9 +6,9 @@ module.exports = function(Knex) {
         config.development.db
     );
 
-    // Bookshelf.Knex = Knex.initialize(
-    //     config.development.db
-    // );
+    Bookshelf.Knex = Knex.initialize(
+        config.development.db
+    );
 
 
 }

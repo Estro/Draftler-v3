@@ -16,7 +16,26 @@ jobs.process('signup-email', 20, function(job, done) {
         to: job.data.emailAddress,
         subject: 'Email Confirmation',
         text: 'Confirm Email',
-        attachment: utils.composeConfimrationEmail(job.data.userId, job.data.emailAddress.hash, job.data.username)
+        attachment: utils.composeConfimrationEmail(job.data.user_id, job.data.token, job.data.username)
+    }, function(err, message) {
+        if (message) {
+            done();
+        } else {
+            done(err);
+        }
+
+    });
+});
+
+
+
+jobs.process('password-reset-email', 20, function(job, done) {
+    mailServer.send({
+        from: 'martpomeroy@gmail.com',
+        to: job.data.emailAddress,
+        subject: 'Email Confirmation',
+        text: 'Confirm Email',
+        attachment: utils.composePasswordResetEmail(job.data.user_id, job.data.token, job.data.username)
     }, function(err, message) {
         if (message) {
             done();

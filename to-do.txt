@@ -2,16 +2,23 @@ Login:
 
 - Rememeber Me
 - Username Check
+- Password Attempts
+- Form validations
 
 
 Profile:
 
 - Login Status
+- Edit Profile
+- Image Errors
+- Privicy settings
+- Chapters
+- Followers/Following all pages
+
 
 
 Admin:
 
-- User list paging
 - User search
 
 

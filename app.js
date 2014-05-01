@@ -16,12 +16,14 @@ var config = require('./config.js'),
     Knex = require('knex'),
     app = express(),
     email = require('emailjs/email'),
-    kue = require('./queues/kue');
+    kue = require('./queues/kue'),
+    cloudinary = require('cloudinary');
+
 
 
 app.use(flash());
 app.use(express.cookieParser());
-app.use(express.bodyParser());
+app.use(express.bodyParser({keepExtensions: true, uploadDir: __dirname + "/public/uploads" }));
 app.use(expressValidator());
 app.use(express.session({
     secret: 'keyboard cat'
@@ -41,6 +43,7 @@ app.set('view engine', 'mustache');
 
 
 //require('./util/bookshelf')(Bookshelf, Knex);
+require('./util/cloudinary')(cloudinary);
 require('./util/email')(email);
 require('./util/auth')(passport);
 require('./routes')(app, passport);

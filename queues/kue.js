@@ -7,8 +7,17 @@ exports.sendSignUpEmail = function(un, email, hash, userid) {
     jobs.create('signup-email', {
         username: un,
         emailAddress: email,
-        hash: hash,
-        userId: userid
+        token: hash,
+        user_id: userid
+    }).priority('high').save();
+}
+
+exports.sendPasswordReset = function(un, email, hash, userid) {
+    jobs.create('password-reset-email', {
+        username: un,
+        emailAddress: email,
+        token: hash,
+        user_id: userid
     }).priority('high').save();
 }
 

@@ -28,7 +28,8 @@
         "bookshelf": "latest",
         "underscore": "latest",
         "moment": "latest",
-        "knex": "latest"
+        "knex": "latest",
+        "cloudinary": "latest"
     },
     "devDependencies": {
         "grunt": "~0.4.1",
