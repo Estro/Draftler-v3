@@ -20,15 +20,15 @@
 				<div class="col-md-6">
 					<div class="textbox-wrap">
 						<div class="input-group">
-							<span class="input-group-addon">{{content.userID}}</span>
+							<span class="input-group-addon">{{content.userId}}</span>
 							<input type="text" name="id" class="form-control" placeholder="User ID" value="{{id}}" disabled>
-							<input type="text" style="display:none" name="userid" class="form-control" placeholder="{{content.userID}}" value="{{id}}">
+							<input type="text" style="display:none" name="userId" class="form-control" placeholder="{{content.userId}}" value="{{id}}">
 						</div>
 					</div>
 					<div class="textbox-wrap">
 						<div class="input-group">
 							<span class="input-group-addon">{{content.username}}</span>
-							<input type="text" name="username" class="form-control" placeholder="{{content.username}}" value="{{username}}">
+							<input type="text" name="username" class="form-control" placeholder="{{content.username}}" value="{{username}}" data-validate-ajax="username">
 						</div>
 					</div>
 					<div class="textbox-wrap">
@@ -46,7 +46,7 @@
 					<div class="textbox-wrap">
 						<div class="input-group">
 							<span class="input-group-addon">{{content.email}}</span>
-							<input type="text" name="email" class="form-control" placeholder="{{content.email}}" value="{{email}}">
+							<input type="text" name="email" class="form-control" placeholder="{{content.email}}" value="{{email}}" data-validate="email">
 						</div>
 					</div>
 				</div>
@@ -104,46 +104,46 @@
 					</div>
 					<div class="textbox-wrap">
 						<div class="input-group">
-							{{#isActive}}
+							{{#is_active}}
 							<label><input name="active" type="checkbox" checked> {{content.active}}</label>
-							{{/isActive}}
-							{{^isActive}}
+							{{/is_active}}
+							{{^is_active}}
 							<label><input name="active" type="checkbox"> {{content.active}}</label>
-							{{/isActive}}
+							{{/is_active}}
 						</div>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="textbox-wrap">
 						<div class="input-group">
-							{{#isBanned}}
+							{{#is_banned}}
 							<label><input name="banned" type="checkbox" checked> {{content.banned}}</label>
-							{{/isBanned}}
-							{{^isBanned}}
+							{{/is_banned}}
+							{{^is_banned}}
 							<label><input name="banned" type="checkbox"> {{content.banned}}</label>
-							{{/isBanned}}
+							{{/is_banned}}
 						</div>
 					</div>
 					<div class="textbox-wrap">
 						<div class="input-group">
-							{{#isVerified}}
+							{{#is_verified}}
 							<label><input name="verified" type="checkbox" checked> {{content.verified}}</label>
-							{{/isVerified}}
-							{{^isVerified}}
+							{{/is_verified}}
+							{{^is_verified}}
 							<label><input name="verified" type="checkbox"> {{content.verified}}</label>
-							{{/isVerified}}
+							{{/is_verified}}
 						</div>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="textbox-wrap">
 						<div class="input-group">
-							{{#isAdmin}}
+							{{#is_Admin}}
 							<label><input name="admin" type="checkbox" checked> {{content.admin}}</label>
-							{{/isAdmin}}
-							{{^isAdmin}}
+							{{/is_Admin}}
+							{{^is_Admin}}
 							<label><input name="admin" type="checkbox"> {{content.admin}}</label>
-							{{/isAdmin}}
+							{{/is_Admin}}
 						</div>
 					</div>
 				</div>

@@ -11,7 +11,7 @@ var crypto = require('crypto'),
 
 
         passport.deserializeUser(function(user_id, done) {
-            new data.ApiUser({
+            new data.user({
                 id: user_id
             }).fetch().then(function(user) {
                 return done(null, user);
@@ -25,7 +25,7 @@ var crypto = require('crypto'),
             usernameField: 'email',
             passwordField: 'pw'
         }, function(email, password, done) {
-            new data.ApiUser({
+            new data.user({
                 email: email
             }).fetch({
                 require: true

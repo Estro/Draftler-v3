@@ -1,8 +1,9 @@
 (function(LOGIN) {
     "use strict";
 
+
     LOGIN.forms = {
-        events: function() {
+        validationLogOnForm: function() {
             // $('#input-login-username').keyup(function() {
             //     var value = $(this).val();
             //     if (value.length > 4) {
@@ -37,12 +38,8 @@
 
 })(window.LOGIN = window.LOGIN || {});
 
-function validateRegisterForm() {
+$(document).ready(function() {
 
-    return true;
 
-    //fa-check fa-frown-o  fa-smile-o
 
-}
-
-LOGIN.forms.events();
+});

@@ -3,7 +3,8 @@ var crypto = require('crypto'),
     data = require('../models/auth')(),
     utils = require('../util/utils'),
     content = require('../content/english'),
-    jobs = require('../queues/kue');
+    jobs = require('../queues/kue'),
+    sanitizer = require('sanitizer');
 
 // Route: register
 // Render signup form
@@ -12,7 +13,8 @@ exports.registerPage = function(req, res) {
         messages: req.flash('error'),
         username: req.flash('username'),
         content: content.login.ui,
-        frame: content.frame.ui
+        frame: content.frame.ui,
+        validation: content.validation
     });
 };
 
@@ -20,11 +22,17 @@ exports.registerPage = function(req, res) {
 // Validate and save user sign in details.
 exports.registerPost = function(req, res) {
     // get all field values
-    var vpw = req.body.vpw,
-        pwu = req.body.pw,
-        un = req.body.un,
-        email = req.body.email,
+    var vpw = sanitizer.sanitize(req.body.vpw),
+        pwu = sanitizer.sanitize(req.body.pw),
+        un = sanitizer.sanitize(req.body.un),
+        email = sanitizer.sanitize(req.body.email),
         hashgen = utils.generateToken(30);
+
+    // check for empties 
+    if (!vpw.length || !pwu.length || !un.length || !email.length) {
+        req.flash('error', content.login.messages.missingField);
+        res.redirect('/register');
+    }
 
     // validate passwords in case of cheaters
     if (vpw !== pwu) {
@@ -48,45 +56,56 @@ exports.registerPost = function(req, res) {
         pw = crypto.createHmac('sha1', new_salt).update(pwu).digest('hex'),
         created = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
-    // first save user in users table
-    new data.ApiUser({
-        username: un,
-        email: email,
-        password: pw,
-        salt: new_salt,
-        user_ip: req.ip
-    }).save().then(function(model) {
-
-            // once complete, save row in email confirmation table
-            new data.emailConfirmations({
-                user_id: model.attributes.id,
-                token: hashgen,
+    new data.user({
+        username: un
+    }).fetch().then(function(result) {
+        if (result) {
+            req.flash('error', content.login.messages.usernameTaken);
+            res.redirect('/register');
+        } else {
+            // first save user in users table
+            new data.user({
+                username: un,
+                email: email,
+                password: pw,
+                salt: new_salt,
                 user_ip: req.ip
-            }).save().then(function(data) {
+            }).save().then(function(model) {
 
-                //Send email via kue
-                jobs.sendSignUpEmail(un, email, data.attributes.token, data.attributes.user_id);
+                    // once complete, save row in email confirmation table
+                    new data.emailConfirmations({
+                        user_id: model.attributes.id,
+                        token: hashgen,
+                        user_ip: req.ip
+                    }).save().then(function(data) {
 
-                // Log user join draftler to activity feed via kue
-                jobs.userActivity(1, model.attributes.id, null);
+                        //Send email via kue
+                        jobs.sendSignUpEmail(un, email, data.attributes.token, data.attributes.user_id);
+
+                        // Log user join draftler to activity feed via kue
+                        jobs.userActivity(1, model.attributes.id, null);
 
 
-                // all complete, redirect to homepage after authenicating 
-                passport.authenticate('local')(req, res, function() {
-                    res.redirect('/');
-                }, function() {
+                        // all complete, redirect to homepage after authenicating 
+                        passport.authenticate('local')(req, res, function() {
+                            res.redirect('/');
+                        }, function() {
+                            req.flash('error', content.login.messages.alreadyRegistered);
+                            res.redirect('/register');
+
+                        })
+
+                    });
+                },
+                function(err) {
+                    // this seems wrong, but seems to error when email has already been taken
                     req.flash('error', content.login.messages.alreadyRegistered);
                     res.redirect('/register');
-
-                })
-
-            });
-        },
-        function(err) {
-            // this seems wrong, but seems to error when email has already been taken
-            req.flash('error', content.login.messages.alreadyRegistered);
-            res.redirect('/register');
-        });
+                });
+        }
+    }, function(err) {
+        res.redirect('/register');
+    });
 };
 
 // route: login
@@ -98,7 +117,8 @@ exports.loginPage = function(req, res) {
         info: req.flash('info'),
         username: req.flash('username'),
         frame: content.frame.ui,
-        content: content.login.ui
+        content: content.login.ui,
+        validation: content.validation
     });
 };
 
@@ -129,106 +149,115 @@ exports.checkLogin = function(req, res, next) {
 // route: resendemail/:id
 // render resend email from
 exports.resendEmailPage = function(req, res) {
-    // get UserID and token from query 
-    var userID = req.params.id;
-
-    res.render('login/resend-confirmation', {
-        user: userID,
-        frame: content.frame.ui,
-        content: content.login.ui
-    });
-
+    // get userId and token from query 
+    var userId = utils.cleanNum(req.params.id);
+    if (userId) {
+        res.render('login/resend-confirmation', {
+            user: userId,
+            frame: content.frame.ui,
+            content: content.login.ui
+        });
+    } else {
+        res.redirect('/');
+    }
 };
 
 // route: POST resendemail/:id
 // validate and trigger confirmation email
 exports.resendEmail = function(req, res) {
-    var userId = req.params.id;
+    var userId = utils.cleanNum(req.params.id);
 
-    new data.ApiUser('id', userId).fetch().then(function(data) {
-        userId = data.attributes.id,
-        email = data.attributes.email,
-        username = data.attributes.username,
-        hashgen = utils.generateToken(30);
+    if (userId) {
+        new data.user('id', userId).fetch().then(function(data) {
+            userId = data.attributes.id,
+            email = data.attributes.email,
+            username = data.attributes.username,
+            hashgen = utils.generateToken(30);
 
-        new data.emailConfirmations({
-            user_id: userId,
-            token: hashgen,
-            user_ip: req.ip
-        }).save().then(function(data) {
-            //Send email via kue
-            jobs.sendSignUpEmail(username, email, data.attributes.token, data.attributes.user_id);
+            new data.emailConfirmations({
+                user_id: userId,
+                token: hashgen,
+                user_ip: req.ip
+            }).save().then(function(data) {
+                //Send email via kue
+                jobs.sendSignUpEmail(username, email, data.attributes.token, data.attributes.user_id);
 
-            req.flash('info', content.login.messages.messageResent);
+                req.flash('info', content.login.messages.messageResent);
+                res.redirect('/');
+            });
+        }, function() {
+            // Error
+            req.flash('error', content.login.messages.messageResentError);
             res.redirect('/');
         });
-    }, function() {
-        // Error
-        req.flash('error', content.login.messages.messageResentError);
+    } else {
         res.redirect('/');
-    });
-
+    }
 };
 
 
 // route: emailconfirmation/:id/:token
 // validate and update user to confirmed
 exports.confirmEmail = function(req, res) {
-    // get UserID and token from query 
-    var userId = req.params.id,
-        token = req.params.token;
+    // get userId and token from query 
+    var userId = utils.cleanNum(req.params.id),
+        token = sanitizer.sanitize(req.params.token);
 
-    new data.emailConfirmations({
-        token: token,
-        user_id: userId
-    }).fetch().then(function(item) {
-        if (item) {
-            var itemId = item.attributes.id,
-                isUsed = item.attributes.isUsed;
+    if (userId && token.length) {
+        new data.emailConfirmations({
+            token: token,
+            user_id: userId
+        }).fetch().then(function(item) {
+            if (item) {
+                var itemId = item.attributes.id,
+                    is_used = item.attributes.is_used;
 
-            if (!isUsed) {
+                if (!is_used) {
 
-                new data.emailConfirmations({
-                    id: itemId
-                }).save({
-                    isUsed: 1,
-                    user_ip: req.ip
-                }).then(function(userConfirmation) {
+                    new data.emailConfirmations({
+                        id: itemId
+                    }).save({
+                        is_used: 1,
+                        user_ip: req.ip
+                    }).then(function(userConfirmation) {
 
-                    var created = userConfirmation.attributes.createdAt,
-                        validToDate = new Date();
-                    validToDate.setDate(validToDate.getDate() - 3);
+                        var created = userConfirmation.attributes.created_at,
+                            validToDate = new Date();
+                        validToDate.setDate(validToDate.getDate() - 3);
 
-                    if (validToDate > created) {
-                        // Ite's been to long!
-                        res.redirect('/resendemail/' + userID);
-                    } else {
-                        // still valid
-                        if (userConfirmation) {
+                        if (validToDate > created) {
+                            // Ite's been to long!
+                            res.redirect('/resendemail/' + userId);
+                        } else {
+                            // still valid
+                            if (userConfirmation) {
 
-                            new data.ApiUser({
-                                id: userId
-                            }).save({
-                                'email_confirmed': 1
-                            }).then(function(data) {
-                                res.redirect('/');
-                                return;
-                            }, function(ee) {
-                                res.redirect('/resendemail/' + userID);
-                            });
+                                new data.user({
+                                    id: userId
+                                }).save({
+                                    'email_confirmed': 1
+                                }).then(function(data) {
+                                    res.redirect('/');
+                                    return;
+                                }, function(ee) {
+                                    res.redirect('/resendemail/' + userId);
+                                });
+                            }
                         }
-                    }
-                }, function(err) {
-                    res.redirect('/resendemail/' + userID);
-                });
+                    }, function(err) {
+                        res.redirect('/resendemail/' + userId);
+                    });
 
-            } else {
-                res.redirect('/resendemail/' + userID);
+                } else {
+                    res.redirect('/resendemail/' + userId);
+                }
             }
-        }
-    }, function(err) {
-        res.redirect('/resendemail/' + userID);
-    });
+        }, function(err) {
+            res.redirect('/resendemail/' + userId);
+        });
+    } else {
+        res.redirect('/');
+    }
 
 };
 

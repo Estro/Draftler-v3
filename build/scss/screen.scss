@@ -50,7 +50,7 @@
 // Utility classes
 @import "defaults/utilities"; // Has to be last to override when necessary
 @import "defaults/responsive-utilities"; 
-
+@import "elements/pace"; 
 @import "elements/frame.scss"; 
 @import "elements/topbar"; 
 @import "elements/lefthandbar"; 

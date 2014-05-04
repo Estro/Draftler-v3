@@ -2,9 +2,9 @@
     "use strict";
 
     PROFILE.setFollow = function() {
-        var userid = $('.user-profile-dashboard').data('userid');
-        if (userid) {
-            $.get('/api/followstatus/' + userid, function(data) {
+        var userId = $('.user-profile-dashboard').data('userId');
+        if (userId) {
+            $.get('/api/followstatus/' + userId, function(data) {
                 if (data && data.status) {
                     if (data.status === "Not following") {
                         $('.user-actions a').text('Follow');
@@ -18,12 +18,12 @@
                 e.preventDefault();
                 var text = $(this).text();
                 if (text === 'Follow') {
-                    $.post('/api/follow/' + userid, function(data) {
+                    $.post('/api/follow/' + userId, function(data) {
                         $('.user-actions a').text('Un-Follow');
                     });
 
                 } else {
-                    $.post('/api/unfollow/' + userid, function(data) {
+                    $.post('/api/unfollow/' + userId, function(data) {
                         $('.user-actions a').text('Follow');
                     });
                 }
@@ -33,11 +33,11 @@
 
 
     PROFILE.getActivity = function() {
-        var userid = $('.user-profile-dashboard').data('userid'),
+        var userId = $('.user-profile-dashboard').data('userId'),
             url, html, username, template = '{{#.}}<li><div class="the-date"><span>{{day}}</span><small>{{month}}</small></div>{{{title}}}</li>{{/.}}';
 
-        if (userid) {
-            url = '/api/getuseractivity/' + userid;
+        if (userId) {
+            url = '/api/getuseractivity/' + userId;
             $.getJSON(url, function(data) {
                 if (data.length) {
                     $.each(data, function(index, value) {
@@ -105,8 +105,9 @@
         var didScroll = false,
             url, page = 1,
             html, incompleted = true,
-            userid = $('.user-profile-dashboard').data('userid'),
-            template = '{{#.}}<li><div class="the-date"><span>{{day}}</span><small>{{month}}</small></div>{{{title}}}</li>{{/.}}';
+            userId = $('.user-profile-dashboard').data('userId'),
+            template = '{{#.}}<li><div class="the-date"><span>{{day}}</span><small>{{month}}</small></div>{{{title}}}</li>{{/.}}',
+            atRest = true;
 
         $(window).scroll(function() {
             didScroll = true;
@@ -116,31 +117,35 @@
             if (didScroll && incompleted) {
                 didScroll = false;
                 if ($(window).scrollTop() + $(window).height() > $(document).height() - 50) {
-                    url = '/api/getuseractivity/' + userid + '/' + page;
+                    url = '/api/getuseractivity/' + userId + '/' + page;
                     $('.the-timeline .pre-loader').show();
-                    $.getJSON(url, function(data) {
-                        page++;
-                        if (data.length) {
-                            $.each(data, function(index, value) {
-                                value.day = moment(value.completedAt).format('DD');
-                                value.month = moment(value.completedAt).format('MMM');
+                    if (atRest) {
+                        atRest = false;
+                        $.getJSON(url, function(data) {
+                            page++;
+                            if (data.length) {
+                                $.each(data, function(index, value) {
+                                    value.day = moment(value.completedAt).format('DD');
+                                    value.month = moment(value.completedAt).format('MMM');
 
-                                if (value.message_id == 10) {
-                                    value.title = '<h4>' + value.message + '</h4>';
-                                } else {
-                                    value.title = '<h4>' + value.message + '</h4>';
-                                }
+                                    if (value.message_id == 10) {
+                                        value.title = '<h4>' + value.message + '</h4>';
+                                    } else {
+                                        value.title = '<h4>' + value.message + '</h4>';
+                                    }
 
-                            });
+                                });
 
-                            html = Mustache.to_html(template, data);
-                            $('.the-timeline ul').append(html);
-                            $('.the-timeline .pre-loader').hide();
-                        } else {
-                            incompleted = false;
-                            $('.the-timeline .pre-loader').hide();
-                        }
-                    });
+                                html = Mustache.to_html(template, data);
+                                $('.the-timeline ul').append(html);
+                                $('.the-timeline .pre-loader').hide();
+                                atRest = true;
+                            } else {
+                                incompleted = false;
+                                $('.the-timeline .pre-loader').hide();
+                            }
+                        });
+                    }
                 }
 
             }

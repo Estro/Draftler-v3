@@ -1,19 +1,22 @@
-<div class="user-profile-dashboard" data-userid="{{user.id}}">
+<div class="user-profile-dashboard" data-userId="{{user.id}}">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="user-header">
-				<span><i class="fa fa-location-arrow"></i> {{^user.city}}{{content.noCity}}{{/user.city}}{{user.city}}, {{^user.country}}{{content.noCountry}}{{/user.country}}{{user.country}}</span>
-				<span><i class="fa fa-pencil-square-o"></i>  {{user.points}} {{content.publisherPoints}}</span>
-				<span><i class="fa fa-users"></i> {{followers}} {{content.followers}}</span>
-				<span><i class="fa fa-book"></i> 9 {{content.chapters}}</span>
-				<a class="btn btn-default pull-right" href="/editprofile">{{content.editProfile}}</a>
-			</div>
+						    {{^confirmed}}
+                        <div class="alert alert-info">{{{content.notConfirmed}}}</div>
+                        {{/confirmed}}
 			 {{#errors}}
                         <div class="alert alert-danger">{{.}}</div>
                  {{/errors}}
                  {{#messages}}
                         <div class="alert alert-success">{{.}}</div>
                  {{/messages}}
+			<div class="user-header">
+				<span><i class="fa fa-location-arrow"></i> {{^user.city}}{{content.noCity}}{{/user.city}}{{user.city}}, {{^user.country}}{{content.noCountry}}{{/user.country}}{{user.country}}</span>
+				<span><i class="fa fa-pencil-square-o"></i>  {{user.points}} {{content.publisherPoints}}</span>
+				<span><i class="fa fa-users"></i> {{followers}} {{content.followers}}</span>
+				<a class="btn btn-default pull-right" href="profile/editprofile">{{content.editProfile}}</a>
+			</div>
+
 		</div>
 	</div>
 	<div class="row">

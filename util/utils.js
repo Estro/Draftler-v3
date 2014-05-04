@@ -14,6 +14,14 @@ exports.generateToken = function(len) {
 };
 
 
+exports.cleanNum = function(input) {
+    if (isNaN(input)) {
+        return false;
+    } else {
+        return input;
+    }
+}
+
 // create random hash
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;

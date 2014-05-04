@@ -53,7 +53,7 @@ jobs.process('user-activity', 20, function(job, done) {
         user_id: job.data.userId,
         message_id: job.data.messageId,
         references: job.data.references,
-        completedAt: job.data.created
+        completed_at: job.data.created
     }).save().then(function(model) {
         done();
     }, function(err) {

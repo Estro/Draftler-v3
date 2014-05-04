@@ -33,9 +33,9 @@ module.exports = function(app, passport) {
 
     //Profiles
     app.get('/profile', ensureAuthenticated, profileController.profile);
-    app.get('/profile/:userid', ensureAuthenticated, profileController.userProfile);
-    app.get('/editprofile', ensureAuthenticated, profileController.editProfile);
-    app.post('/editprofile', ensureAuthenticated, profileController.updateProfile);
+    app.get('/profile/user/:userid', ensureAuthenticated, profileController.userProfile);
+    app.get('/profile/editprofile', ensureAuthenticated, profileController.editProfile);
+    app.post('/profile/editprofile', ensureAuthenticated, profileController.updateProfile);
     app.get('/changepassword', ensureAuthenticated, profileController.changePassword);
     app.post('/changepassword', ensureAuthenticated, passwordController.updatePassword);
     
@@ -59,7 +59,7 @@ module.exports = function(app, passport) {
 
     function ensureAuthenticated(req, res, next) {
         // Check user is autenticated and not banned.
-        if (req.isAuthenticated() && req.user.attributes.isBanned == false) {
+        if (req.isAuthenticated() && req.user.attributes.is_banned == false) {
             return next();
         }
         res.redirect('/login');
@@ -67,7 +67,7 @@ module.exports = function(app, passport) {
 
     function ensureAdmin(req, res, next) {
         // check that the user has isAdmin set to true
-        if (req.isAuthenticated() && req.user.attributes.isAdmin == true)
+        if (req.isAuthenticated() && req.user.attributes.is_admin == true)
             return next();
         else
             res.redirect('/');

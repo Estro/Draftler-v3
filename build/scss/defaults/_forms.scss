@@ -2,11 +2,23 @@
 // Forms
 // --------------------------------------------------
 
-
+.error-message{
+  margin-top: 5px;
+margin-bottom: 10px;
+color: #737373;
+display:none;
+}
 // Normalize non-controls
 //
 // Restyle and baseline non-control form elements.
 
+.valid{
+  border:1px solid $brand-success!important;
+}
+
+.invalid{
+  border:1px solid $brand-danger!important;
+}
 fieldset {
   padding: 0;
   margin: 0;

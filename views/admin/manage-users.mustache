@@ -39,23 +39,23 @@
 			  		<td>{{username}}</td>
 			  		<td>{{email}}</td>
 			  		<td class="hidden-sm hidden-xs">
-			  		{{#isActive}}
+			  		{{#is_active}}
 			  		<span class="label label-success">{{content.active}}</span>
-			  		{{/isActive}}
-			  		{{#isBanned}}
+			  		{{/is_active}}
+			  		{{#is_banned}}
 			  		<span class="label label-danger">{{content.banned}}</span>
-			  		{{/isBanned}}
-			  		{{^isActive}}
+			  		{{/is_banned}}
+			  		{{^is_active}}
 			  		<span class="label label-warning">{{content.inActive}}</span>
-			  		{{/isActive}}
+			  		{{/is_active}}
 			  		</td>
 			  		<td class="hidden-sm hidden-xs">
-			  		{{#isAdmin}}
+			  		{{#is_Admin}}
 			  		<span class="label label-primary">{{content.admin}}</span>
-			  		{{/isAdmin}}
-			  		{{^isAdmin}}
+			  		{{/is_Admin}}
+			  		{{^is_Admin}}
 			  		<span class="label label-primary">{{content.user}}</span>
-			  		{{/isAdmin}}
+			  		{{/is_Admin}}
 			  		</td>
 			  		<td class="hidden-sm hidden-xs">
 			  			{{#email_confirmed}}
@@ -66,9 +66,9 @@
 			  		{{/email_confirmed}}
 			  		</td>
 			  		<td class="hidden-sm hidden-xs">
-			  		{{#isVerified}}
+			  		{{#is_verified}}
 			  		<span class="label label-success">{{content.verified}}</span>
-			  		{{/isVerified}}
+			  		{{/is_verified}}
 			  		</td>
 			  		<td class="hidden-sm hidden-xs">{{createdAt}}</td>
 			  		<td class="hidden-sm hidden-xs">{{updatedAt}}</td>

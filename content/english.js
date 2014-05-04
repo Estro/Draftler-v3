@@ -1,5 +1,14 @@
 // Main masterpage and navigation
 
+exports.validation = {
+    email: "You must enter a valid email address",
+    completeField: "Please complete this field",
+    usernameTaken: "That publisher name is already taken",
+    password: "Passwords much contain at least 7 charactors that use a mixture of both upper and lowercase",
+    passwordMatch: "Your passwords do not match"
+
+}
+
 exports.frame = {
     ui: {
         signUp: "Sign Up",
@@ -38,7 +47,7 @@ exports.login = {
         emailAddress: "Email Address",
         password: "Password",
         retypePassword: "Re-type Password",
-        username: "Username",
+        username: "Publisher Name",
         newPassword: "Request a new Password",
         sendEmail: "Reset",
         backToLogin: "Back to login",
@@ -67,7 +76,9 @@ exports.login = {
         incorrectDetails: "Oops, have you entered the correct details?",
         loggedOut: "You are now logged out",
         emailResent: "A new confirmation is on its way!",
-        passwordChanged: "Your password has been updated"
+        passwordChanged: "Your password has been updated",
+        usernameTaken: "Username Taken",
+        missingField: "Please complete all fields"
     }
 }
 
@@ -87,12 +98,13 @@ exports.profile = {
         booksFollowing: "Books I'm Following",
         following: "Following",
         noFollowing: "Not following anyone yet",
-        books: "books",
+        books: "Books",
         authors: "Authors",
         changePassword: "Change Password",
         update: "Update",
         password: "Password",
-        retypePassword: "Re-type Password"
+        retypePassword: "Re-type Password",
+        notConfirmed: "You have yet to confirm your email address. <a href='/resendConfirmation'> Resent confirmation email</a>"
     },
     messages: {
         failedPassword: "Your passwords did not match.",

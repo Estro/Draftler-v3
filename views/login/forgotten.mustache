@@ -11,8 +11,9 @@
                         <div class="textbox-wrap">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                <input type="text" id="input-login-email" name="email" required="required" class="form-control" placeholder="{{content.emailAddress}}" />
+                                <input type="text" id="input-login-email" name="email" required="required" class="form-control" placeholder="{{content.emailAddress}}" data-validate="email" />
                             </div>
+                              <p class="error-message">{{validation.email}}</p>
                         </div>
                         <div class="login-form-action clearfix">
                             <div class="pull-left">

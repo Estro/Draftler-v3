@@ -19,10 +19,10 @@ module.exports = function() {
 
     bookshelf.knex = knex.mysqlAuth;
     // Users table
-    bookshelf.ApiUser = Bookshelf.Model.extend({
-        tableName: 'users',
+    bookshelf.user = Bookshelf.Model.extend({
+        tableName: 'user',
         idAttribute: 'id',
-        hasTimestamps: ['createdAt', 'updatedAt'],
+        hasTimestamps: ['created_at', 'updated_at'],
         allFollowing: function() {
             return this.hasMany(bookshelf.follower);
         },
@@ -41,21 +41,21 @@ module.exports = function() {
         },
         activity: function (){
             return this.hasMany(bookshelf.activity).query(function (qb){
-                qb.limit(20).orderBy('completedAt','DESC');
+                qb.limit(20).orderBy('completed_at','DESC');
             });
         }
     });
 
     // User collection
     bookshelf.users = Bookshelf.Collection.extend({
-        model: bookshelf.ApiUser
+        model: bookshelf.user
     });
 
     // Followers table. 
     bookshelf.follower = Bookshelf.Model.extend({
-        tableName: 'followers',
+        tableName: 'follower',
         idAttribute: 'id',
-        hasTimestamps: ['createdAt', 'updatedAt']
+        hasTimestamps: ['created_at', 'updated_at']
     });
 
     bookshelf.followers = Bookshelf.Collection.extend({
@@ -63,13 +63,15 @@ module.exports = function() {
     });
 
     bookshelf.emailConfirmations = Bookshelf.Model.extend({
-        tableName: 'email_confirmations',
-        hasTimestamps: ['createdAt', 'updatedAt']
+        tableName: 'email_confirmation',
+        idAttribute: 'id',
+        hasTimestamps: ['created_at', 'updated_at']
     });
 
     bookshelf.activity = Bookshelf.Model.extend({
         tableName: 'user_activity',
-        hasTimestamps: ['createdAt', 'updatedAt']
+        idAttribute: 'id',
+        hasTimestamps: ['created_at', 'updated_at']
     });
 
     bookshelf.activities = Bookshelf.Collection.extend({
@@ -77,8 +79,9 @@ module.exports = function() {
     });
 
     bookshelf.passwords = Bookshelf.Model.extend({
-        tableName: 'password_resets',
-        hasTimestamps: ['createdAt', 'updatedAt']
+        tableName: 'password_reset',
+        idAttribute: 'id',
+        hasTimestamps: ['created_at', 'updated_at']
     });
 
     return bookshelf;

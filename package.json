@@ -29,7 +29,8 @@
         "underscore": "latest",
         "moment": "latest",
         "knex": "latest",
-        "cloudinary": "latest"
+        "cloudinary": "latest",
+        "sanitizer" : "latest"
     },
     "devDependencies": {
         "grunt": "~0.4.1",

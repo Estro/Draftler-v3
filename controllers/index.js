@@ -8,7 +8,7 @@ exports.home = function(req, res) {
 exports.userHome = function(req, res) {
     res.render('index/home', {
         loggedIn: true,
-        isAdmin: req.user.attributes.isAdmin,
+        is_admin: req.user.attributes.is_admin,
         emailConfirmed: req.user.attributes.email_confirmed,
         username: req.user.attributes.username,
         frame: content.frame.ui

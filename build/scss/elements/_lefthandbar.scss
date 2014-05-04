@@ -5,9 +5,9 @@
   background: #000;
   position: fixed;
   height: 100%;
-  overflow-y: auto;
   z-index: 1000;
   background: $accent-second;
+  overflow:hidden;
 
     @include respond-to(767){
         left: 0;
