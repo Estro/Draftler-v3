@@ -3648,12 +3648,15 @@
 
 })(window.ADMIN = window.ADMIN || {});
 (function(APP) {
-    "use strict";
+	"use strict";
 
-    $(document).ready(function() {
+	if($('.callout').text().trim().length){
+			$('.callout').show();
+	}
 
-
-    });
+	$(document).ready(function() {
+ 
+	});
 
 
 })(window.APP = window.APP || {});

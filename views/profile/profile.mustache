@@ -1,10 +1,12 @@
 
 {{>header}}
-<div class="page-wrapper">
-{{>profile-lefthandbar}}
-		<div class="content-stage">
-	{{>profile-content}}
-		</div>
-
-</div>
+	<div class="page-wrapper">
+		{{>profile-lefthandbar}}
+			<div class="callout">
+				{{#callout}}{{{.}}}{{/callout}}
+			</div>
+				<div class="content-stage">
+					{{>profile-content}}
+				</div>
+	</div>
 {{>footer}}

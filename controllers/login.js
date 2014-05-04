@@ -146,6 +146,13 @@ exports.checkLogin = function(req, res, next) {
     })(req, res, next);
 };
 
+
+exports.resendEmailRedirect = function(req, res) {
+    // get userId and token from query 
+    var userId = utils.cleanNum(req.user.id);
+        res.redirect('/resendemail/' + userId);
+};
+
 // route: resendemail/:id
 // render resend email from
 exports.resendEmailPage = function(req, res) {

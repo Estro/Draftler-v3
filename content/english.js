@@ -104,7 +104,7 @@ exports.profile = {
         update: "Update",
         password: "Password",
         retypePassword: "Re-type Password",
-        notConfirmed: "You have yet to confirm your email address. <a href='/resendConfirmation'> Resent confirmation email</a>"
+        notConfirmed: "You have yet to confirm your email address. <a href='/resendemail'> Resent confirmation email</a>"
     },
     messages: {
         failedPassword: "Your passwords did not match.",

@@ -35,6 +35,14 @@ exports.profile = function(req, res) {
                             }).fetch({
                                 columns: ['id', 'avatar', 'username']
                             }).then(function(followersResult) {
+                                var callout = [];
+                                console.log('ynot');
+                                if (!req.user.attributes.email_confirmed) {
+                                    console.log('sa');
+                                    callout.push(content.profile.ui.notConfirmed);
+                                }
+
+
                                 res.render('profile/myprofile', {
                                     loggedIn: true,
                                     is_admin: req.user.attributes.is_admin,
@@ -43,7 +51,7 @@ exports.profile = function(req, res) {
                                     following: followersResult.models,
                                     followers: followers.length,
                                     content: content.profile.ui,
-                                    confirmed: req.user.attributes.email_confirmed
+                                    callout: callout
                                 });
 
                             }, function(err) {
@@ -51,6 +59,12 @@ exports.profile = function(req, res) {
                             });
 
                         } else {
+                            var callout = [];
+
+                            if (!req.user.attributes.email_confirmed) {
+                                callout.push(content.profile.ui.notConfirmed);
+                            }
+
                             res.render('profile/myprofile', {
                                 loggedIn: true,
                                 is_admin: req.user.attributes.is_admin,
@@ -58,7 +72,8 @@ exports.profile = function(req, res) {
                                 user: req.user.attributes,
                                 following: false,
                                 followers: followers.length,
-                                content: content.profile.ui
+                                content: content.profile.ui,
+                                callout: callout
                             });
 
                         }

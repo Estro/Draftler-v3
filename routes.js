@@ -20,6 +20,7 @@ module.exports = function(app, passport) {
     app.get('/logout', loginController.logout);
 
     // Email Confirmations
+    app.get('/resendemail', loginController.resendEmailRedirect);
     app.get('/resendemail/:id', loginController.resendEmailPage);
     app.post('/resendemail/:id', loginController.resendEmail);
     app.get('/emailconfirmation/:id/:token', loginController.confirmEmail);

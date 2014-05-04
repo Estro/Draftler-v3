@@ -1,10 +1,7 @@
 <div class="user-profile-dashboard" data-userId="{{user.id}}">
 	<div class="row">
 		<div class="col-md-12">
-						    {{^confirmed}}
-                        <div class="alert alert-info">{{{content.notConfirmed}}}</div>
-                        {{/confirmed}}
-			 {{#errors}}
+			 	{{#errors}}
                         <div class="alert alert-danger">{{.}}</div>
                  {{/errors}}
                  {{#messages}}

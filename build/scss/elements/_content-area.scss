@@ -9,6 +9,21 @@
 	  		 transition: all 0.4s ease 0s;
 	  	}
 
+		.callout {
+			padding:20px;
+			background:#f4f4f4;
+			display:none;
+			text-align: center;
+			color:#656565;
+
+		&.active{
+			display:block;
+		}
+			p{
+				margin:0;
+				color:#656565;
+			}
+		}
 
 	  .content-stage{
 	  	 width: 100%;
