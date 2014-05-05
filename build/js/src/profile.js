@@ -2,7 +2,7 @@
     "use strict";
 
     PROFILE.setFollow = function() {
-        var userId = $('.user-profile-dashboard').data('userId');
+        var userId = $('.user-profile-dashboard').data('userid');
         if (userId) {
             $.get('/api/followstatus/' + userId, function(data) {
                 if (data && data.status) {
@@ -33,7 +33,7 @@
 
 
     PROFILE.getActivity = function() {
-        var userId = $('.user-profile-dashboard').data('userId'),
+        var userId = $('.user-profile-dashboard').data('userid'),
             url, html, username, template = '{{#.}}<li><div class="the-date"><span>{{day}}</span><small>{{month}}</small></div>{{{title}}}</li>{{/.}}';
 
         if (userId) {
@@ -62,6 +62,9 @@
                     }
                 }
 
+                if ($('.the-timeline li').length > 20) {
+                    PROFILE.commentLoader();
+                }
 
             });
         }
@@ -105,7 +108,7 @@
         var didScroll = false,
             url, page = 1,
             html, incompleted = true,
-            userId = $('.user-profile-dashboard').data('userId'),
+            userId = $('.user-profile-dashboard').data('userid'),
             template = '{{#.}}<li><div class="the-date"><span>{{day}}</span><small>{{month}}</small></div>{{{title}}}</li>{{/.}}',
             atRest = true;
 
@@ -196,7 +199,6 @@ $(document).ready(function() {
 
     if ($('.user-feed').length) {
         PROFILE.getActivity();
-        PROFILE.commentLoader();
         PROFILE.imageUploader();
     }
 

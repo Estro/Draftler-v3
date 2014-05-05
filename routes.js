@@ -9,7 +9,7 @@ module.exports = function(app, passport) {
 
     // Home
     app.get('/', indexController.home);
-    app.get('/Explore', ensureAuthenticated, indexController.userHome);
+    app.get('/Explore', indexController.userHome);
 
 
     // Register and login
@@ -29,17 +29,17 @@ module.exports = function(app, passport) {
     app.get('/forgot', passwordController.forgotten);
     app.post('/forgot', passwordController.sendPassword);
     app.get('/password-sent', passwordController.passwordSent);
-    app.get('/resetpassword/:userid/:token', passwordController.resetPassword);
+    app.get('/resetpassword/:userId/:token', passwordController.resetPassword);
     app.post('/resetpassword', passwordController.updatePassword);
 
     //Profiles
     app.get('/profile', ensureAuthenticated, profileController.profile);
-    app.get('/profile/user/:userid', ensureAuthenticated, profileController.userProfile);
+    app.get('/profile/user/:userId', ensureAuthenticated, profileController.userProfile);
     app.get('/profile/editprofile', ensureAuthenticated, profileController.editProfile);
     app.post('/profile/editprofile', ensureAuthenticated, profileController.updateProfile);
     app.get('/changepassword', ensureAuthenticated, profileController.changePassword);
     app.post('/changepassword', ensureAuthenticated, passwordController.updatePassword);
-    
+
     //Admin
     app.get('/admin', ensureAdmin, adminController.homePage);
     app.get('/admin/manage-users/:page', ensureAdmin, adminController.manageUsers);
@@ -53,8 +53,8 @@ module.exports = function(app, passport) {
     app.post('/api/follow/:userid', ensureAuthenticated, apiController.followUser);
     app.post('/api/unfollow/:userid', ensureAuthenticated, apiController.unFollowUser);
     app.get('/api/followstatus/:userid', ensureAuthenticated, apiController.followStatus);
-    app.get('/api/getuseractivity/:userid', ensureAuthenticated, apiController.getUserActivity);
-    app.get('/api/getuseractivity/:userid/:page', ensureAuthenticated, apiController.getUserActivityPage);
+    app.get('/api/getuseractivity/:userId', ensureAuthenticated, apiController.getUserActivity);
+    app.get('/api/getuseractivity/:userId/:page', ensureAuthenticated, apiController.getUserActivityPage);
     app.post('/api/useractivity', ensureAuthenticated, apiController.postUserActivity);
     app.post('/api/profileimage', ensureAuthenticated, apiController.uploadProfileImage);
 

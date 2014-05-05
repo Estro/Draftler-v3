@@ -1,14 +1,12 @@
+
 {{>header}}
-<div class="page-wrapper">
-	{{>lefthandbar}}
-	<div class="callout">
-		{{#callout}}{{{.}}}{{/callout}}
+	<div class="page-wrapper">
+		{{>lefthandbar}}
+			<div class="callout">
+				{{#callout}}{{{.}}}{{/callout}}
+			</div>
+				<div class="content-stage">
+					{{>spotlight}}
+				</div>
 	</div>
-	{{#loggedIn}}
-	<h2>Secure Area!!!</h2>
-	{{#messages}}
-	<div class="alert alert-success">{{.}}</div>
-	{{/messages}}
-	{{/loggedIn}}
-</div>
 {{>footer}}

@@ -36,13 +36,9 @@ exports.profile = function(req, res) {
                                 columns: ['id', 'avatar', 'username']
                             }).then(function(followersResult) {
                                 var callout = [];
-                                console.log('ynot');
                                 if (!req.user.attributes.email_confirmed) {
-                                    console.log('sa');
                                     callout.push(content.profile.ui.notConfirmed);
                                 }
-
-
                                 res.render('profile/myprofile', {
                                     loggedIn: true,
                                     is_admin: req.user.attributes.is_admin,

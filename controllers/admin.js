@@ -18,7 +18,7 @@ exports.manageUsers = function(req, res) {
 
     if (page) {
         // need to use knex to get count. 
-        data.knex('users').count('id as cnt').then(function(count) {
+        data.knex('user').count('id as cnt').then(function(count) {
 
             // calcuate offset and construct date for next/prev buttons
             page = parseInt(page);

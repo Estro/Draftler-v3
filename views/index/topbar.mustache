@@ -10,16 +10,17 @@
       </button>
     </div>
     <div class="navbar-collapse collapse">
-      {{#loggedIn}}
       <ul class="nav navbar-nav">
         <li><a href="/explore">{{frame.explore}}</a></li>
         <li><a href="/bookshop">{{frame.bookshop}}</a></li>
+          {{#loggedIn}}
         <li><a href="/profile">{{frame.profile}}</a></li>
-        {{#is_Admin}}
+         {{/loggedIn}}
+        {{#is_admin}}
         <li><a href="/admin">{{frame.admin}}</a></li>
-        {{/is_Admin}}
+        {{/is_admin}}
       </ul>
-      {{/loggedIn}}
+     
       <ul class="nav navbar-nav navbar-right">
         {{#loggedIn}}
         <li class="dropdown">

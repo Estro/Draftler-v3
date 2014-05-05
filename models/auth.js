@@ -9,7 +9,7 @@ Bookshelf.mysqlAuth = Bookshelf.initialize(
 );
 
 knex.mysqlAuth = knex.initialize(
- config.development.db
+    config.development.db
 );
 
 Bookshelf = Bookshelf.mysqlAuth;
@@ -18,6 +18,9 @@ module.exports = function() {
     var bookshelf = {};
 
     bookshelf.knex = knex.mysqlAuth;
+
+    // --------------------------------------------USERS-------------------------------------------------
+
     // Users table
     bookshelf.user = Bookshelf.Model.extend({
         tableName: 'user',
@@ -39,10 +42,16 @@ module.exports = function() {
                 qb.limit(10);
             });
         },
-        activity: function (){
-            return this.hasMany(bookshelf.activity).query(function (qb){
-                qb.limit(20).orderBy('completed_at','DESC');
+        activity: function() {
+            return this.hasMany(bookshelf.activity).query(function(qb) {
+                qb.limit(20).orderBy('completed_at', 'DESC');
             });
+        },
+        chapters: function() {
+            return this.hasMany(bookshelf.chapter);
+        },
+        books: function() {
+            return this.hasMany(bookshelf.book).through(bookshelf.chapter);
         }
     });
 
@@ -82,6 +91,127 @@ module.exports = function() {
         tableName: 'password_reset',
         idAttribute: 'id',
         hasTimestamps: ['created_at', 'updated_at']
+    });
+
+
+    // --------------------------------------------BOOKS-------------------------------------------------
+
+    //Books
+    bookshelf.book = Bookshelf.Model.extend({
+        tableName: 'book',
+        idAttribute: 'id',
+        hasTimestamps: ['created_at', 'updated_at'],
+        chapters: function() {
+            return this.hasMany(bookshelf.chapter);
+        },
+        tags: function() {
+            return this.belongsToMany(bookshelf.tag);
+        },
+        genres: function() {
+            return this.belongsToMany(bookshelf.genre);
+        },
+        comments: function() {
+            return this.hasMany(bookshelf.comment).through(bookshelf.chapter);
+        }
+    });
+
+    // Book collection
+    bookshelf.books = Bookshelf.Collection.extend({
+        model: bookshelf.book
+    });
+
+    //Chapter
+    bookshelf.chapter = Bookshelf.Model.extend({
+        tableName: 'chapter',
+        idAttribute: 'id',
+        hasTimestamps: ['created_at', 'updated_at'],
+        book: function() {
+            return this.belongsTo(bookshelf.chapter);
+        },
+        author: function() {
+            return this.belongsTo(bookshelf.user);
+        }
+    });
+
+    // Chapter Collection
+    bookshelf.chapters = Bookshelf.Collection.extend({
+        model: bookshelf.chapter
+    });
+
+    // Book Tags
+    bookshelf.tag = Bookshelf.Model.extend({
+        tableName: 'tag',
+        idAttribute: 'id',
+        hasTimestamps: ['created_at', 'updated_at'],
+        books: function() {
+            return this.belongsToMany(bookshelf.book);
+        }
+    });
+
+    // Tag Collection
+    bookshelf.tags = Bookshelf.Collection.extend({
+        model: bookshelf.tag
+    });
+
+
+    // Book Genres
+    bookshelf.genre = Bookshelf.Model.extend({
+        tableName: 'genre',
+        idAttribute: 'id',
+        hasTimestamps: ['created_at', 'updated_at'],
+        books: function() {
+            return this.belongsToMany(bookshelf.book);
+        }
+    });
+
+    // Genre Collection
+    bookshelf.genres = Bookshelf.Collection.extend({
+        model: bookshelf.genre
+    });
+
+    // Comments
+    bookshelf.comment = Bookshelf.Model.extend({
+        tableName: 'comment',
+        idAttribute: 'id',
+        hasTimestamps: ['created_at', 'updated_at'],
+        chapter: function() {
+            return this.belongsTo(bookshelf.chapter);
+        },
+        book: function() {
+            return this.belongsTo(bookshelf.book).through(bookshelf.chapter);
+        }
+    });
+
+    // Comment Collection
+    bookshelf.comments = Bookshelf.Collection.extend({
+        model: bookshelf.comment
+    });
+
+    // Book read
+    bookshelf.read = Bookshelf.Model.extend({
+        tableName: 'read',
+        idAttribute: 'id',
+        hasTimestamps: ['created_at', 'updated_at']
+
+    });
+
+    // book reads
+    bookshelf.reads = Bookshelf.Collection.extend({
+        model: bookshelf.read
+    });
+
+
+    // Chapter votes
+    bookshelf.vote = Bookshelf.Model.extend({
+        tableName: 'vote',
+        idAttribute: 'id',
+        hasTimestamps: ['created_at', 'updated_at']
+
+    });
+
+    // Votes Collection
+    bookshelf.votes = Bookshelf.Collection.extend({
+        model: bookshelf.vote
     });
 
     return bookshelf;

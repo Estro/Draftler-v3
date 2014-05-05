@@ -1,0 +1,64 @@
+<div class="spotlight">
+	<div class="row">
+		<div class="col-md-12">
+			<h2>{{content.spotlight}}</h2>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div id="owl" class="owl-carousel">
+				{{#books}}
+				<div class="book" id="book_{{attributes.id}}"><a href="/book/{{attributes.id}}">
+					<img src="{{attributes.picture}}" alt="{{attributes.title}}">
+					<div class="book-rating">
+						<ul class="rating" data-score="{{attributes.rating}}">
+							<li><i class="star fa fa-star-o"></i></li>
+							<li><i class="star fa fa-star-o"></i></li>
+							<li><i class="star fa fa-star-o"></i></li>
+							<li><i class="star fa fa-star-o"></i></li>
+							<li><i class="star fa fa-star-o"></i></li>
+						</ul>
+					</div>
+					<div class="book-details">
+						<h4>{{attributes.title}}</h4>
+						<div class="stage-meta">{{attributes.chapter_type}} <span class="{{attributes.stage}}">{{attributes.active_chapter}}</span> {{ attributes.stage }}</div>
+						<div class="timer-bar"><span class="{{attributes.stage}}" style="width:{{attributes.remaining_time}}%;"></span></div>
+						<p class="book-description">{{attributes.description}}</p>
+					</div></a>
+				</div>
+				{{/books}}
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<h2>{{content.newBooks}}</h2>
+		</div>
+	</div>
+		<div class="row">
+		<div class="col-md-12">
+			<div id="owl" class="owl-carousel">
+				{{#books}}
+				<div class="book" id="book_{{attributes.id}}"><a href="/book/{{attributes.id}}">
+					<img src="{{attributes.picture}}" alt="{{attributes.title}}">
+					<div class="book-rating">
+						<ul class="rating" data-score="{{attributes.rating}}">
+							<li><i class="star fa fa-star-o"></i></li>
+							<li><i class="star fa fa-star-o"></i></li>
+							<li><i class="star fa fa-star-o"></i></li>
+							<li><i class="star fa fa-star-o"></i></li>
+							<li><i class="star fa fa-star-o"></i></li>
+						</ul>
+					</div>
+					<div class="book-details">
+						<h4>{{attributes.title}}</h4>
+						<div class="stage-meta">{{attributes.chapter_type}} <span class="{{attributes.stage}}">{{attributes.active_chapter}}</span> {{ attributes.stage }}</div>
+						<div class="timer-bar"><span class="{{attributes.stage}}" style="width:{{attributes.remaining_time}}%;"></span></div>
+						<p class="book-description">{{attributes.description}}</p>
+					</div></a>
+				</div>
+				{{/books}}
+			</div>
+		</div>
+	</div>
+</div>

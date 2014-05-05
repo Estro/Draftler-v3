@@ -9,6 +9,14 @@ exports.validation = {
 
 }
 
+exports.spotlight = {
+    ui: {
+        spotlight: "Spotlight",
+        newBooks: "Latest Books",
+        findOutMore: "Becoming an author has never been as easy, or fun. Get involved and <a class='' href='#'>submit your first chapter!</a>"
+    }
+}
+
 exports.frame = {
     ui: {
         signUp: "Sign Up",
