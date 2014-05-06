@@ -14,7 +14,7 @@ exports.forgotten = function(req, res) {
         content: content.login.ui,
         validation: content.validation
     });
-}
+};
 
 exports.sendPassword = function(req, res) {
     var email = sanitizer.sanitize(req.body.email);
@@ -58,7 +58,7 @@ exports.sendPassword = function(req, res) {
     } else {
         res.redirect('/');
     }
-}
+};
 
 exports.updatePassword = function(req, res) {
     var userId = utils.cleanNum(req.body.userId),
@@ -122,7 +122,7 @@ exports.updatePassword = function(req, res) {
     } else {
         res.redirect('/');
     }
-}
+};
 
 exports.resetPassword = function(req, res) {
     var userId = utils.cleanNum(req.params.userId),
@@ -181,7 +181,7 @@ exports.resetPassword = function(req, res) {
         res.render('/');
     }
 
-}
+};
 
 exports.passwordSent = function(req, res) {
     res.render('login/passwordsent', {
@@ -190,4 +190,4 @@ exports.passwordSent = function(req, res) {
         validation: content.validation
     });
 
-}
+};

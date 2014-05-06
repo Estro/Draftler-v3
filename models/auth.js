@@ -104,6 +104,16 @@ module.exports = function() {
         chapters: function() {
             return this.hasMany(bookshelf.chapter);
         },
+        finalChapters: function() {
+            return this.hasMany(bookshelf.chapter).query(function(qb){
+                  qb.where('is_final', '=', 1).orderBy('chapter');
+            });
+        },
+        votingChapters: function() {
+            return this.hasMany(bookshelf.chapter).query(function(qb) {
+                qb.where('is_final', '=', 0).andWhere('is_dead', '=', 0);
+            });
+        },
         tags: function() {
             return this.belongsToMany(bookshelf.tag);
         },

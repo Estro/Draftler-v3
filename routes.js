@@ -2,6 +2,7 @@ var indexController = require('./controllers/index'),
     loginController = require('./controllers/login'),
     adminController = require('./controllers/admin'),
     passwordController = require('./controllers/passwords'),
+    bookController = require('./controllers/book'),
     profileController = require('./controllers/profile'),
     apiController = require('./controllers/api');
 
@@ -10,6 +11,10 @@ module.exports = function(app, passport) {
     // Home
     app.get('/', indexController.home);
     app.get('/Explore', indexController.userHome);
+
+    //Books
+    app.get('/book', bookController.redirectBook);
+    app.get('/book/:id', bookController.getBook);
 
 
     // Register and login
@@ -57,6 +62,10 @@ module.exports = function(app, passport) {
     app.get('/api/getuseractivity/:userId/:page', ensureAuthenticated, apiController.getUserActivityPage);
     app.post('/api/useractivity', ensureAuthenticated, apiController.postUserActivity);
     app.post('/api/profileimage', ensureAuthenticated, apiController.uploadProfileImage);
+
+    app.get('*', function(req, res) {
+          res.render('index/404');
+    });
 
     function ensureAuthenticated(req, res, next) {
         // Check user is autenticated and not banned.

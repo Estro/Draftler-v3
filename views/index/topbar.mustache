@@ -13,14 +13,14 @@
       <ul class="nav navbar-nav">
         <li><a href="/explore">{{frame.explore}}</a></li>
         <li><a href="/bookshop">{{frame.bookshop}}</a></li>
-          {{#loggedIn}}
+        {{#loggedIn}}
         <li><a href="/profile">{{frame.profile}}</a></li>
-         {{/loggedIn}}
+        {{/loggedIn}}
         {{#is_admin}}
         <li><a href="/admin">{{frame.admin}}</a></li>
         {{/is_admin}}
       </ul>
-     
+      
       <ul class="nav navbar-nav navbar-right">
         {{#loggedIn}}
         <li class="dropdown">
@@ -31,8 +31,10 @@
         </li>
         {{/loggedIn}}
         {{^loggedIn}}
+        {{#frame}}
         <li><a href="/register">{{frame.signUp}}</a></li>
         <li><a href="/login">{{frame.logIn}}</a></li>
+        {{/frame}}
         {{/loggedIn}}
       </ul>
       </div><!--/.nav-collapse -->

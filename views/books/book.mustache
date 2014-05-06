@@ -1,11 +1,12 @@
 {{>header}}
-<div class="page-wrapper">
-	{{>lefthandbar}}
+<div class="page-wrapper book-page">
+	{{>book-lefthandbar}}
+	{{>book-righthandbar}}
 	<div class="callout">
 		{{#callout}}{{{.}}}{{/callout}}
 	</div>
 	<div class="content-stage">
-		{{>spotlight}}
+		{{>book-content}}
 	</div>
 </div>
 {{>footer}}

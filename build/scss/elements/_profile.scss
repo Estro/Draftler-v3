@@ -1,51 +1,6 @@
 .profile-menu{
 
-	.user-image{
-		position: relative;
 
-		.user-image-button{
-		position: absolute;
-		bottom: 20px;
-		left: 26px;
-		font-size: 12px;
-		opacity: 0;
-		-webkit-transition: opacity .1s linear;
-		transition: opacity .1s linear;
-		}
-
-		&:hover{
-
-			.user-image-button{
-			opacity: 1;
-			}
-		}
-
-		img{
-			max-width:200px;
-		}
-	}
-
-	.user-detail-container{
-		padding: 0px 15px;
-		.user-bio{
-			h2{
-			color: #FFF;
-			font-weight: 300;
-			margin-left: 0;
-			}
-
-			p{
-			color: #FFF;
-			font-size: 12px;
-			}
-		}
-
-		.btn{
-			font-size: 12px;
-			width:100%;
-			margin-bottom:15px;
-		}
-	}
 
 }
 

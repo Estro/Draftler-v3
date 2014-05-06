@@ -25,9 +25,7 @@ app.use(flash());
 app.use(express.cookieParser());
 app.use(express.bodyParser({keepExtensions: true, uploadDir: __dirname + "/public/uploads" }));
 app.use(expressValidator());
-app.use(express.session({
-    secret: 'keyboard cat'
-}));
+app.use(express.session(config.development.session));
 app.use(express.json());
 app.use(passport.initialize());
 app.use(express.logger('dev'));
@@ -41,10 +39,6 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'mustache');
 
-
-//require('./util/bookshelf')(Bookshelf, Knex);
-require('./util/cloudinary')(cloudinary);
-require('./util/email')(email);
 require('./util/auth')(passport);
 require('./routes')(app, passport);
 

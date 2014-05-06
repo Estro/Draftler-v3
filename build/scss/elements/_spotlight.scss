@@ -2,4 +2,20 @@
 	h2{
 		margin-top:0;
 	}
+
+	.spotlight-slider{
+
+		.directions{
+		position: absolute;
+		right: 20px;
+		top: -70px;
+			i{
+				margin-right: 5px;
+				color:#e3e3e3;
+				&:hover{
+					color:$orange;
+				}
+			}
+		}
+	}
 }

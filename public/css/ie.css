@@ -2648,7 +2648,7 @@ textarea.input-lg {
   white-space: nowrap;
   margin-bottom: 5px;
   padding: 6px 12px;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 1.42857;
   border-radius: 3px;
   -webkit-user-select: none;
@@ -7993,27 +7993,113 @@ td.visible-print {
   }
 }
 /* line 17, ../../build/scss/elements/_lefthandbar.scss */
+.left-hand-bar-container p {
+  font-weight: 300;
+}
+/* line 21, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container .left-hand-bar {
   background: #71beba;
   float: left;
   width: 100%;
   padding-bottom: 30px;
 }
-/* line 26, ../../build/scss/elements/_lefthandbar.scss */
+/* line 28, ../../build/scss/elements/_lefthandbar.scss */
+.left-hand-bar-container .left-hand-bar .book-rating {
+  margin-bottom: 10px;
+  clear: both;
+  float: left;
+}
+/* line 32, ../../build/scss/elements/_lefthandbar.scss */
+.left-hand-bar-container .left-hand-bar .book-rating ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+/* line 37, ../../build/scss/elements/_lefthandbar.scss */
+.left-hand-bar-container .left-hand-bar .book-rating ul li {
+  float: left;
+}
+/* line 42, ../../build/scss/elements/_lefthandbar.scss */
+.left-hand-bar-container .left-hand-bar .book-rating .star {
+  color: rgba(0, 0, 0, 0.15);
+  font-size: 15px;
+  margin-right: 3px;
+  cursor: default;
+}
+/* line 48, ../../build/scss/elements/_lefthandbar.scss */
+.left-hand-bar-container .left-hand-bar .book-rating .star.fa-star {
+  color: #fdd303;
+}
+/* line 52, ../../build/scss/elements/_lefthandbar.scss */
+.left-hand-bar-container .left-hand-bar .book-rating .star.selected {
+  color: #fdd303;
+}
+/* line 60, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container .left-hand-bar .context-menu-container h2 {
   color: #FFFFFF;
   font-weight: 300;
   margin-bottom: 14px;
   margin-left: 18px;
 }
-/* line 35, ../../build/scss/elements/_lefthandbar.scss */
+/* line 67, ../../build/scss/elements/_lefthandbar.scss */
+.left-hand-bar-container .left-hand-bar .context-menu-container .image {
+  position: relative;
+}
+/* line 70, ../../build/scss/elements/_lefthandbar.scss */
+.left-hand-bar-container .left-hand-bar .context-menu-container .image img {
+  width: 100%;
+}
+/* line 74, ../../build/scss/elements/_lefthandbar.scss */
+.left-hand-bar-container .left-hand-bar .context-menu-container .image .image-button {
+  position: absolute;
+  bottom: 20px;
+  left: 26px;
+  font-size: 12px;
+  opacity: 0;
+  -webkit-transition: opacity .1s linear;
+  transition: opacity .1s linear;
+}
+/* line 86, ../../build/scss/elements/_lefthandbar.scss */
+.left-hand-bar-container .left-hand-bar .context-menu-container .image:hover .user-image-button {
+  opacity: 1;
+}
+/* line 91, ../../build/scss/elements/_lefthandbar.scss */
+.left-hand-bar-container .left-hand-bar .context-menu-container .image img {
+  max-width: 200px;
+}
+/* line 96, ../../build/scss/elements/_lefthandbar.scss */
+.left-hand-bar-container .left-hand-bar .context-menu-container .detail-container {
+  padding: 0px 15px;
+}
+/* line 99, ../../build/scss/elements/_lefthandbar.scss */
+.left-hand-bar-container .left-hand-bar .context-menu-container .detail-container .bio h2 {
+  color: #FFF;
+  font-weight: 300;
+  margin-left: 0;
+}
+/* line 105, ../../build/scss/elements/_lefthandbar.scss */
+.left-hand-bar-container .left-hand-bar .context-menu-container .detail-container .bio p {
+  color: #FFF;
+  font-size: 12px;
+}
+/* line 111, ../../build/scss/elements/_lefthandbar.scss */
+.left-hand-bar-container .left-hand-bar .context-menu-container .detail-container .btn {
+  font-size: 12px;
+  width: 100%;
+  margin-bottom: 15px;
+}
+/* line 118, ../../build/scss/elements/_lefthandbar.scss */
+.left-hand-bar-container .left-hand-bar .context-menu-container .context-menu {
+  clear: both;
+}
+/* line 120, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container .left-hand-bar .context-menu-container .context-menu p {
   color: #FFFFFF;
   margin-bottom: 0;
   margin-top: 0;
   font-size: 13px;
 }
-/* line 43, ../../build/scss/elements/_lefthandbar.scss */
+/* line 128, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container .left-hand-bar .context-menu-container .context-menu .tab {
   background: none repeat scroll 0 0 #85c7c4;
   color: #5f8381;
@@ -8023,18 +8109,38 @@ td.visible-print {
   margin-left: 13px;
   padding: 10px;
 }
-/* line 52, ../../build/scss/elements/_lefthandbar.scss */
+/* line 137, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container .left-hand-bar .context-menu-container .context-menu .tab:hover {
   border-left: 2px solid #85c7c4;
 }
-/* line 56, ../../build/scss/elements/_lefthandbar.scss */
+/* line 141, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container .left-hand-bar .context-menu-container .context-menu .tab.active {
   background: #fff;
   color: #71beba;
 }
-/* line 59, ../../build/scss/elements/_lefthandbar.scss */
+/* line 144, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container .left-hand-bar .context-menu-container .context-menu .tab.active p {
   color: #71beba;
+}
+
+/* line 1, ../../build/scss/elements/_righthandbar.scss */
+.right-hand-bar-container {
+  margin-right: -230px;
+  right: 230px;
+  width: 230px;
+  background: #000;
+  position: fixed;
+  height: 100%;
+  z-index: 1000;
+  background: #181f22;
+  overflow: hidden;
+}
+@media only screen and (max-width: 767px) {
+  /* line 1, ../../build/scss/elements/_righthandbar.scss */
+  .right-hand-bar-container {
+    right: 0;
+    transition: all 0.4s ease 0s;
+  }
 }
 
 /* line 2, ../../build/scss/elements/_content-area.scss */
@@ -8045,6 +8151,22 @@ td.visible-print {
 .outter-page-wrapper .page-wrapper {
   padding-left: 200px;
 }
+/* line 7, ../../build/scss/elements/_content-area.scss */
+.outter-page-wrapper .page-wrapper.book-page {
+  padding-right: 230px;
+}
+/* line 11, ../../build/scss/elements/_content-area.scss */
+.outter-page-wrapper .page-wrapper.book-page h1 {
+  border: 0 !important;
+  margin-bottom: 10px !important;
+}
+@media only screen and (max-width: 767px) {
+  /* line 7, ../../build/scss/elements/_content-area.scss */
+  .outter-page-wrapper .page-wrapper.book-page {
+    padding-right: 0;
+    transition: all 0.4s ease 0s;
+  }
+}
 @media only screen and (max-width: 767px) {
   /* line 4, ../../build/scss/elements/_content-area.scss */
   .outter-page-wrapper .page-wrapper {
@@ -8052,7 +8174,7 @@ td.visible-print {
     transition: all 0.4s ease 0s;
   }
 }
-/* line 12, ../../build/scss/elements/_content-area.scss */
+/* line 30, ../../build/scss/elements/_content-area.scss */
 .outter-page-wrapper .page-wrapper .callout {
   padding: 20px;
   background: #f4f4f4;
@@ -8060,38 +8182,42 @@ td.visible-print {
   text-align: center;
   color: #656565;
 }
-/* line 19, ../../build/scss/elements/_content-area.scss */
+/* line 37, ../../build/scss/elements/_content-area.scss */
 .outter-page-wrapper .page-wrapper .callout.active {
   display: block;
 }
-/* line 22, ../../build/scss/elements/_content-area.scss */
+/* line 40, ../../build/scss/elements/_content-area.scss */
 .outter-page-wrapper .page-wrapper .callout p {
   margin: 0;
   color: #656565;
 }
-/* line 28, ../../build/scss/elements/_content-area.scss */
+/* line 46, ../../build/scss/elements/_content-area.scss */
 .outter-page-wrapper .page-wrapper .content-stage {
   width: 100%;
   padding: 25px 40px;
 }
-/* line 32, ../../build/scss/elements/_content-area.scss */
+/* line 50, ../../build/scss/elements/_content-area.scss */
 .outter-page-wrapper .page-wrapper .content-stage p, .outter-page-wrapper .page-wrapper .content-stage div {
   color: #12181a;
 }
-/* line 36, ../../build/scss/elements/_content-area.scss */
+/* line 54, ../../build/scss/elements/_content-area.scss */
+.outter-page-wrapper .page-wrapper .content-stage .label {
+  font-weight: 300;
+}
+/* line 58, ../../build/scss/elements/_content-area.scss */
 .outter-page-wrapper .page-wrapper .content-stage h1, .outter-page-wrapper .page-wrapper .content-stage h2, .outter-page-wrapper .page-wrapper .content-stage h3, .outter-page-wrapper .page-wrapper .content-stage h4, .outter-page-wrapper .page-wrapper .content-stage h5 {
   color: #656565;
 }
-/* line 40, ../../build/scss/elements/_content-area.scss */
+/* line 62, ../../build/scss/elements/_content-area.scss */
 .outter-page-wrapper .page-wrapper .content-stage h1, .outter-page-wrapper .page-wrapper .content-stage h2 {
   width: 100%;
   border-bottom: 1px solid #EEE;
   padding-bottom: 15px;
   font-weight: normal;
-  margin-bottom: 35px;
+  margin-bottom: 22px;
 }
 @media only screen and (max-width: 767px) {
-  /* line 28, ../../build/scss/elements/_content-area.scss */
+  /* line 46, ../../build/scss/elements/_content-area.scss */
   .outter-page-wrapper .page-wrapper .content-stage {
     padding: 10px;
     transition: all 0.4s ease 0s;
@@ -11663,34 +11789,38 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   color: #fdd303;
 }
 /* line 51, ../../build/scss/elements/_bookCards.scss */
-.book .book-details h4 {
+.book .book-details h1 {
   margin: 0;
   font-weight: normal;
   color: #12181a;
   padding: 2px;
   margin-top: 5px;
+  font-size: 18px;
+  margin-bottom: 0 !important;
+  border: 0 !important;
+  padding: 0 !important;
 }
-/* line 60, ../../build/scss/elements/_bookCards.scss */
+/* line 65, ../../build/scss/elements/_bookCards.scss */
 .book .book-details .stage-meta {
   font-size: 10px;
   margin-left: 3px;
 }
-/* line 65, ../../build/scss/elements/_bookCards.scss */
+/* line 70, ../../build/scss/elements/_bookCards.scss */
 .book .book-details .stage-meta span {
   color: #71beba;
 }
-/* line 68, ../../build/scss/elements/_bookCards.scss */
+/* line 73, ../../build/scss/elements/_bookCards.scss */
 .book .book-details .stage-meta span.Voting {
   color: #cf6243;
 }
-/* line 74, ../../build/scss/elements/_bookCards.scss */
+/* line 79, ../../build/scss/elements/_bookCards.scss */
 .book .book-details .book-description {
   font-size: 12px;
   margin: 0;
   padding-left: 2px;
   padding-right: 2px;
 }
-/* line 81, ../../build/scss/elements/_bookCards.scss */
+/* line 86, ../../build/scss/elements/_bookCards.scss */
 .book .book-details .timer-bar {
   width: 180px;
   height: 3px;
@@ -11700,13 +11830,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   top: -5px;
   left: 2px;
 }
-/* line 91, ../../build/scss/elements/_bookCards.scss */
+/* line 96, ../../build/scss/elements/_bookCards.scss */
 .book .book-details .timer-bar span {
   height: 100%;
   display: block;
   background: #71beba;
 }
-/* line 96, ../../build/scss/elements/_bookCards.scss */
+/* line 101, ../../build/scss/elements/_bookCards.scss */
 .book .book-details .timer-bar span.Voting {
   background: #cf6243;
 }
@@ -11715,93 +11845,77 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 .spotlight h2 {
   margin-top: 0;
 }
-
-/* line 3, ../../build/scss/elements/_profile.scss */
-.profile-menu .user-image {
-  position: relative;
-}
-/* line 6, ../../build/scss/elements/_profile.scss */
-.profile-menu .user-image .user-image-button {
+/* line 8, ../../build/scss/elements/_spotlight.scss */
+.spotlight .spotlight-slider .directions {
   position: absolute;
-  bottom: 20px;
-  left: 26px;
-  font-size: 12px;
-  opacity: 0;
-  -webkit-transition: opacity .1s linear;
-  transition: opacity .1s linear;
+  right: 20px;
+  top: -70px;
 }
-/* line 18, ../../build/scss/elements/_profile.scss */
-.profile-menu .user-image:hover .user-image-button {
-  opacity: 1;
+/* line 12, ../../build/scss/elements/_spotlight.scss */
+.spotlight .spotlight-slider .directions i {
+  margin-right: 5px;
+  color: #e3e3e3;
 }
-/* line 23, ../../build/scss/elements/_profile.scss */
-.profile-menu .user-image img {
-  max-width: 200px;
-}
-/* line 28, ../../build/scss/elements/_profile.scss */
-.profile-menu .user-detail-container {
-  padding: 0px 15px;
-}
-/* line 31, ../../build/scss/elements/_profile.scss */
-.profile-menu .user-detail-container .user-bio h2 {
-  color: #FFF;
-  font-weight: 300;
-  margin-left: 0;
-}
-/* line 37, ../../build/scss/elements/_profile.scss */
-.profile-menu .user-detail-container .user-bio p {
-  color: #FFF;
-  font-size: 12px;
-}
-/* line 43, ../../build/scss/elements/_profile.scss */
-.profile-menu .user-detail-container .btn {
-  font-size: 12px;
-  width: 100%;
-  margin-bottom: 15px;
+/* line 15, ../../build/scss/elements/_spotlight.scss */
+.spotlight .spotlight-slider .directions i:hover {
+  color: #cf6243;
 }
 
-/* line 52, ../../build/scss/elements/_profile.scss */
+/* line 1, ../../build/scss/elements/_404.scss */
+.fourfour {
+  width: 400px;
+  margin: auto;
+  text-align: center;
+  margin-top: 100px;
+}
+/* line 7, ../../build/scss/elements/_404.scss */
+.fourfour h1 {
+  color: #fff;
+  font-size: 110px;
+}
+
+/* line 7, ../../build/scss/elements/_profile.scss */
 .user-profile-dashboard {
   line-height: 22px;
 }
-/* line 56, ../../build/scss/elements/_profile.scss */
+/* line 11, ../../build/scss/elements/_profile.scss */
 .user-profile-dashboard h3 i {
   color: #71beba;
 }
-/* line 61, ../../build/scss/elements/_profile.scss */
+/* line 16, ../../build/scss/elements/_profile.scss */
 .user-profile-dashboard .user-header {
   padding-bottom: 15px;
   border-bottom: 1px solid #EEE;
 }
-/* line 65, ../../build/scss/elements/_profile.scss */
+/* line 20, ../../build/scss/elements/_profile.scss */
 .user-profile-dashboard .user-header span {
   margin-right: 20px;
 }
-/* line 68, ../../build/scss/elements/_profile.scss */
+/* line 23, ../../build/scss/elements/_profile.scss */
 .user-profile-dashboard .user-header span i {
   color: #cf6243;
 }
-/* line 73, ../../build/scss/elements/_profile.scss */
+/* line 28, ../../build/scss/elements/_profile.scss */
 .user-profile-dashboard .user-header h2 {
   border-bottom: 0px solid #fff;
   margin-bottom: 2px;
 }
-/* line 79, ../../build/scss/elements/_profile.scss */
+/* line 34, ../../build/scss/elements/_profile.scss */
 .user-profile-dashboard .user-header .btn {
   padding: 5px 12px;
 }
-/* line 84, ../../build/scss/elements/_profile.scss */
+/* line 39, ../../build/scss/elements/_profile.scss */
 .user-profile-dashboard .the-timeline {
   margin-bottom: 40px;
 }
-/* line 89, ../../build/scss/elements/_profile.scss */
+/* line 44, ../../build/scss/elements/_profile.scss */
 .user-profile-dashboard .the-timeline .post-to-timeline textarea {
   height: 50px;
   resize: none;
   margin-bottom: 10px;
   margin-top: 20px;
 }
-/* line 97, ../../build/scss/elements/_profile.scss */
+/* line 52, ../../build/scss/elements/_profile.scss */
 .user-profile-dashboard .the-timeline .pre-loader {
   background: url(../img/pre-loader.gif);
   width: 100%;
@@ -11814,14 +11928,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   background-position: 50%;
   display: none;
 }
-/* line 111, ../../build/scss/elements/_profile.scss */
+/* line 66, ../../build/scss/elements/_profile.scss */
 .user-profile-dashboard .the-timeline ul {
   list-style: none;
   border-left: 2px solid #ddd;
   margin: 0 0px 0 20px;
   padding: 0;
 }
-/* line 117, ../../build/scss/elements/_profile.scss */
+/* line 72, ../../build/scss/elements/_profile.scss */
 .user-profile-dashboard .the-timeline ul li {
   display: block;
   background: #f4f4f4;
@@ -11830,12 +11944,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   margin: 20px 0 20px 35px;
   padding: 5px 15px;
 }
-/* line 125, ../../build/scss/elements/_profile.scss */
+/* line 80, ../../build/scss/elements/_profile.scss */
 .user-profile-dashboard .the-timeline ul li p {
   margin: 0;
   padding: 0;
 }
-/* line 130, ../../build/scss/elements/_profile.scss */
+/* line 85, ../../build/scss/elements/_profile.scss */
 .user-profile-dashboard .the-timeline ul li .the-date {
   position: absolute;
   left: -64px;
@@ -11847,26 +11961,26 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   text-align: center;
   line-height: 130%;
 }
-/* line 141, ../../build/scss/elements/_profile.scss */
+/* line 96, ../../build/scss/elements/_profile.scss */
 .user-profile-dashboard .the-timeline ul li .the-date span {
   color: #fff;
   font-size: 18px;
   display: block;
   margin-top: 8px;
 }
-/* line 148, ../../build/scss/elements/_profile.scss */
+/* line 103, ../../build/scss/elements/_profile.scss */
 .user-profile-dashboard .the-timeline ul li .the-date small {
   color: #fff;
   font-size: 12px;
   display: block;
 }
-/* line 158, ../../build/scss/elements/_profile.scss */
+/* line 113, ../../build/scss/elements/_profile.scss */
 .user-profile-dashboard .chapter-submittion {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 162, ../../build/scss/elements/_profile.scss */
+/* line 117, ../../build/scss/elements/_profile.scss */
 .user-profile-dashboard .chapter-submittion li {
   float: left;
   width: 33.3%;
@@ -11874,31 +11988,31 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   position: relative;
 }
 @media only screen and (min-width: 990px) {
-  /* line 162, ../../build/scss/elements/_profile.scss */
+  /* line 117, ../../build/scss/elements/_profile.scss */
   .user-profile-dashboard .chapter-submittion li {
     width: 100%;
     transition: all 0.4s ease 0s;
   }
 }
 @media only screen and (min-width: 1200px) {
-  /* line 162, ../../build/scss/elements/_profile.scss */
+  /* line 117, ../../build/scss/elements/_profile.scss */
   .user-profile-dashboard .chapter-submittion li {
     width: 50%;
     transition: all 0.4s ease 0s;
   }
 }
 @media only screen and (min-width: 1650px) {
-  /* line 162, ../../build/scss/elements/_profile.scss */
+  /* line 117, ../../build/scss/elements/_profile.scss */
   .user-profile-dashboard .chapter-submittion li {
     width: 33.3%;
     transition: all 0.4s ease 0s;
   }
 }
-/* line 183, ../../build/scss/elements/_profile.scss */
+/* line 138, ../../build/scss/elements/_profile.scss */
 .user-profile-dashboard .chapter-submittion li img {
   width: 100%;
 }
-/* line 189, ../../build/scss/elements/_profile.scss */
+/* line 144, ../../build/scss/elements/_profile.scss */
 .user-profile-dashboard .chapter-submittion h4 {
   position: absolute;
   bottom: 0;
@@ -11909,41 +12023,41 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   margin: 0;
   width: 90%;
 }
-/* line 201, ../../build/scss/elements/_profile.scss */
+/* line 156, ../../build/scss/elements/_profile.scss */
 .user-profile-dashboard .follow-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 206, ../../build/scss/elements/_profile.scss */
+/* line 161, ../../build/scss/elements/_profile.scss */
 .user-profile-dashboard .follow-list li {
   float: left;
   width: 20%;
 }
 @media only screen and (min-width: 990px) {
-  /* line 206, ../../build/scss/elements/_profile.scss */
+  /* line 161, ../../build/scss/elements/_profile.scss */
   .user-profile-dashboard .follow-list li {
     width: 33.3%;
     transition: all 0.4s ease 0s;
   }
 }
 @media only screen and (min-width: 1200px) {
-  /* line 206, ../../build/scss/elements/_profile.scss */
+  /* line 161, ../../build/scss/elements/_profile.scss */
   .user-profile-dashboard .follow-list li {
     width: 20%;
     transition: all 0.4s ease 0s;
   }
 }
-/* line 220, ../../build/scss/elements/_profile.scss */
+/* line 175, ../../build/scss/elements/_profile.scss */
 .user-profile-dashboard .follow-list li img {
   width: 100%;
 }
-/* line 229, ../../build/scss/elements/_profile.scss */
+/* line 184, ../../build/scss/elements/_profile.scss */
 .user-profile-dashboard h3 span {
   color: #cf6243;
 }
 
-/* line 236, ../../build/scss/elements/_profile.scss */
+/* line 191, ../../build/scss/elements/_profile.scss */
 .modal .image-loader {
   background: url(../img/pre-loader.gif);
   width: 100%;

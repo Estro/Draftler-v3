@@ -3,6 +3,24 @@
 	margin-top: 50px;
 	.page-wrapper{
 	  padding-left: 200px;
+		
+		&.book-page{
+			padding-right:230px;
+
+
+			h1{
+				border:0!important;
+				margin-bottom: 10px!important;
+
+			}
+
+		
+	    @include respond-to(767){
+	  		 padding-right:0;
+	  		 transition: all 0.4s ease 0s;
+	  	}
+
+		}
 
 	    @include respond-to(767){
 	  		 padding-left:0;
@@ -33,6 +51,10 @@
 		    color:$off-black;
 		  }
 
+		  .label{
+		  	font-weight: 300;
+		  }
+
 		h1,h2,h3,h4,h5{
 		    color:$font-gray;
 		  }
@@ -42,7 +64,7 @@
 			border-bottom: 1px solid #EEE;
 			padding-bottom: 15px;
 			font-weight: normal;
-			margin-bottom: 35px;
+			margin-bottom: 22px;
 		  }
 
 	  	 @include respond-to(767){

@@ -1,5 +1,8 @@
 module.exports = {
     development: {
+         session: {
+            secret: ''
+        },
         db: {
             client: 'mysql',
             connection: {

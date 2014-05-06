@@ -19,7 +19,7 @@
 })(window.RATING = window.RATING || {});
 
 $(document).ready(function() {
-    if ($('.book').length) {
+    if ($('.rating').length) {
         RATING.showRating();
     }
 });

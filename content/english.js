@@ -17,6 +17,13 @@ exports.spotlight = {
     }
 }
 
+exports.book = {
+    ui: {
+        chapter: "Chapter",
+        verse: "Verse"
+    }
+}
+
 exports.frame = {
     ui: {
         signUp: "Sign Up",

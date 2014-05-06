@@ -1,0 +1,35 @@
+<div class="left-hand-bar-container profile-menu">
+    <div class="left-hand-bar">
+        <div class="context-menu-container">
+            <section class="image">
+                <img src="{{book.attributes.picture}}" alt="{{book.attributes.title}}">
+            </section>
+            <section class="detail-container">
+                <div class="bio">
+                    <h2>{{book.attributes.title}}</h2>
+                    <p>{{book.attributes.description}}</p>
+                </div>
+                <div class="book-rating">
+                    <ul class="rating" data-score="{{book.attributes.rating}}">
+                        <li><i class="star fa fa-star-o"></i></li>
+                        <li><i class="star fa fa-star-o"></i></li>
+                        <li><i class="star fa fa-star-o"></i></li>
+                        <li><i class="star fa fa-star-o"></i></li>
+                        <li><i class="star fa fa-star-o"></i></li>
+                    </ul>
+                </div>
+            </section>
+            <nav class="context-menu">
+                {{#chapters}}
+                <div class="tab">
+                    <span>Chapter {{attributes.chapter}}</span><p>
+                    {{attributes.title}}
+                    </p>
+                </div>
+                {{/chapters}}
+                
+            </nav>
+        </div>
+        <div class="marker"></div>
+    </div>
+</div>

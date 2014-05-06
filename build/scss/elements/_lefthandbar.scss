@@ -14,14 +14,48 @@
         transition: all 0.4s ease 0s;
     }
 
+    p{
+     font-weight: 300;
+    }
+
  .left-hand-bar{
             background:$accent;
             float: left;
             width: 100%;
             padding-bottom: 30px;
 
-        .context-menu-container{
 
+    .book-rating {
+        margin-bottom: 10px;
+        clear:both;
+        float:left;
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            li {
+                float: left;
+            }
+        }
+
+        .star {
+            color: rgba(0, 0, 0, 0.15);
+            font-size: 15px;
+            margin-right: 3px;
+            cursor: default;
+
+            &.fa-star{
+                color:#fdd303;
+            }
+
+            &.selected {
+                color: #fdd303;
+            } //#fdd303
+        }
+    }
+
+        .context-menu-container{
 
             h2 {
                 color: #FFFFFF;
@@ -30,8 +64,59 @@
                 margin-left: 18px;
             }
 
-        .context-menu{
+            .image{
+                position: relative;
 
+                img{
+                    width:100%;
+                }
+
+            .image-button{
+                position: absolute;
+                bottom: 20px;
+                left: 26px;
+                font-size: 12px;
+                opacity: 0;
+                -webkit-transition: opacity .1s linear;
+                transition: opacity .1s linear;
+            }
+
+        &:hover{
+
+            .user-image-button{
+            opacity: 1;
+            }
+        }
+
+        img{
+            max-width:200px;
+        }
+    }
+
+    .detail-container{
+        padding: 0px 15px;
+        .bio{
+            h2{
+            color: #FFF;
+            font-weight: 300;
+            margin-left: 0;
+            }
+
+            p{
+            color: #FFF;
+            font-size: 12px;
+            }
+        }
+
+        .btn{
+            font-size: 12px;
+            width:100%;
+            margin-bottom:15px;
+        }
+    }
+
+        .context-menu{
+            clear:both;
             p {
                 color: #FFFFFF;
                 margin-bottom: 0;
