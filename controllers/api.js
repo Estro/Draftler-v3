@@ -278,6 +278,40 @@ exports.postUserActivity = function(req, res, next) {
     }
 };
 
+// Used by books
+// Gets comments from chapter id
+exports.getComments = function(req, res, next) {
+    var chapterId = utils.cleanNum(req.params.chapter);
+    if (chapterId.length) {
+        new data.comments().query(function(qb) {
+            qb.where('chapter_id', '=', chapterId).andWhere('is_banned', '=', 0);
+        }).fetch({
+            withRelated: ['user']
+        }).then(function(model) {
+            res.send(model);
+        }, function(err) {
+            res.send(404);
+        });
+    }
+};
+
+// Used by books
+// Gets author details by chapter id
+exports.getAuthor = function(req, res, next) {
+    var userId = utils.cleanNum(req.params.userId);
+    if (userId.length) {
+        new data.user().query(function(qb) {
+            qb.where('id', userId);
+        }).fetch().then(function(model) {
+            res.send(model);
+        }, function(err) {
+            res.send(404);
+        });
+    }
+};
+
+
+
 // Used by user profiles
 // Upload new profile image to cloudinary
 // Does not work from local host!

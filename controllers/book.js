@@ -32,6 +32,13 @@ exports.getBook = function(req, res) {
     }).fetch({
         withRelated: ['finalChapters', 'votingChapters']
     }).then(function(book) {
+        var stage = book.attributes.stage,
+            isVoting = false;
+
+        if (stage === "Voting"){
+            isVoting = true;
+        }
+
         if (book) {
             res.render('books/book', {
                 book: book,
@@ -41,6 +48,7 @@ exports.getBook = function(req, res) {
                 content: content.book.ui,
                 chapters: book.relations.finalChapters.models,
                 voting: book.relations.votingChapters.models,
+                isVoting: isVoting
             });
         }
     }, function(err) {

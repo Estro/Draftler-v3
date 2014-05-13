@@ -2,7 +2,6 @@
   margin-left: -200px;
   left: 200px;
   width: 200px;
-  background: #000;
   position: fixed;
   height: 100%;
   z-index: 1000;
@@ -16,6 +15,15 @@
 
     p{
      font-weight: 300;
+    }
+
+    &.book-menu{
+        position: absolute;
+    }
+    &.sticky{
+        position: fixed;
+        top:-75px;
+
     }
 
  .left-hand-bar{
@@ -117,6 +125,10 @@
 
         .context-menu{
             clear:both;
+
+            a{
+                color:#5f8381;
+            }
             p {
                 color: #FFFFFF;
                 margin-bottom: 0;
@@ -139,11 +151,8 @@
                 }
 
                 &.active {
-                    background: #fff;
-                    color: $accent;
-                    p {
-                        color:$accent;
-                    }
+                    border-left: 2px solid #5f8381;
+
                 }
             }
 

@@ -7978,7 +7978,6 @@ td.visible-print {
   margin-left: -200px;
   left: 200px;
   width: 200px;
-  background: #000;
   position: fixed;
   height: 100%;
   z-index: 1000;
@@ -7992,64 +7991,73 @@ td.visible-print {
     transition: all 0.4s ease 0s;
   }
 }
-/* line 17, ../../build/scss/elements/_lefthandbar.scss */
+/* line 16, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container p {
   font-weight: 300;
 }
-/* line 21, ../../build/scss/elements/_lefthandbar.scss */
+/* line 20, ../../build/scss/elements/_lefthandbar.scss */
+.left-hand-bar-container.book-menu {
+  position: absolute;
+}
+/* line 23, ../../build/scss/elements/_lefthandbar.scss */
+.left-hand-bar-container.sticky {
+  position: fixed;
+  top: -75px;
+}
+/* line 29, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container .left-hand-bar {
   background: #71beba;
   float: left;
   width: 100%;
   padding-bottom: 30px;
 }
-/* line 28, ../../build/scss/elements/_lefthandbar.scss */
+/* line 36, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container .left-hand-bar .book-rating {
   margin-bottom: 10px;
   clear: both;
   float: left;
 }
-/* line 32, ../../build/scss/elements/_lefthandbar.scss */
+/* line 40, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container .left-hand-bar .book-rating ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 37, ../../build/scss/elements/_lefthandbar.scss */
+/* line 45, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container .left-hand-bar .book-rating ul li {
   float: left;
 }
-/* line 42, ../../build/scss/elements/_lefthandbar.scss */
+/* line 50, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container .left-hand-bar .book-rating .star {
   color: rgba(0, 0, 0, 0.15);
   font-size: 15px;
   margin-right: 3px;
   cursor: default;
 }
-/* line 48, ../../build/scss/elements/_lefthandbar.scss */
+/* line 56, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container .left-hand-bar .book-rating .star.fa-star {
   color: #fdd303;
 }
-/* line 52, ../../build/scss/elements/_lefthandbar.scss */
+/* line 60, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container .left-hand-bar .book-rating .star.selected {
   color: #fdd303;
 }
-/* line 60, ../../build/scss/elements/_lefthandbar.scss */
+/* line 68, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container .left-hand-bar .context-menu-container h2 {
   color: #FFFFFF;
   font-weight: 300;
   margin-bottom: 14px;
   margin-left: 18px;
 }
-/* line 67, ../../build/scss/elements/_lefthandbar.scss */
+/* line 75, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container .left-hand-bar .context-menu-container .image {
   position: relative;
 }
-/* line 70, ../../build/scss/elements/_lefthandbar.scss */
+/* line 78, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container .left-hand-bar .context-menu-container .image img {
   width: 100%;
 }
-/* line 74, ../../build/scss/elements/_lefthandbar.scss */
+/* line 82, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container .left-hand-bar .context-menu-container .image .image-button {
   position: absolute;
   bottom: 20px;
@@ -8059,47 +8067,51 @@ td.visible-print {
   -webkit-transition: opacity .1s linear;
   transition: opacity .1s linear;
 }
-/* line 86, ../../build/scss/elements/_lefthandbar.scss */
+/* line 94, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container .left-hand-bar .context-menu-container .image:hover .user-image-button {
   opacity: 1;
 }
-/* line 91, ../../build/scss/elements/_lefthandbar.scss */
+/* line 99, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container .left-hand-bar .context-menu-container .image img {
   max-width: 200px;
 }
-/* line 96, ../../build/scss/elements/_lefthandbar.scss */
+/* line 104, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container .left-hand-bar .context-menu-container .detail-container {
   padding: 0px 15px;
 }
-/* line 99, ../../build/scss/elements/_lefthandbar.scss */
+/* line 107, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container .left-hand-bar .context-menu-container .detail-container .bio h2 {
   color: #FFF;
   font-weight: 300;
   margin-left: 0;
 }
-/* line 105, ../../build/scss/elements/_lefthandbar.scss */
+/* line 113, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container .left-hand-bar .context-menu-container .detail-container .bio p {
   color: #FFF;
   font-size: 12px;
 }
-/* line 111, ../../build/scss/elements/_lefthandbar.scss */
+/* line 119, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container .left-hand-bar .context-menu-container .detail-container .btn {
   font-size: 12px;
   width: 100%;
   margin-bottom: 15px;
 }
-/* line 118, ../../build/scss/elements/_lefthandbar.scss */
+/* line 126, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container .left-hand-bar .context-menu-container .context-menu {
   clear: both;
 }
-/* line 120, ../../build/scss/elements/_lefthandbar.scss */
+/* line 129, ../../build/scss/elements/_lefthandbar.scss */
+.left-hand-bar-container .left-hand-bar .context-menu-container .context-menu a {
+  color: #5f8381;
+}
+/* line 132, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container .left-hand-bar .context-menu-container .context-menu p {
   color: #FFFFFF;
   margin-bottom: 0;
   margin-top: 0;
   font-size: 13px;
 }
-/* line 128, ../../build/scss/elements/_lefthandbar.scss */
+/* line 140, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container .left-hand-bar .context-menu-container .context-menu .tab {
   background: none repeat scroll 0 0 #85c7c4;
   color: #5f8381;
@@ -8109,18 +8121,13 @@ td.visible-print {
   margin-left: 13px;
   padding: 10px;
 }
-/* line 137, ../../build/scss/elements/_lefthandbar.scss */
+/* line 149, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container .left-hand-bar .context-menu-container .context-menu .tab:hover {
   border-left: 2px solid #85c7c4;
 }
-/* line 141, ../../build/scss/elements/_lefthandbar.scss */
+/* line 153, ../../build/scss/elements/_lefthandbar.scss */
 .left-hand-bar-container .left-hand-bar .context-menu-container .context-menu .tab.active {
-  background: #fff;
-  color: #71beba;
-}
-/* line 144, ../../build/scss/elements/_lefthandbar.scss */
-.left-hand-bar-container .left-hand-bar .context-menu-container .context-menu .tab.active p {
-  color: #71beba;
+  border-left: 2px solid #5f8381;
 }
 
 /* line 1, ../../build/scss/elements/_righthandbar.scss */
@@ -8128,7 +8135,6 @@ td.visible-print {
   margin-right: -230px;
   right: 230px;
   width: 230px;
-  background: #000;
   position: fixed;
   height: 100%;
   z-index: 1000;
@@ -8141,6 +8147,65 @@ td.visible-print {
     right: 0;
     transition: all 0.4s ease 0s;
   }
+}
+/* line 16, ../../build/scss/elements/_righthandbar.scss */
+.right-hand-bar-container .author-details {
+  background: #30383d;
+}
+/* line 18, ../../build/scss/elements/_righthandbar.scss */
+.right-hand-bar-container .author-details ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+/* line 23, ../../build/scss/elements/_righthandbar.scss */
+.right-hand-bar-container .author-details ul li {
+  padding: 10px;
+}
+/* line 21, ../../build/scss/defaults/_mixins.scss */
+.right-hand-bar-container .author-details ul li:before, .right-hand-bar-container .author-details ul li:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+/* line 25, ../../build/scss/defaults/_mixins.scss */
+.right-hand-bar-container .author-details ul li:after {
+  clear: both;
+}
+/* line 26, ../../build/scss/elements/_righthandbar.scss */
+.right-hand-bar-container .author-details ul li.active {
+  display: block;
+}
+/* line 30, ../../build/scss/elements/_righthandbar.scss */
+.right-hand-bar-container .author-details ul li .author-name {
+  display: block;
+  margin-left: 50px;
+  color: #fff;
+  font-size: 18px;
+}
+/* line 37, ../../build/scss/elements/_righthandbar.scss */
+.right-hand-bar-container .author-details ul li .points-container {
+  display: block;
+  color: #fff;
+  margin-left: 50px;
+  font-size: 12px;
+}
+/* line 43, ../../build/scss/elements/_righthandbar.scss */
+.right-hand-bar-container .author-details ul li .points-container .points {
+  color: #71beba;
+}
+/* line 49, ../../build/scss/elements/_righthandbar.scss */
+.right-hand-bar-container .author-details ul li img {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  width: 40px;
+  height: 40px;
+  -moz-border-radius: 300px;
+  border-radius: 300px;
+  -webkit-border-radius: 300px;
+  float: left;
 }
 
 /* line 2, ../../build/scss/elements/_content-area.scss */
@@ -11822,7 +11887,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 /* line 86, ../../build/scss/elements/_bookCards.scss */
 .book .book-details .timer-bar {
-  width: 180px;
+  width: 100%;
   height: 3px;
   background: rgba(0, 0, 0, 0.1);
   display: inline-block;
@@ -11839,6 +11904,59 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 /* line 101, ../../build/scss/elements/_bookCards.scss */
 .book .book-details .timer-bar span.Voting {
   background: #cf6243;
+}
+
+/* line 1, ../../build/scss/elements/_comments.scss */
+.comments {
+  background: #F4F4F4;
+  height: 500px;
+  overflow: hidden;
+}
+/* line 6, ../../build/scss/elements/_comments.scss */
+.comments ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+/* line 11, ../../build/scss/elements/_comments.scss */
+.comments ul li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+/* line 21, ../../build/scss/defaults/_mixins.scss */
+.comments ul li:before, .comments ul li:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+/* line 25, ../../build/scss/defaults/_mixins.scss */
+.comments ul li:after {
+  clear: both;
+}
+/* line 15, ../../build/scss/elements/_comments.scss */
+.comments ul li .comment-image img {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  width: 40px;
+  height: 40px;
+  -moz-border-radius: 300px;
+  border-radius: 300px;
+  -webkit-border-radius: 300px;
+  float: left;
+}
+/* line 27, ../../build/scss/elements/_comments.scss */
+.comments ul li .comment {
+  font-size: 11px;
+  margin-left: 50px;
+}
+/* line 32, ../../build/scss/elements/_comments.scss */
+.comments ul li .comment-meta {
+  font-size: 9px;
+  margin-left: 50px;
+  color: #ccc;
+  margin-top: 2px;
 }
 
 /* line 2, ../../build/scss/elements/_spotlight.scss */

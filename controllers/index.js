@@ -36,6 +36,10 @@ exports.userHome = function(req, res) {
             dif =  current.getTime() - start.getTime();
             pastTime = Math.abs(dif / 1000);
             books.models[i].attributes.remaining_time = Math.abs(100 - ((pastTime/totalTime) * 100));
+
+            if (books.models[i].attributes.remaining_time > 100){
+                books.models[i].attributes.remaining_time = 100;
+            }
         }
 
         res.render('index/home', {

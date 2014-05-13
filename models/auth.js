@@ -52,6 +52,9 @@ module.exports = function() {
         },
         books: function() {
             return this.hasMany(bookshelf.book).through(bookshelf.chapter);
+        },
+        comments: function (){
+            return this.hasMany(bookshelf.comment);
         }
     });
 
@@ -122,6 +125,9 @@ module.exports = function() {
         },
         comments: function() {
             return this.hasMany(bookshelf.comment).through(bookshelf.chapter);
+        },
+        authors: function (){
+            return this.belongsToMany(bookshelf.user).through(bookshelf.chapter);
         }
     });
 
@@ -189,6 +195,9 @@ module.exports = function() {
         },
         book: function() {
             return this.belongsTo(bookshelf.book).through(bookshelf.chapter);
+        },
+        user: function (){
+            return this.belongsTo(bookshelf.user);
         }
     });
 

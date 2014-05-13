@@ -2,17 +2,64 @@
   margin-right: -230px;
   right: 230px;
   width: 230px;
-  background: #000;
   position: fixed;
   height: 100%;
   z-index: 1000;
   background: $accent-second;
   overflow:hidden;
 
-
     @include respond-to(767){
         right: 0;
         transition: all 0.4s ease 0s;
+    }
+
+    .author-details{
+        background: #30383d;
+      ul{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li{
+            @include clearfix();
+            padding:10px;
+            &.active{
+              display: block;
+            }
+
+            .author-name{
+              display: block;
+              margin-left: 50px;
+              color:#fff;
+              font-size: 18px;
+            }
+
+            .points-container{
+              display: block;
+              color:#fff;
+              margin-left:50px;
+              font-size: 12px;
+
+              .points{
+                color:$accent;
+              }
+            }
+
+
+             img{
+               display: inline-block;
+                position: relative;
+                overflow: hidden;
+                width: 40px;
+                height: 40px;
+                -moz-border-radius: 300px;
+                border-radius: 300px;
+                -webkit-border-radius: 300px;
+                float: left;
+
+            }
+        }
+      }
     }
 
 }

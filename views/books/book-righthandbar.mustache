@@ -1,38 +1,13 @@
 <div class="right-hand-bar-container">
-    <section class="editor_controls">
-        <div class="wordcount_container">
-            <span class="wordcount">750</span>
-            <p>words remaining</p>
-        </div>
-        <div>
-            <a class="button" href="#">Save as Draft</a>
-            <a class="button" href="#">Submit</a>
-        </div>
+    <section class="author-details">
+        <ul></ul>
     </section>
-    <section class="author_details">
-        <div class="author" data-ng-repeat="data in bookInfo" data-ng-class="{active : $first}" data-chapter="{{data.chapter}}">
-            <div class="author_section">
-                <div class="author_img">
-                <img data-ng-src="{{data.authorImg}}" alt="{{data.author}}" /></div>
-                <span class="author_name">{{data.author}}</span>
-                <div>
-                    <span>Publisher Points:<span class="points">{{data.authorPoints}}</span></span>
-                </div>
-            </div>
+    <section class="comments-wrapper">
+        <div class="comments" data-scroll="comments">
+            <ul></ul>
         </div>
-        
-    </section>
-    <section class="comments-wrapper" data-ng-controller="bookComments">
-        <div class="comments" data-v-smooth-scroll="" data-scroll="comments">
-            <div class="comment" data-ng-repeat="data in comments" id="comment-{{data.commentId}}">
-                <a href="#/user/{{data.userId}}">
-                <img src="" data-ng-src="{{ data.userPicture }}" alt="" />
-                </a>
-                <span class="comment_text">{{ data.commentContent }}</span>
-            </div>
-        </div>
-        <div class="comments_input">
-            <form data-ng-submit="pushComment()">
+        <div class="comments-input">
+            <form>
                 <textarea class="comment_textbox" rows="2" data-ng-model="commentText" placeholder="Share your thoughts.."></textarea>
                 <input class="btn-primary comment_submit" type="submit" value="Comment"/>
             </form>

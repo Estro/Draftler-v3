@@ -62,6 +62,8 @@ module.exports = function(app, passport) {
     app.get('/api/getuseractivity/:userId/:page', ensureAuthenticated, apiController.getUserActivityPage);
     app.post('/api/useractivity', ensureAuthenticated, apiController.postUserActivity);
     app.post('/api/profileimage', ensureAuthenticated, apiController.uploadProfileImage);
+    app.get('/api/getcomments/:chapter', apiController.getComments);
+    app.get('/api/getauthor/:userId', apiController.getAuthor);
 
     app.get('*', function(req, res) {
           res.render('index/404');

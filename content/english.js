@@ -20,7 +20,8 @@ exports.spotlight = {
 exports.book = {
     ui: {
         chapter: "Chapter",
-        verse: "Verse"
+        verse: "Verse",
+        voteNext: "Vote on next chapter"
     }
 }
 

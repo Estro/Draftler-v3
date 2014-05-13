@@ -1,11 +1,9 @@
 <ul>
     {{#comments}}
         <li>
-        <span>{{userName}}</span>
-        <span>{{book_id}}</span>
-        <span>{{userId}}</span>
-        <span>{{userPicture}}</span>
-        <span>{{commentContent}}</span>
+        <div class="comment-pic"><a href="/profile/{{userId}}">{{picture}}</a></div>
+        <div class="comment">{{book_id}}</div>
+        <div class="metadata">{{userId}}</div>
         </li>
     {{/comments}}
 </ul>
