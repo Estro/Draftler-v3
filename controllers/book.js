@@ -48,7 +48,8 @@ exports.getBook = function(req, res) {
                 content: content.book.ui,
                 chapters: book.relations.finalChapters.models,
                 voting: book.relations.votingChapters.models,
-                isVoting: isVoting
+                isVoting: isVoting,
+                user: req.user
             });
         }
     }, function(err) {

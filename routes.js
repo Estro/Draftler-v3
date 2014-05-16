@@ -10,7 +10,8 @@ module.exports = function(app, passport) {
 
     // Home
     app.get('/', indexController.home);
-    app.get('/Explore', indexController.userHome);
+    app.get('/Explore', indexController.explore);
+    app.get('/Explore/Spotlight', indexController.userHome);
 
     //Books
     app.get('/book', bookController.redirectBook);
@@ -63,11 +64,11 @@ module.exports = function(app, passport) {
     app.post('/api/useractivity', ensureAuthenticated, apiController.postUserActivity);
     app.post('/api/profileimage', ensureAuthenticated, apiController.uploadProfileImage);
     app.get('/api/getcomments/:chapter', apiController.getComments);
+    app.post('/api/postcomment/:chapter', ensureAuthenticated, apiController.postComment);
     app.get('/api/getauthor/:userId', apiController.getAuthor);
 
-    app.get('*', function(req, res) {
-          res.render('index/404');
-    });
+
+    app.get('*', indexController.notFound);
 
     function ensureAuthenticated(req, res, next) {
         // Check user is autenticated and not banned.

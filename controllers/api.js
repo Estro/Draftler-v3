@@ -103,7 +103,7 @@ exports.followUser = function(req, res, next) {
                     }
                 }, function(err) {
                     // give away no info from errors!
-                    res.send(err);
+                    res.send(404);
                 });
             } else {
                 res.send({
@@ -282,7 +282,7 @@ exports.postUserActivity = function(req, res, next) {
 // Gets comments from chapter id
 exports.getComments = function(req, res, next) {
     var chapterId = utils.cleanNum(req.params.chapter);
-    if (chapterId.length) {
+    if (chapterId) {
         new data.comments().query(function(qb) {
             qb.where('chapter_id', '=', chapterId).andWhere('is_banned', '=', 0);
         }).fetch({
@@ -296,10 +296,32 @@ exports.getComments = function(req, res, next) {
 };
 
 // Used by books
+// Posts comments by chapter id
+exports.postComment = function(req, res) {
+    var chapterId = utils.cleanNum(req.params.chapter),
+        comment = sanitizer.sanitize(req.body.comment),
+        user = req.user.id;
+
+    if (chapterId && comment.length > 1 && comment.length < 140) {
+        new data.comment({
+            user_id: user,
+            comment: comment,
+            chapter_id: chapterId
+        }).save().then(function(model) {
+            res.send(model);
+        }, function(err) {
+            res.send(404);
+        });
+    } else {
+        res.send(404);
+    }
+};
+
+// Used by books
 // Gets author details by chapter id
-exports.getAuthor = function(req, res, next) {
+exports.getAuthor = function(req, res) {
     var userId = utils.cleanNum(req.params.userId);
-    if (userId.length) {
+    if (userId) {
         new data.user().query(function(qb) {
             qb.where('id', userId);
         }).fetch().then(function(model) {

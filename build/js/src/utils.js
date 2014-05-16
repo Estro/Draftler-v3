@@ -15,6 +15,21 @@
         });
     };
 
+    UTILS.postJSON = function (url,data,returnFunction){
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            dataType: 'json',
+            success: function(data) {
+                returnFunction(data);
+            },
+            error: function() {
+
+            }
+        });
+    };
+
 
 
 

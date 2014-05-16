@@ -118,7 +118,8 @@ exports.loginPage = function(req, res) {
         username: req.flash('username'),
         frame: content.frame.ui,
         content: content.login.ui,
-        validation: content.validation
+        validation: content.validation,
+        refer: req.headers.referer
     });
 };
 
@@ -139,9 +140,15 @@ exports.checkLogin = function(req, res, next) {
                 res.redirect('/login');
                 return;
             }
-            // if all went ok, redirect to homepage as a logged in user!
-            res.redirect('/');
-            return;
+
+            if (req.body.refer) {
+                res.redirect(req.body.refer);
+                return;
+            } else {
+                // if all went ok, redirect to homepage as a logged in user!
+                res.redirect('/');
+                return;
+            }
         });
     })(req, res, next);
 };
@@ -150,7 +157,7 @@ exports.checkLogin = function(req, res, next) {
 exports.resendEmailRedirect = function(req, res) {
     // get userId and token from query 
     var userId = utils.cleanNum(req.user.id);
-        res.redirect('/resendemail/' + userId);
+    res.redirect('/resendemail/' + userId);
 };
 
 // route: resendemail/:id

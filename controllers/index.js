@@ -6,9 +6,12 @@ var crypto = require('crypto'),
     sanitizer = require('sanitizer');
 
 exports.home = function(req, res) {
-    res.redirect('/Explore');
+    res.redirect('/explore/spotlight');
 }
 
+exports.explore = function(req, res) {
+    res.redirect('/explore/spotlight');
+}
 
 exports.userHome = function(req, res) {
 
@@ -48,10 +51,25 @@ exports.userHome = function(req, res) {
             frame: content.frame.ui,
             content: content.spotlight.ui,
             callout: [content.spotlight.ui.findOutMore],
-            books: books.models
+            books: books.models,
+            user: req.user
         });
 
     }, function(err) {
         // Error
     });
-}
+};
+
+
+exports.notFound =function(req, res) {
+
+        res.render('index/404', {
+            loggedIn: false,
+            is_admin: false,
+            frame: content.frame.ui,
+            content: content.spotlight.ui,
+            callout: [content.spotlight.ui.findOutMore],
+        });
+};
+
+ 

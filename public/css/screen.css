@@ -8160,6 +8160,7 @@ td.visible-print {
 }
 /* line 23, ../../build/scss/elements/_righthandbar.scss */
 .right-hand-bar-container .author-details ul li {
+  display: none;
   padding: 10px;
 }
 /* line 21, ../../build/scss/defaults/_mixins.scss */
@@ -8173,29 +8174,29 @@ td.visible-print {
 .right-hand-bar-container .author-details ul li:after {
   clear: both;
 }
-/* line 26, ../../build/scss/elements/_righthandbar.scss */
+/* line 28, ../../build/scss/elements/_righthandbar.scss */
 .right-hand-bar-container .author-details ul li.active {
   display: block;
 }
-/* line 30, ../../build/scss/elements/_righthandbar.scss */
+/* line 32, ../../build/scss/elements/_righthandbar.scss */
 .right-hand-bar-container .author-details ul li .author-name {
   display: block;
   margin-left: 50px;
   color: #fff;
   font-size: 18px;
 }
-/* line 37, ../../build/scss/elements/_righthandbar.scss */
+/* line 39, ../../build/scss/elements/_righthandbar.scss */
 .right-hand-bar-container .author-details ul li .points-container {
   display: block;
   color: #fff;
   margin-left: 50px;
   font-size: 12px;
 }
-/* line 43, ../../build/scss/elements/_righthandbar.scss */
+/* line 45, ../../build/scss/elements/_righthandbar.scss */
 .right-hand-bar-container .author-details ul li .points-container .points {
   color: #71beba;
 }
-/* line 49, ../../build/scss/elements/_righthandbar.scss */
+/* line 51, ../../build/scss/elements/_righthandbar.scss */
 .right-hand-bar-container .author-details ul li img {
   display: inline-block;
   position: relative;
@@ -11853,7 +11854,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 .book .book-rating .star.selected {
   color: #fdd303;
 }
-/* line 51, ../../build/scss/elements/_bookCards.scss */
+/* line 50, ../../build/scss/elements/_bookCards.scss */
+.book .book-details {
+  height: 160px;
+  overflow: hidden;
+}
+/* line 53, ../../build/scss/elements/_bookCards.scss */
 .book .book-details h1 {
   margin: 0;
   font-weight: normal;
@@ -11865,27 +11871,27 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   border: 0 !important;
   padding: 0 !important;
 }
-/* line 65, ../../build/scss/elements/_bookCards.scss */
+/* line 67, ../../build/scss/elements/_bookCards.scss */
 .book .book-details .stage-meta {
   font-size: 10px;
   margin-left: 3px;
 }
-/* line 70, ../../build/scss/elements/_bookCards.scss */
+/* line 72, ../../build/scss/elements/_bookCards.scss */
 .book .book-details .stage-meta span {
   color: #71beba;
 }
-/* line 73, ../../build/scss/elements/_bookCards.scss */
+/* line 75, ../../build/scss/elements/_bookCards.scss */
 .book .book-details .stage-meta span.Voting {
   color: #cf6243;
 }
-/* line 79, ../../build/scss/elements/_bookCards.scss */
+/* line 81, ../../build/scss/elements/_bookCards.scss */
 .book .book-details .book-description {
   font-size: 12px;
   margin: 0;
   padding-left: 2px;
   padding-right: 2px;
 }
-/* line 86, ../../build/scss/elements/_bookCards.scss */
+/* line 88, ../../build/scss/elements/_bookCards.scss */
 .book .book-details .timer-bar {
   width: 100%;
   height: 3px;
@@ -11895,13 +11901,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   top: -5px;
   left: 2px;
 }
-/* line 96, ../../build/scss/elements/_bookCards.scss */
+/* line 98, ../../build/scss/elements/_bookCards.scss */
 .book .book-details .timer-bar span {
   height: 100%;
   display: block;
   background: #71beba;
 }
-/* line 101, ../../build/scss/elements/_bookCards.scss */
+/* line 103, ../../build/scss/elements/_bookCards.scss */
 .book .book-details .timer-bar span.Voting {
   background: #cf6243;
 }

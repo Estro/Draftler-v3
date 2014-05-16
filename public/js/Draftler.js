@@ -5181,20 +5181,65 @@ if (typeof Object.create !== "function") {
 
     };
 
-    BOOK.getAuthor = function(userId) {
+    BOOK.getAuthor = function(userId, chapter) {
         var url = '/api/getauthor/' + userId,
             html,
-            template = '<li class="author a_{{id}}"><div class="author-section"><div class="author-img"><img src="{{avatar}}" alt="{{username}}" /></div><span class="author-name">{{username}}</span><div><span class="points-container">Publisher Points: <span class="points">{{points}}</span></span></div></div></li>';
-        
+            template = '<li class="author a_{{id}} c_' + chapter + '" data-chapter="' + chapter + '"><div class="author-section"><div class="author-img"><img src="{{avatar}}" alt="{{username}}" /></div><span class="author-name">{{username}}</span><div><span class="points-container">Publisher Points: <span class="points">{{points}}</span></span></div></div></li>';
+
         UTILS.getJSON(url, function(data) {
             if (data) {
                 html = Mustache.to_html(template, data);
                 $('.author-details ul').append(html);
+                chapter = $('.tab.active').data('chapter');
+                $('.c_' + chapter).addClass('active');
             }
 
         });
+    };
+
+    BOOK.postComment = function() {
+        var chapter = $('.tab.active').data('chapter');
+        chapter = $('#chapter_' + chapter).data('id');
+        var comment = $('.comment-textbox').val(),
+            url = '/api/postcomment/' + chapter,
+            userId = $('.current-user').data('userid'),
+            avatar = $('.current-user').data('avatar'),
+            username = $('.current-user').data('username'),
+            posted = moment().fromNow(),
+            template = '<li><div class="comment-image"><a href="/profile/' + username + '"><img src="' + avatar + '" alt="' + username + '" title="' + username + '"></a></div><div class="comment">' + comment + '</div><div class="comment-meta">' + posted + '</div></li>',
+            data = {
+                comment: comment
+            };
+
+        if (comment.length > 1 && comment.length < 140) {
+            UTILS.postJSON(url, data, function(data) {
+                $('.comments ul').append(template);
+                $('.comment-textbox').val('');
+            });
+        }
 
     };
+
+    BOOK.events = function() {
+        $('.comment-submit').click(function(e) {
+            e.preventDefault();
+            BOOK.postComment();
+        });
+    };
+
+    BOOK.displayAuthor = function() {
+        var $chapters = $('.chapter'),
+            author, chapter;
+
+        $chapters.each(function(index) {
+            author = $(this).data('author');
+            chapter = $(this).data('chapter');
+            BOOK.getAuthor(author, chapter);
+        });
+
+    };
+
+
 
 
 })(window.BOOK = window.BOOK || {});
@@ -5206,7 +5251,11 @@ $(document).ready(function() {
     }
 
     if ($('.author-details').length) {
-        BOOK.getAuthor($('.chapter').eq(0).data('author'));
+        BOOK.displayAuthor();
+    }
+
+    if ($('.book-stage').length) {
+        BOOK.events();
     }
 
 });
@@ -5523,7 +5572,7 @@ $(document).ready(function() {
                 topMaker = $('.detail-container').offset().top - 60,
                 $window = $(window),
                 didScroll = false,
-                scrollpos, chapter, elepos, notAuto = true;
+                scrollpos, chapter, elepos, author, notAuto = true;
 
             $bookMenu.height($('.content-stage').height());
 
@@ -5537,8 +5586,10 @@ $(document).ready(function() {
 
                 $('.chapter').each(function() {
                     elepos = $(this).offset().top;
-                    if (elepos - 200 < scrollpos && notAuto) {
+
+                    if ((elepos - 200) < scrollpos && notAuto) {
                         chapter = $(this).attr('data-chapter');
+                        author = $(this).attr('data-author');
                         $('.tab, .author').removeClass('active');
                         $("*[data-chapter='" + chapter + "']").addClass('active');
                     }
@@ -5556,7 +5607,7 @@ $(document).ready(function() {
                 $("html, body").animate({
                     scrollTop: $('#chapter_' + chapter).position().top
                 }, function() {
-                     notAuto = true;
+                    notAuto = true;
                 });
             });
 
@@ -5847,6 +5898,21 @@ $(document).ready(function() {
         $.ajax({
             type: "GET",
             url: url,
+            dataType: 'json',
+            success: function(data) {
+                returnFunction(data);
+            },
+            error: function() {
+
+            }
+        });
+    };
+
+    UTILS.postJSON = function (url,data,returnFunction){
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
             dataType: 'json',
             success: function(data) {
                 returnFunction(data);

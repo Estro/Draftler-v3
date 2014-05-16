@@ -30,7 +30,7 @@
                 topMaker = $('.detail-container').offset().top - 60,
                 $window = $(window),
                 didScroll = false,
-                scrollpos, chapter, elepos, notAuto = true;
+                scrollpos, chapter, elepos, author, notAuto = true;
 
             $bookMenu.height($('.content-stage').height());
 
@@ -44,8 +44,10 @@
 
                 $('.chapter').each(function() {
                     elepos = $(this).offset().top;
-                    if (elepos - 200 < scrollpos && notAuto) {
+
+                    if ((elepos - 200) < scrollpos && notAuto) {
                         chapter = $(this).attr('data-chapter');
+                        author = $(this).attr('data-author');
                         $('.tab, .author').removeClass('active');
                         $("*[data-chapter='" + chapter + "']").addClass('active');
                     }
@@ -63,7 +65,7 @@
                 $("html, body").animate({
                     scrollTop: $('#chapter_' + chapter).position().top
                 }, function() {
-                     notAuto = true;
+                    notAuto = true;
                 });
             });
 
