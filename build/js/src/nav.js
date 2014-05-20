@@ -30,7 +30,10 @@
                 topMaker = $('.detail-container').offset().top - 60,
                 $window = $(window),
                 didScroll = false,
-                scrollpos, chapter, elepos, author, notAuto = true;
+                scrollpos, chapter, elepos, author, notAuto = true,
+                liveChapter = 0,
+                first = true,
+                repeater = 0;
 
             $bookMenu.height($('.content-stage').height());
 
@@ -43,13 +46,16 @@
                 }
 
                 $('.chapter').each(function() {
-                    elepos = $(this).offset().top;
-
-                    if ((elepos - 200) < scrollpos && notAuto) {
-                        chapter = $(this).attr('data-chapter');
-                        author = $(this).attr('data-author');
-                        $('.tab, .author').removeClass('active');
-                        $("*[data-chapter='" + chapter + "']").addClass('active');
+                    elepos = $(this).offset().top - 200;
+                    if (elepos < scrollpos && notAuto && scrollpos < (elepos + 400)) {
+                        if ($(this).attr('data-chapter') != liveChapter) {
+                            liveChapter = $(this).attr('data-chapter');
+                            author = $(this).attr('data-author');
+                            $('.tab, .author, .chapter').removeClass('active');
+                            $("*[data-chapter='" + liveChapter + "']").addClass('active');
+                            chapter = $('.chapter.active').data('id');
+                            BOOK.getComments(chapter);
+                        }
                     }
                 });
             });
@@ -62,8 +68,11 @@
                 chapter = $(this).attr('data-chapter');
                 $('.tab, .author').removeClass('active');
                 $("*[data-chapter='" + chapter + "']").addClass('active');
+                liveChapter = chapter;
+                chapter = $('.chapter.active').data('id');
+                BOOK.getComments(chapter);
                 $("html, body").animate({
-                    scrollTop: $('#chapter_' + chapter).position().top
+                    scrollTop: $('#chapter_' + liveChapter).position().top
                 }, function() {
                     notAuto = true;
                 });

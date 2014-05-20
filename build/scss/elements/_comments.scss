@@ -1,6 +1,5 @@
 .comments{
   background: #F4F4F4;
-  height: 500px;
   overflow: hidden;
 
   ul{
@@ -37,6 +36,27 @@
           }
       
     }
+  }
+
+}
+
+.comments-input{
+  background: $accent-second;
+  padding:5px;
+  width:100%;
+
+  .comment-textbox{
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    display: block;
+    float: left;
+  }
+
+  .comment-submit, .sign-in{
+    border: 0;
+    width: 100%;
+    margin-top: 5px;
   }
 }
 

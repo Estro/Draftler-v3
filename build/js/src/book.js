@@ -7,15 +7,25 @@
             template = '{{#.}}<li><div class="comment-image"><a href="/profile/{{user.id}}"><img src="{{user.avatar}}" alt="{{user.username}}" title="{{user.username}}"></a></div><div class="comment">{{comment}}</div><div class="comment-meta">{{posted}}</div></li>{{/.}}';
         UTILS.getJSON(url, function(data) {
             if (data) {
-                $.each(data, function(index, value) {
-                    value.posted = moment(value.created_at).fromNow();
-
-                });
-
-                html = Mustache.to_html(template, data);
-                $('.comments ul').html(html);
+                if (data.length) {
+                    $.each(data, function(index, value) {
+                        value.posted = moment(value.created_at).fromNow();
+                    });
+                    $('#comments').mCustomScrollbar("destroy");
+                    $('#comments').empty();
+                    html = Mustache.to_html(template, data);
+                    $('#comments').html(html);
+                    $('#comments').mCustomScrollbar();
+                } else {
+                    $('#comments').mCustomScrollbar("destroy");
+                    $('#comments').empty();
+                    $('#comments').html('<li>Be the first to comment!</li>');
+                }
+            } else {
+                $('#comments').mCustomScrollbar("destroy");
+                $('#comments').empty();
+                $('#comments').html('<li>Be the first to comment!</li>');
             }
-
         });
 
     };
@@ -51,19 +61,32 @@
             };
 
         if (comment.length > 1 && comment.length < 140) {
+            $("#comments .mCSB_container").append(template); //append new content inside .mCSB_container
+            $("#comments").mCustomScrollbar("update"); //update scrollbar according to newly appended content
+            $("#comments").mCustomScrollbar("scrollTo", "li:last", {
+                scrollInertia: 1000,
+                scrollEasing: "easeInOutQuad"
+            });
+            $('.comment-textbox').val('');
             UTILS.postJSON(url, data, function(data) {
-                $('.comments ul').append(template);
-                $('.comment-textbox').val('');
+
             });
         }
 
     };
 
     BOOK.events = function() {
+        var commentHeight = $('.sign-in').length ? 170 : 225;
+        $('.comments, .comments ul').height($(window).height() - commentHeight);
         $('.comment-submit').click(function(e) {
             e.preventDefault();
             BOOK.postComment();
         });
+
+        $(window).resize(function() {
+            $('.comments, .comments ul').height($(window).height() - commentHeight);
+        });
+
     };
 
     BOOK.displayAuthor = function() {
@@ -77,8 +100,6 @@
         });
 
     };
-
-
 
 
 })(window.BOOK = window.BOOK || {});

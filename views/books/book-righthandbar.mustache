@@ -4,12 +4,17 @@
     </section>
     <section class="comments-wrapper">
         <div class="comments" data-scroll="comments">
-            <ul></ul>
+            <ul id="comments"></ul>
         </div>
         <div class="comments-input">
             <div>
-                <textarea class="comment-textbox" rows="2" placeholder="Share your thoughts.." maxlength="141"></textarea>
-                <input class="btn-primary comment-submit" type="button" value="Comment"/>
+                {{#loggedIn}}
+                <textarea class="comment-textbox" rows="2" placeholder="{{content.share}}" maxlength="141"></textarea>
+                <input class="btn-primary btn comment-submit" type="button" value="{{content.comment}}"/>
+                {{/loggedIn}}
+                {{^loggedIn}}
+                  <a class="btn-primary btn sign-in" href="/login">{{content.signin}}</a>
+                 {{/loggedIn}}
             </div>
         </div>
     </section>
