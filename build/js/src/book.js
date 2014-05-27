@@ -3,6 +3,7 @@
 
     BOOK.getComments = function(chapter) {
         var url = '/api/getcomments/' + chapter,
+            $comments = $('#comments'),
             html,
             template = '{{#.}}<li><div class="comment-image"><a href="/profile/{{user.id}}"><img src="{{user.avatar}}" alt="{{user.username}}" title="{{user.username}}"></a></div><div class="comment">{{comment}}</div><div class="comment-meta">{{posted}}</div></li>{{/.}}';
         UTILS.getJSON(url, function(data) {
@@ -11,20 +12,20 @@
                     $.each(data, function(index, value) {
                         value.posted = moment(value.created_at).fromNow();
                     });
-                    $('#comments').mCustomScrollbar("destroy");
-                    $('#comments').empty();
+                    $comments.mCustomScrollbar("destroy");
+                    $comments.empty();
                     html = Mustache.to_html(template, data);
-                    $('#comments').html(html);
-                    $('#comments').mCustomScrollbar();
+                    $comments.html(html);
+                    $comments.mCustomScrollbar();
                 } else {
-                    $('#comments').mCustomScrollbar("destroy");
-                    $('#comments').empty();
-                    $('#comments').html('<li>Be the first to comment!</li>');
+                    $comments.mCustomScrollbar("destroy");
+                    $comments.empty();
+                    $comments.html('<li>Be the first to comment!</li>');
                 }
             } else {
-                $('#comments').mCustomScrollbar("destroy");
-                $('#comments').empty();
-                $('#comments').html('<li>Be the first to comment!</li>');
+                $comments.mCustomScrollbar("destroy");
+                $comments.empty();
+                $comments.html('<li>Be the first to comment!</li>');
             }
         });
 

@@ -6188,6 +6188,7 @@ THE SOFTWARE.
 
     BOOK.getComments = function(chapter) {
         var url = '/api/getcomments/' + chapter,
+            $comments = $('#comments'),
             html,
             template = '{{#.}}<li><div class="comment-image"><a href="/profile/{{user.id}}"><img src="{{user.avatar}}" alt="{{user.username}}" title="{{user.username}}"></a></div><div class="comment">{{comment}}</div><div class="comment-meta">{{posted}}</div></li>{{/.}}';
         UTILS.getJSON(url, function(data) {
@@ -6196,20 +6197,20 @@ THE SOFTWARE.
                     $.each(data, function(index, value) {
                         value.posted = moment(value.created_at).fromNow();
                     });
-                    $('#comments').mCustomScrollbar("destroy");
-                    $('#comments').empty();
+                    $comments.mCustomScrollbar("destroy");
+                    $comments.empty();
                     html = Mustache.to_html(template, data);
-                    $('#comments').html(html);
-                    $('#comments').mCustomScrollbar();
+                    $comments.html(html);
+                    $comments.mCustomScrollbar();
                 } else {
-                    $('#comments').mCustomScrollbar("destroy");
-                    $('#comments').empty();
-                    $('#comments').html('<li>Be the first to comment!</li>');
+                    $comments.mCustomScrollbar("destroy");
+                    $comments.empty();
+                    $comments.html('<li>Be the first to comment!</li>');
                 }
             } else {
-                $('#comments').mCustomScrollbar("destroy");
-                $('#comments').empty();
-                $('#comments').html('<li>Be the first to comment!</li>');
+                $comments.mCustomScrollbar("destroy");
+                $comments.empty();
+                $comments.html('<li>Be the first to comment!</li>');
             }
         });
 
@@ -6620,7 +6621,8 @@ $(document).ready(function() {
                 scrollpos, chapter, elepos, author, notAuto = true,
                 liveChapter = 0,
                 first = true,
-                repeater = 0;
+                repeater = 0,
+                $ele;
 
             $bookMenu.height($('.content-stage').height());
 
@@ -6635,16 +6637,33 @@ $(document).ready(function() {
                 $('.chapter').each(function() {
                     elepos = $(this).offset().top - 200;
                     if (elepos < scrollpos && notAuto && scrollpos < (elepos + 400)) {
-                        if ($(this).attr('data-chapter') != liveChapter) {
-                            liveChapter = $(this).attr('data-chapter');
-                            author = $(this).attr('data-author');
-                            $('.tab, .author, .chapter').removeClass('active');
-                            $("*[data-chapter='" + liveChapter + "']").addClass('active');
-                            chapter = $('.chapter.active').data('id');
-                            BOOK.getComments(chapter);
-                        }
+                     
+                            if ($(this).attr('data-chapter') != liveChapter) {
+                                    $('.tab, .author, .chapter').removeClass('active');
+                                    liveChapter = $(this).attr('data-chapter');
+                                    author = $(this).attr('data-author');
+                                    $("*[data-chapter='" + liveChapter + "']").addClass('active');
+                                    chapter = $('.chapter.active').data('id');
+                                    BOOK.getComments(chapter);
+                            }
                     }
                 });
+
+        
+                    elepos = $('.voting-chapter').eq(0).offset().top - 200;
+                    if (elepos < scrollpos && notAuto && scrollpos < (elepos + 400)) {
+                            var $liveItem = $('.owl-item.active').children();
+                            if ($liveItem.attr('data-chapter') != liveChapter) {
+                                    $('.tab, .author, .chapter').removeClass('active');
+                                    liveChapter = $liveItem.attr('data-chapter');
+                                    console.log(liveChapter);
+                                    author = $liveItem.attr('data-author');
+                                    $("*[data-chapter='" + liveChapter + "']").addClass('active');
+                                    chapter = $('.chapter.active').data('id');
+                                    BOOK.getComments(chapter);
+                                }
+                    }
+            
             });
 
             $bookMenu.find('.tab').eq(0).addClass('active');
@@ -6655,9 +6674,15 @@ $(document).ready(function() {
                 chapter = $(this).attr('data-chapter');
                 $('.tab, .author').removeClass('active');
                 $("*[data-chapter='" + chapter + "']").addClass('active');
+                $("*[data-voting-chapter='" + chapter + "']").addClass('active');
                 liveChapter = chapter;
                 chapter = $('.chapter.active').data('id');
                 BOOK.getComments(chapter);
+                if ($(this).hasClass('voting-tab')) {
+                    $ele = $('.voting-chapter').eq(0);
+                } else {
+                    $ele = $('#chapter_' + liveChapter);
+                }
                 $("html, body").animate({
                     scrollTop: $('#chapter_' + liveChapter).position().top
                 }, function() {
@@ -6981,3 +7006,23 @@ $(document).ready(function() {
 
 
 })(window.UTILS = window.UTILS || {});
+(function(VOTING) {
+    "use strict";
+
+    VOTING.slider = function() {
+        $(".voting").owlCarousel({
+            navigation: false,
+            pagination: false,
+            singleItem:true,
+            addClassActive:true
+        });
+
+    };
+
+})(window.VOTING = window.VOTING || {});
+
+$(document).ready(function() {
+    if ($('.voting').length) {
+        VOTING.slider();
+    }
+});
