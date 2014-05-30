@@ -21,10 +21,16 @@ exports.book = {
     ui: {
         chapter: "Chapter",
         verse: "Verse",
-        voteNext: "Vote on next chapter",
+        voteNext: "Vote on the next chapter",
         share: "Share your thoughts...",
         comment: "Comment",
-        signin: "Sign in to comment"
+        signin: "Sign in to comment",
+        voteChapter: "Vote for ",
+        reportChapter: "Report",
+        voteRemove: "Remove Vote",
+        confirmVote: "Confirm Vote",
+        votingConfirmation: "Voting Confirmation",
+        voteMessage: "Please check the rules below...<br> Need to put here"
     }
 }
 

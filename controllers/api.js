@@ -323,7 +323,7 @@ exports.getAuthor = function(req, res) {
     var userId = utils.cleanNum(req.params.userId);
     if (userId) {
         new data.user().query(function(qb) {
-            qb.where('id', userId);
+            qb.where('id', userId).column('id', 'username', 'avatar', 'points');
         }).fetch().then(function(model) {
             res.send(model);
         }, function(err) {
@@ -333,6 +333,97 @@ exports.getAuthor = function(req, res) {
 };
 
 
+// Used by books.
+// Submites user vote against a chapter
+exports.submitVote = function(req, res) {
+    var userId = req.user.id,
+        book = utils.cleanNum(req.params.book),
+        chapter = utils.cleanNum(req.params.chapter);
+
+    new data.vote({
+        user_id: userId,
+        book_id: book,
+        chapter_id: chapter
+    }).fetch().then(function(model) {
+        if (model) {
+            res.send({
+                status: 'Already voted'
+            });
+        } else {
+            new data.vote({
+                user_id: userId,
+                book_id: book,
+                chapter_id: chapter
+            }).save().then(function() {
+                res.send({
+                    status: 'Vote submitted'
+                });
+            }, function(err) {
+                res.send(404);
+            });
+        }
+    }, function(err) {
+        res.send(404)
+    });
+};
+
+// Used by books.
+// checks user vote against a chapter
+exports.checkVote = function(req, res) {
+    var userId = req.user.id,
+        book = utils.cleanNum(req.params.book);
+
+    new data.vote({
+        user_id: userId,
+        book_id: book,
+        is_deleted: 0
+    }).fetch().then(function(model) {
+        if (model) {
+            res.send({
+                chapter: model.attributes.chapter_id
+            });
+        } else {
+            res.send({
+                chapter: null
+            });
+        }
+    }, function(err) {
+        res.send(404)
+    });
+};
+
+// Used by books.
+// checks user vote against a chapter
+exports.deleteVote = function(req, res) {
+    var userId = req.user.id,
+        chapter = utils.cleanNum(req.params.chapter);
+
+    new data.vote({
+        user_id: userId,
+        chapter_id: chapter,
+        is_deleted: 0
+    }).fetch().then(function(model) {
+        if (model) {
+            new data.vote({
+                id: model.id
+            }).save({
+                is_deleted: 1
+            }).then(function(mod) {
+                res.send({
+                    status: 'successful'
+                });
+            }, function(err) {
+                res.send(404);
+            });
+        } else {
+            res.send({
+                chapter: null
+            });
+        }
+    }, function(err) {
+        res.send(404);
+    });
+};
 
 // Used by user profiles
 // Upload new profile image to cloudinary

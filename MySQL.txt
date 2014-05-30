@@ -193,6 +193,8 @@ CREATE TABLE IF NOT EXISTS `Draftler`.`vote` (
   `created_at` TIMESTAMP NULL,
   `updated_at` TIMESTAMP NULL,
   `user_id` INT(11) UNSIGNED NOT NULL,
+  `book_id` INT(11) UNSIGNED NOT NULL,
+  `is_deleted` TINYINT(1) NULL DEFAULT 0,
   `chapter_id` INT(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`, `user_id`, `chapter_id`),
   INDEX `fk_vote_user1_idx` (`user_id` ASC),

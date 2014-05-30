@@ -21,7 +21,7 @@
             </section>
             <nav class="context-menu" id="book-menu">
                 {{#chapters}}
-                <div class="tab" data-chapter="{{attributes.chapter}}">
+                <div class="tab" data-chapter="{{attributes.chapter}}" data-author="{{attributes.user_id}}">
                     <a href="#chapter_{{attributes.chapter}}"><span>{{content.chapter}} {{attributes.chapter}}</span><p>
                     {{attributes.title}}
                     </p></a>
@@ -29,15 +29,15 @@
                 {{/chapters}}
 
                   {{#isVoting}}
-                <div class="tab" data-chapter="next">
-                    <a href="#chapter_next"><span>{{content.chapter}} {{attributes.voteNext}}</span><p>
-                    {{attributes.title}}
+                <div class="tab voting-tab" data-chapter="{{attributes.chapter}}">
+                    <a href="#chapter_next"><span>{{content.chapter}}</span><p>
+                    {{content.voteNext}}
                     </p></a>
                 </div>
                 {{/isVoting}}
 
                 {{^isVoting}}
-                <div class="tab voting-tab" data-chapter="next">
+                <div class="tab voting-tab" data-chapter="{{attributes.chapter}}">
                     <a href="#chapter_next">{{content.voteNext}}</a>
                     </p>
                 </div>

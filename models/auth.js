@@ -197,7 +197,9 @@ module.exports = function() {
             return this.belongsTo(bookshelf.book).through(bookshelf.chapter);
         },
         user: function (){
-            return this.belongsTo(bookshelf.user);
+            return this.belongsTo(bookshelf.user).query(function(qb) {
+                qb.column('id', 'username', 'avatar', 'points', 'bio');
+            });
         }
     });
 

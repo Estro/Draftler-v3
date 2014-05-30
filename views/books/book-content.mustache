@@ -1,21 +1,50 @@
-<section class="book-stage" data-spy="scroll" data-target="#book-menu">
+<section class="book-stage" data-spy="scroll" data-target="#book-menu" data-bookid="{{book.id}}">
 	<div class="row">
-		<div class="col-md-12">		
+		<div class="col-md-12">
+			<div class="chapter-container">
 				{{#chapters}}
-					<article class="chapter" data-author="{{attributes.user_id}}" data-id="{{attributes.id}}" data-chapter="{{attributes.chapter}}" id="chapter_{{attributes.chapter}}">
-						<h1>{{attributes.title}}</h1>
-						<div>{{{attributes.content}}}</div>
-					</article>
+				<article class="chapter" data-author="{{attributes.user_id}}" data-id="{{attributes.id}}" data-chapter="{{attributes.chapter}}" id="chapter_{{attributes.chapter}}">
+				<h1>{{attributes.title}}</h1>
+				<div>{{{attributes.content}}}</div>
+				</article>
 				{{/chapters}}
-				<div class="voting">
-				{{#voting}}
-					<article class="voting-chapter" data-author="{{attributes.user_id}}" data-id="{{attributes.id}}" data-voting-chapter="next" id="voting_chapter_{{attributes.chapter}}">
-						<h1>{{attributes.title}}</h1>
-						<div>{{{attributes.content}}}</div>
-					</article>
-				{{/voting}}
+			</div>
+			{{#isVoting}}
+			<div class="voting-container">
+				<div class="directions">
+					<i class="fa fa-arrow-left"></i>
+					<i class="fa fa-arrow-right"></i>
 				</div>
+				<div class="voting">
+					{{#voting}}
+					<article class="voting-chapter chapter vc-{{attributes.id}}" data-author="{{attributes.user_id}}" data-id="{{attributes.id}}" data-voting-chapter="next" id="voting_chapter_{{attributes.chapter}}">
+					<h1>{{attributes.title}}</h1>
+					<div>{{{attributes.content}}}</div>
+					<div class="chapter-actions">
+						<button type="button" class="btn vote-btn btn-info" data-vote="{{attributes.id}}" data-votetext="{{content.voteChapter}} {{attributes.title}}" data-remove="{{content.voteRemove}}">{{content.voteChapter}} {{attributes.title}}</button>
+					</div>
+					</article>
+					{{/voting}}
+				</div>
+			</div>
+			{{/isVoting}}
 		</div>
-	</div>
-	
+	</div>	
 </section>
+<div class="modal fade" id="vote-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">{{content.votingConfirmation}}</h4>
+      </div>
+      <div class="modal-body">
+      	{{{content.voteMessage}}}
+      </div>
+      <div class="image-loader"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn vote-confirm btn-info">{{content.confirmVote}}</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

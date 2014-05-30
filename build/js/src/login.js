@@ -26,7 +26,6 @@
                     $('.form-username-icon').removeClass('fail').addClass('success');
                     $('.form-username-icon .fa').removeClass().addClass('fa fa-smile-o');
                 }
-                console.log(data.username);
             });
 
 

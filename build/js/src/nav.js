@@ -49,33 +49,32 @@
                 $('.chapter').each(function() {
                     elepos = $(this).offset().top - 200;
                     if (elepos < scrollpos && notAuto && scrollpos < (elepos + 400)) {
-                     
-                            if ($(this).attr('data-chapter') != liveChapter) {
-                                    $('.tab, .author, .chapter').removeClass('active');
-                                    liveChapter = $(this).attr('data-chapter');
-                                    author = $(this).attr('data-author');
-                                    $("*[data-chapter='" + liveChapter + "']").addClass('active');
-                                    chapter = $('.chapter.active').data('id');
+                        if ($(this).attr('data-chapter') != liveChapter) {
+                            $('.tab, .author, .chapter').removeClass('active');
+                            if ($(this).hasClass('voting-chapter')) {
+                                $('.voting-tab').addClass('active');
+                                liveChapter = $(this).attr('data-chapter');
+                                chapter = $('.owl-item.active').find('.voting-chapter').data('id');
+                                author = $('.owl-item.active').find('.voting-chapter').data('author');
+                                $('.a_' + author).eq(0).addClass('active');
+                                if (chapter) {
                                     BOOK.getComments(chapter);
-                            }
-                    }
-                });
+                                }
 
-        
-                    elepos = $('.voting-chapter').eq(0).offset().top - 200;
-                    if (elepos < scrollpos && notAuto && scrollpos < (elepos + 400)) {
-                            var $liveItem = $('.owl-item.active').children();
-                            if ($liveItem.attr('data-chapter') != liveChapter) {
-                                    $('.tab, .author, .chapter').removeClass('active');
-                                    liveChapter = $liveItem.attr('data-chapter');
-                                    console.log(liveChapter);
-                                    author = $liveItem.attr('data-author');
-                                    $("*[data-chapter='" + liveChapter + "']").addClass('active');
+                            } else {
+                                $('.tab, .author, .chapter').removeClass('active');
+                                liveChapter = $(this).attr('data-chapter');
+                                author = $(this).attr('data-author');
+                                $("*[data-chapter='" + liveChapter + "']").addClass('active');
+                                $('.a_' + author).eq(0).addClass('active');
+                                if ($('.chapter.active').length) {
                                     chapter = $('.chapter.active').data('id');
                                     BOOK.getComments(chapter);
                                 }
+                            }
+                        }
                     }
-            
+                });
             });
 
             $bookMenu.find('.tab').eq(0).addClass('active');
@@ -83,23 +82,37 @@
             $bookMenu.find('.tab').click(function(e) {
                 notAuto = false;
                 e.preventDefault();
-                chapter = $(this).attr('data-chapter');
-                $('.tab, .author').removeClass('active');
-                $("*[data-chapter='" + chapter + "']").addClass('active');
-                $("*[data-voting-chapter='" + chapter + "']").addClass('active');
-                liveChapter = chapter;
-                chapter = $('.chapter.active').data('id');
-                BOOK.getComments(chapter);
+                $('.chapter, .tab, .author').removeClass('active');
                 if ($(this).hasClass('voting-tab')) {
-                    $ele = $('.voting-chapter').eq(0);
+                    chapter = $(this).attr('data-chapter');
+                    author = $(this).attr('data-author');
+                    $('.a_' + author).eq(0).addClass('active');
+                    liveChapter = chapter;
+                    $(this).addClass('active');
+                    chapter = $('.owl-item.active').find('.voting-chapter').data('id');
+                    if (chapter) {
+                        BOOK.getComments(chapter);
+                    }
+                    $("html, body").animate({
+                        scrollTop: $('.voting-container').position().top
+                    }, function() {
+                        notAuto = true;
+                    });
+
                 } else {
-                    $ele = $('#chapter_' + liveChapter);
+                    chapter = $(this).attr('data-chapter');
+                    author = $(this).attr('data-author');
+                    $("*[data-chapter='" + chapter + "']").addClass('active');
+                    $('.a_' + author).eq(0).addClass('active');
+                    liveChapter = chapter;
+                    chapter = $('.chapter.active').data('id');
+                    BOOK.getComments(chapter);
+                    $("html, body").animate({
+                        scrollTop: $('#chapter_' + liveChapter).position().top
+                    }, function() {
+                        notAuto = true;
+                    });
                 }
-                $("html, body").animate({
-                    scrollTop: $('#chapter_' + liveChapter).position().top
-                }, function() {
-                    notAuto = true;
-                });
             });
 
         };

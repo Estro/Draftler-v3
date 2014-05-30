@@ -29,6 +29,7 @@
         "underscore": "latest",
         "moment": "latest",
         "knex": "latest",
+        "kue": "latest",
         "cloudinary": "latest",
         "sanitizer" : "latest"
     },

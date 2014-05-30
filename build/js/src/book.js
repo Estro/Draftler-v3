@@ -31,13 +31,16 @@
 
     };
 
-    BOOK.getAuthor = function(userId, chapter) {
+    BOOK.getAuthor = function(userId, chapter, reset) {
         var url = '/api/getauthor/' + userId,
             html,
-            template = '<li class="author a_{{id}} c_' + chapter + '" data-chapter="' + chapter + '"><div class="author-section"><div class="author-img"><img src="{{avatar}}" alt="{{username}}" /></div><span class="author-name">{{username}}</span><div><span class="points-container">Publisher Points: <span class="points">{{points}}</span></span></div></div></li>';
+            template = '<li class="author a_{{id}} c_' + chapter + '"><div class="author-section"><div class="author-img"><img src="{{avatar}}" alt="{{username}}" /></div><span class="author-name">{{username}}</span><div><span class="points-container">Publisher Points: <span class="points">{{points}}</span></span></div></div></li>';
 
         UTILS.getJSON(url, function(data) {
             if (data) {
+                if (reset) {
+                    $('.author').removeClass('active');
+                }
                 html = Mustache.to_html(template, data);
                 $('.author-details ul').append(html);
                 chapter = $('.tab.active').data('chapter');
@@ -69,9 +72,7 @@
                 scrollEasing: "easeInOutQuad"
             });
             $('.comment-textbox').val('');
-            UTILS.postJSON(url, data, function(data) {
-
-            });
+            UTILS.postJSON(url, data, function(data) {});
         }
 
     };
@@ -95,10 +96,22 @@
             author, chapter;
 
         $chapters.each(function(index) {
-            author = $(this).data('author');
-            chapter = $(this).data('chapter');
-            BOOK.getAuthor(author, chapter);
+            if (!$(this).hasClass('voting-chapter')) {
+                author = $(this).data('author');
+                chapter = $(this).data('chapter');
+                if ($('.a_' + author).length === 0) {
+                    BOOK.getAuthor(author, chapter);
+                }
+            }
         });
+
+        if ($('.voting-chapter').length) {
+            author = $('.voting-chapter').eq(0).data('author');
+            chapter = $('.voting-chapter').eq(0).data('voting-chapter');
+            if ($('.a_' + author).length === 0) {
+                BOOK.getAuthor(author, chapter);
+            }
+        }
 
     };
 

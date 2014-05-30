@@ -66,6 +66,9 @@ module.exports = function(app, passport) {
     app.get('/api/getcomments/:chapter', apiController.getComments);
     app.post('/api/postcomment/:chapter', ensureAuthenticated, apiController.postComment);
     app.get('/api/getauthor/:userId', apiController.getAuthor);
+    app.get('/api/submitvote/:book', ensureAuthenticated, apiController.checkVote);
+    app.post('/api/chaptervote/:book/:chapter', ensureAuthenticated, apiController.submitVote);
+    app.post('/api/deletevote/:chapter', ensureAuthenticated, apiController.deleteVote);
 
 
     app.get('*', indexController.notFound);

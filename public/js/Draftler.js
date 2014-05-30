@@ -6216,13 +6216,16 @@ THE SOFTWARE.
 
     };
 
-    BOOK.getAuthor = function(userId, chapter) {
+    BOOK.getAuthor = function(userId, chapter, reset) {
         var url = '/api/getauthor/' + userId,
             html,
-            template = '<li class="author a_{{id}} c_' + chapter + '" data-chapter="' + chapter + '"><div class="author-section"><div class="author-img"><img src="{{avatar}}" alt="{{username}}" /></div><span class="author-name">{{username}}</span><div><span class="points-container">Publisher Points: <span class="points">{{points}}</span></span></div></div></li>';
+            template = '<li class="author a_{{id}} c_' + chapter + '"><div class="author-section"><div class="author-img"><img src="{{avatar}}" alt="{{username}}" /></div><span class="author-name">{{username}}</span><div><span class="points-container">Publisher Points: <span class="points">{{points}}</span></span></div></div></li>';
 
         UTILS.getJSON(url, function(data) {
             if (data) {
+                if (reset) {
+                    $('.author').removeClass('active');
+                }
                 html = Mustache.to_html(template, data);
                 $('.author-details ul').append(html);
                 chapter = $('.tab.active').data('chapter');
@@ -6254,9 +6257,7 @@ THE SOFTWARE.
                 scrollEasing: "easeInOutQuad"
             });
             $('.comment-textbox').val('');
-            UTILS.postJSON(url, data, function(data) {
-
-            });
+            UTILS.postJSON(url, data, function(data) {});
         }
 
     };
@@ -6280,10 +6281,22 @@ THE SOFTWARE.
             author, chapter;
 
         $chapters.each(function(index) {
-            author = $(this).data('author');
-            chapter = $(this).data('chapter');
-            BOOK.getAuthor(author, chapter);
+            if (!$(this).hasClass('voting-chapter')) {
+                author = $(this).data('author');
+                chapter = $(this).data('chapter');
+                if ($('.a_' + author).length === 0) {
+                    BOOK.getAuthor(author, chapter);
+                }
+            }
         });
+
+        if ($('.voting-chapter').length) {
+            author = $('.voting-chapter').eq(0).data('author');
+            chapter = $('.voting-chapter').eq(0).data('voting-chapter');
+            if ($('.a_' + author).length === 0) {
+                BOOK.getAuthor(author, chapter);
+            }
+        }
 
     };
 
@@ -6569,7 +6582,6 @@ $(document).ready(function() {
                     $('.form-username-icon').removeClass('fail').addClass('success');
                     $('.form-username-icon .fa').removeClass().addClass('fa fa-smile-o');
                 }
-                console.log(data.username);
             });
 
 
@@ -6637,33 +6649,32 @@ $(document).ready(function() {
                 $('.chapter').each(function() {
                     elepos = $(this).offset().top - 200;
                     if (elepos < scrollpos && notAuto && scrollpos < (elepos + 400)) {
-                     
-                            if ($(this).attr('data-chapter') != liveChapter) {
-                                    $('.tab, .author, .chapter').removeClass('active');
-                                    liveChapter = $(this).attr('data-chapter');
-                                    author = $(this).attr('data-author');
-                                    $("*[data-chapter='" + liveChapter + "']").addClass('active');
-                                    chapter = $('.chapter.active').data('id');
+                        if ($(this).attr('data-chapter') != liveChapter) {
+                            $('.tab, .author, .chapter').removeClass('active');
+                            if ($(this).hasClass('voting-chapter')) {
+                                $('.voting-tab').addClass('active');
+                                liveChapter = $(this).attr('data-chapter');
+                                chapter = $('.owl-item.active').find('.voting-chapter').data('id');
+                                author = $('.owl-item.active').find('.voting-chapter').data('author');
+                                $('.a_' + author).eq(0).addClass('active');
+                                if (chapter) {
                                     BOOK.getComments(chapter);
-                            }
-                    }
-                });
+                                }
 
-        
-                    elepos = $('.voting-chapter').eq(0).offset().top - 200;
-                    if (elepos < scrollpos && notAuto && scrollpos < (elepos + 400)) {
-                            var $liveItem = $('.owl-item.active').children();
-                            if ($liveItem.attr('data-chapter') != liveChapter) {
-                                    $('.tab, .author, .chapter').removeClass('active');
-                                    liveChapter = $liveItem.attr('data-chapter');
-                                    console.log(liveChapter);
-                                    author = $liveItem.attr('data-author');
-                                    $("*[data-chapter='" + liveChapter + "']").addClass('active');
+                            } else {
+                                $('.tab, .author, .chapter').removeClass('active');
+                                liveChapter = $(this).attr('data-chapter');
+                                author = $(this).attr('data-author');
+                                $("*[data-chapter='" + liveChapter + "']").addClass('active');
+                                $('.a_' + author).eq(0).addClass('active');
+                                if ($('.chapter.active').length) {
                                     chapter = $('.chapter.active').data('id');
                                     BOOK.getComments(chapter);
                                 }
+                            }
+                        }
                     }
-            
+                });
             });
 
             $bookMenu.find('.tab').eq(0).addClass('active');
@@ -6671,23 +6682,37 @@ $(document).ready(function() {
             $bookMenu.find('.tab').click(function(e) {
                 notAuto = false;
                 e.preventDefault();
-                chapter = $(this).attr('data-chapter');
-                $('.tab, .author').removeClass('active');
-                $("*[data-chapter='" + chapter + "']").addClass('active');
-                $("*[data-voting-chapter='" + chapter + "']").addClass('active');
-                liveChapter = chapter;
-                chapter = $('.chapter.active').data('id');
-                BOOK.getComments(chapter);
+                $('.chapter, .tab, .author').removeClass('active');
                 if ($(this).hasClass('voting-tab')) {
-                    $ele = $('.voting-chapter').eq(0);
+                    chapter = $(this).attr('data-chapter');
+                    author = $(this).attr('data-author');
+                    $('.a_' + author).eq(0).addClass('active');
+                    liveChapter = chapter;
+                    $(this).addClass('active');
+                    chapter = $('.owl-item.active').find('.voting-chapter').data('id');
+                    if (chapter) {
+                        BOOK.getComments(chapter);
+                    }
+                    $("html, body").animate({
+                        scrollTop: $('.voting-container').position().top
+                    }, function() {
+                        notAuto = true;
+                    });
+
                 } else {
-                    $ele = $('#chapter_' + liveChapter);
+                    chapter = $(this).attr('data-chapter');
+                    author = $(this).attr('data-author');
+                    $("*[data-chapter='" + chapter + "']").addClass('active');
+                    $('.a_' + author).eq(0).addClass('active');
+                    liveChapter = chapter;
+                    chapter = $('.chapter.active').data('id');
+                    BOOK.getComments(chapter);
+                    $("html, body").animate({
+                        scrollTop: $('#chapter_' + liveChapter).position().top
+                    }, function() {
+                        notAuto = true;
+                    });
                 }
-                $("html, body").animate({
-                    scrollTop: $('#chapter_' + liveChapter).position().top
-                }, function() {
-                    notAuto = true;
-                });
             });
 
         };
@@ -6713,19 +6738,29 @@ $(document).ready(function() {
             navigation: false,
             pagination: false,
             items: 7,
-            itemsCustom: [[0, 1], [400, 2],[620, 3], [850, 4], [1000, 5], [1200, 6], [1400, 7]],
+            itemsCustom: [
+                [0, 1],
+                [400, 2],
+                [620, 3],
+                [850, 4],
+                [1000, 5],
+                [1200, 6],
+                [1400, 7]
+            ],
             responsiveBaseWidth: '.spotlight'
         });
 
 
-        $('.directions .fa-arrow-right').click(function (){
+
+
+        $('.directions .fa-arrow-right').click(function() {
             var slider = $(this).parent().parent().find('.owl-carousel').data('owlCarousel');
-                slider.next();
+            slider.next();
         });
 
-        $('.directions .fa-arrow-left').click(function (){
+        $('.directions .fa-arrow-left').click(function() {
             var slider = $(this).parent().parent().find('.owl-carousel').data('owlCarousel');
-                slider.prev();
+            slider.prev();
         });
     };
 
@@ -7010,11 +7045,73 @@ $(document).ready(function() {
     "use strict";
 
     VOTING.slider = function() {
+        var chapter, author, url, voteText, removeText, $that, book = $('.book-stage').data('bookid');
         $(".voting").owlCarousel({
             navigation: false,
             pagination: false,
-            singleItem:true,
-            addClassActive:true
+            singleItem: true,
+            addClassActive: true,
+            afterMove: function() {
+                chapter = $('.owl-item.active').find('.voting-chapter').data('id');
+                author = $('.owl-item.active').find('.voting-chapter').data('author');
+
+                if ($('.a_' + author).length) {
+                    $('.author').removeClass('active');
+                    $('.a_' + author).eq(0).addClass('active');
+                } else {
+                    BOOK.getAuthor(author, chapter, true);
+                }
+                if (chapter) {
+                    BOOK.getComments(chapter);
+                }
+            }
+        });
+
+        url = '/api/submitvote/' + book;
+        UTILS.getJSON(url, function(data) {
+            if (data.chapter) {
+                $('.vc-' + data.chapter.toString()).find('.vote-btn').text('Remove Vote').show();
+            } else {
+                $('.vote-btn').show();
+            }
+        });
+
+        $('.directions .fa-arrow-right').click(function() {
+            var slider = $(this).parent().parent().find('.owl-carousel').data('owlCarousel');
+            slider.next();
+        });
+
+        $('.directions .fa-arrow-left').click(function() {
+            var slider = $(this).parent().parent().find('.owl-carousel').data('owlCarousel');
+            slider.prev();
+        });
+
+        $('.vote-btn').click(function() {
+            $that = $(this);
+            chapter = $('.owl-item.active').find('.voting-chapter').data('id');
+            voteText = $that.data('votetext');
+            removeText = $that.data('remove');
+            if ($that.text() === removeText) {
+                url = '/api/deletevote/' + chapter;
+                UTILS.postJSON(url, {}, function(data) {
+                    if (data) {
+                        $that.text(voteText);
+                        $('.vote-btn').show();
+                    }
+                });
+            } else {
+                $('#vote-modal').modal('toggle');
+            }
+        });
+
+        $('.vote-confirm').click(function() {
+            chapter = $('.owl-item.active').find('.voting-chapter').data('id');
+            url = '/api/chaptervote/' + book + '/' + chapter;
+            $('#vote-modal').modal('toggle');
+            UTILS.postJSON(url, {}, function(data) {
+                $that.text(removeText);
+            });
+
         });
 
     };
